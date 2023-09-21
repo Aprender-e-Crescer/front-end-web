@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import Header from "./components/Header/Header"
 
 function App() {
-
   return (
-    <div><h1>Lucas Esteve Aqui</h1></div>
-  );
+    <>
+    <Header/>
+    </>
+  )
+
 }
-//teste
+
+
 export default App;
