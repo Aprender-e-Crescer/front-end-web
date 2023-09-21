@@ -1,21 +1,35 @@
 import { useState } from 'react';
 
 function App() {
+  const [perguntaInput, SetperguntaInput] = useState([])
 
   return (
     <>
-      <MinhaPergunta />
+
+      <button className='rounded-full bg-blue-500 border-r-8'>+</button>
     </>
   );
 }
-//teste
+
+
 export default App;
 
-function MinhaPergunta(){
-  return(
-    <div className='bg-blue-200 flex flex-col w-fit text-center font-bold rounded-lg py-4 px-4'>
-      <h1>Digite sua pergunta:</h1>
-      <input className='rounded-full' type="text" />
+function perguntaRefresh({perguntaInput})
+{
+  perguntaInput.map(() => {
+    <div className='bg-orange-500'>
+      <h1>
+        SLA
+      </h1>
     </div>
-    )
+  })
 }
+
+function AddPergunta(SetperguntaInput, perguntaInput){ 
+  SetperguntaInput([...perguntaInput,1])
+}
+
+
+
+
+
