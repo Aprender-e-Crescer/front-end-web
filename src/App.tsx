@@ -1,13 +1,11 @@
-import Header from "./components/Header/Header"
+import Cabecalho from './components/Cabecalho';
+import Carrossel from './components/CarrosselImgs';
 
-function App() {
+export default function App() {
   return (
-    <>
-    <Header/>
-    </>
-  )
-
+    <div>
+      <Cabecalho subtitle="EAe" title="eaea" logoUrl="./eae" />
+      <Carrossel imgsSrc={['eae', 'eae', 'eae']} />
+    </div>
+  );
 }
-
-
-export default App;

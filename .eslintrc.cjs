@@ -37,7 +37,12 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',
