@@ -31,17 +31,23 @@ function App() {
   };
   return (
     <div>
-      <div className="bg-orange-500 flex flex-col gap-4 justify-items-center items-center py-5">
+      <div className="bg-gray-200 flex flex-col gap-4 justify-items-center items-center py-5 min-h-screen">
         {inputs.map(({ name, tipodepergunta }, index) => (
           <div className="bg-white rounded-lg text-center w-fit flex flex-col gap-2 px-4 py-1">
             <h1 className="font-bold">Crie ou altere uma pergunta:</h1>
-            <input className="rounded-lg bg-blue-900" type="text" placeholder={name} />
-            <select onChange={e => atualizarInputs(index, e.target.value)} value={tipodepergunta}>
-              <option value="text">Texto</option>
-              <option value="Check">CheckBox</option>
-              <option value="Data">Data</option>
-            </select>
-            <button type="button" onClick={() => removerItem(index)}>
+            <div className="flex flex-row gap-2">
+              <input className="rounded-full bg-blue-700" type="text" placeholder={name} />
+              <select
+                className="rounded-full bg-orange-500 font-bold border-none hover:border-none"
+                onChange={e => atualizarInputs(index, e.target.value)}
+                value={tipodepergunta}
+              >
+                <option value="text">Texto</option>
+                <option value="Check">CheckBox</option>
+                <option value="Data">Data</option>
+              </select>
+            </div>
+            <button type="button" onClick={() => removerItem(index)} className="text-red-500 font-bold">
               Apagar
             </button>
           </div>
