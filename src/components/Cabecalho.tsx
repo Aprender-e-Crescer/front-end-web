@@ -1,12 +1,14 @@
 interface CabecalhoProps {
   title: string;
   subtitle: string;
+  imgUrl: string;
+  imgAlt: string;
 }
 
-function Cabecalho({ title, subtitle, logoUrl }: CabecalhoProps) {
+function Cabecalho({ title, subtitle, imgUrl, imgAlt }: CabecalhoProps) {
   return (
     <div>
-      <img src={logoUrl} alt="" />
+      <img src={imgUrl} alt={imgAlt} />
       <h1>{title}</h1>
       <h2>{subtitle}</h2>
     </div>

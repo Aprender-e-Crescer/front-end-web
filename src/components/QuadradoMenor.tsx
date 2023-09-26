@@ -7,7 +7,7 @@ export default function QuadradoMenor({ texts }: QuadradosProps) {
     <div>
       {texts.map(text => (
         <div>
-          <p>{texts}</p>
+          <p>{text}</p>
         </div>
       ))}
     </div>

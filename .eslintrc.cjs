@@ -37,6 +37,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
+    'jsx-a11y/media-has-caption': 'off',
     'prettier/prettier': [
       'error',
       {

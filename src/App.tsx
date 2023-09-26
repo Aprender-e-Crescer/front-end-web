@@ -1,11 +1,14 @@
 import Cabecalho from './components/Cabecalho';
-import Carrossel from './components/CarrosselImgs';
+import CarrosselImgs from './components/CarrosselImgs';
+import QuadradoMenor from './components/QuadradoMenor';
+import data from '../public/data.json';
 
 export default function App() {
   return (
     <div>
-      <Cabecalho subtitle="EAe" title="eaea" logoUrl="./eae" />
-      <Carrossel imgsSrc={['eae', 'eae', 'eae']} />
+      <Cabecalho subtitle={data.cabecalho.subtitle} title={data.cabecalho.title} imgUrl="" imgAlt="" />
+      <CarrosselImgs imgsSrc={['eae', 'eae', 'eae']} />
+      <QuadradoMenor texts={['oi', 'oii', 'oii']} />
     </div>
   );
 }
