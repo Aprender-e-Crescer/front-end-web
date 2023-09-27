@@ -1,14 +1,22 @@
-import Cabecalho from './components/Cabecalho';
-import CarrosselImgs from './components/CarrosselImgs';
-import QuadradoMenor from './components/QuadradoMenor';
-import data from '../public/data.json';
 
-export default function App() {
+import CarouselComponent from './components/CarouselComponent';
+import Header from './components/Header';
+import VideoComponent from './components/Videos';
+
+function App() {
   return (
-    <div>
-      <Cabecalho subtitle={data.cabecalho.subtitle} title={data.cabecalho.title} imgUrl="" imgAlt="" />
-      <CarrosselImgs imgsSrc={['eae', 'eae', 'eae']} />
-      <QuadradoMenor texts={['oi', 'oii', 'oii']} />
+    <div className="App">
+      <Header />
+      <div className='mt-24'>
+       <VideoComponent/>
+      </div>
+
+      <div className='mt-24'>
+        <CarouselComponent/>
+      </div>
+
     </div>
   );
 }
+
+export default App;
