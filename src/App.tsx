@@ -123,11 +123,9 @@ function Formulario() {
           />
           {/* Se o tipo de pergunta for 'multiplaEscolha', mostramos opções de resposta */}
           {campo.tipo === 'multiplaEscolha' && (
-            <>
-              {/* Mapeamos as opções de resposta da pergunta e renderizamos cada uma delas */}
+            <div>
               {campo.opcoes.map(opcao => (
                 <div key={opcao.id} className=" flex flex-row items-center">
-                  {/* Rótulo da opção de resposta */}
                   <label htmlFor={opcao-${campo.id}-${opcao.id}}>{opcao.texto}</label>
                   <input
                     className="mt-2 border-none bg-orange-50 rounded-sm mr-4 text-xs"
@@ -157,7 +155,7 @@ function Formulario() {
           <div className="mt-2">
             <button
               type="button"
-              onClick={() => removerCampo(campo.id)}
+              onClick={() => removerCampo(campos.id)}
               className="bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 mt-2 text-xs"
             >
               <TrashIcon className="w-3 h-3" />
