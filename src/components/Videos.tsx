@@ -1,78 +1,69 @@
-import React, { useState } from 'react';
-import { Formik, Field, Form } from 'formik';
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/function-component-definition */
+import React from 'react';
+import { Formik, FieldArray, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const VideoComponent: React.FC = () => {
-  const [videoLinks, setVideoLinks] = useState<string[]>(['']);
+const VideoLinkSchema = Yup.object().shape({
+  videoLinks: Yup.array()
+    .of(Yup.string().url('Digite um URL válido'))
+    .required('Pelo menos um link de vídeo é necessário'),
+});
 
-  const addVideoLink = () => {
-    setVideoLinks([...videoLinks, '']);
-  };
-
-  const handleVideoLinkChange = (index: number, link: string) => {
-    const updatedVideoLinks = [...videoLinks];
-    updatedVideoLinks[index] = link;
-    setVideoLinks(updatedVideoLinks);
-  };
-
-  const removeVideoLink = (index: number) => {
-    const updatedVideoLinks = [...videoLinks];
-    updatedVideoLinks.splice(index, 1);
-    setVideoLinks(updatedVideoLinks);
-  };
-
-  const renderVideoInputs = () => {
-    return videoLinks.map((videoLink, index) => (
-      <div key={index} className="mb-2">
-        <label htmlFor={`videoLink${index}`}>Link do Vídeo #{index + 1}</label>
-        <Field
-          type="text"
-          name={`videoLinks[${index}]`} // Use o nome do campo como um array
-          id={`videoLink${index}`}
-          value={videoLink}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleVideoLinkChange(index, e.target.value)
-          }
-          placeholder="Digite o link do vídeo"
-          className="border rounded p-2"
-        />
-        <button
-          type="button"
-          onClick={() => removeVideoLink(index)}
-          className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-        >
-          Remover
-        </button>
-      </div>
-    ));
-  };
-
-  const videoSchema = Yup.object().shape({
-    videoLinks: Yup.array()
-      .of(Yup.string().url('URL do vídeo inválida').required('URL do vídeo é obrigatória'))
-      .min(1, 'Pelo menos um link de vídeo é obrigatório'), // Adicione uma validação para garantir que haja pelo menos um link
-  });
-
-  const handleSubmit = (values: any) => {
-    console.log('Valores do formulário em JSON:', JSON.stringify(values)); // Imprime os valores em JSON no console
-  };
-
+const VideoLinksForm: React.FC = () => {
   return (
-    <div className="border-solid border-4 border-gray-600">
-      <h2>Vídeos</h2>
-      <Formik initialValues={{ videoLinks }} validationSchema={videoSchema} onSubmit={handleSubmit}>
-        <Form>
-          {renderVideoInputs()}
-          <button type="button" onClick={addVideoLink} className="mt-2 bg-blue-500 text-white px-2 py-1 rounded">
-            Adicionar Vídeo
-          </button>
-          <button type="submit" className="mt-2 bg-green-500 text-white px-2 py-1 rounded">
-            Salvar
-          </button>
-        </Form>
+    <div className="min-w-lg flex flex-col ">
+      <h1 className="text-2xl font-semibold mb-4">Editar os videos da pagina inicial</h1>
+      <Formik
+        initialValues={{ videoLinks: [''] }}
+        validationSchema={VideoLinkSchema}
+        onSubmit={values => {
+          console.log('Valores enviados:', values);
+        }}
+      >
+        {({ values }) => (
+          <Form>
+            <FieldArray name="videoLinks">
+              {({ remove, push }) => (
+                <div>
+                  {values.videoLinks.map((link, index) => (
+                    <div key={index} className="mb-2 flex items-center">
+                      <Field
+                        type="text"
+                        name={`videoLinks[${index}]`}
+                        placeholder="Digite um link de vídeo"
+                        className="w-full border rounded-md py-2 px-3"
+                      />
+                      <button
+                        type="button"
+                        className="ml-2 bg-red-500 text-white px-2 py-1 rounded-md"
+                        onClick={() => remove(index)}
+                      >
+                        Remover
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => push('')}
+                    className="mt-2 bg-blue-500 text-white px-2 py-1 rounded-md"
+                  >
+                    Adicionar novo video
+                  </button>
+                </div>
+              )}
+            </FieldArray>
+            <p className="text-sm text-gray-800">Ao clicar em salvar, os videos antigos serão removidos.</p>
+            <ErrorMessage name="videoLinks" component="div" className="text-red-500" />
+            <button type="submit" className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md">
+              Enviar
+            </button>
+          </Form>
+        )}
       </Formik>
     </div>
   );
 };
 
-export default VideoComponent;
+export default VideoLinksForm;

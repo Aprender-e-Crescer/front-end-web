@@ -1,13 +1,14 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/function-component-definition */
 import React from 'react';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Field, Form, FormikProvider } from 'formik';
+import { Field, Form, FormikProvider, useFormik } from 'formik';
 
 // Validação Yup para o formulário do cabeçalho
 const headerSchema = Yup.object().shape({
   title: Yup.string().required('Título é obrigatório'),
   subtitle: Yup.string().required('Subtítulo é obrigatório'),
-  logoUrl: Yup.string().url('URL da logo inválida'),
+  logoUrl: Yup.string().required('Você precisa inserir um link').url('O link inserido está erradou ou não existe'),
 });
 
 const HeaderComponent: React.FC = () => {
@@ -17,8 +18,7 @@ const HeaderComponent: React.FC = () => {
     logoUrl: '',
   };
 
-  const handleSubmit = (values: any) => {
-    // Lida com a submissão do formulário aqui
+  const handleSubmit = (values: unknown) => {
     console.log('Valores do formulário:', values);
   };
 
@@ -31,36 +31,56 @@ const HeaderComponent: React.FC = () => {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div>
+        <div className="min-w-lg flex flex-col gap-2">
+          <h1 className="text-2xl font-medium">Preencha os campos abaixo para alterar o titulo e a logo da pagina.</h1>
 
-          {/* Exibe mensagens de erro */}
-          {formik.touched.logoUrl && formik.errors.logoUrl ? (
-            <div className="text-red-500">{formik.errors.logoUrl}</div>
-          ) : null}
-
-          <div className='flex flex-col'>
+          <div className="flex flex-col">
             <label htmlFor="title">Título</label>
-            <Field type="text" name="title" id="title" placeholder="Título" />
+            <Field
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Título"
+              className="h-10 w-auto border rounded-md p-2"
+            />
+            {formik.touched.title && formik.errors.title ? (
+              <div className="text-red-600">{formik.errors.title}</div>
+            ) : null}
           </div>
-          {formik.touched.title && formik.errors.title ? (
-            <div className="text-red-500">{formik.errors.title}</div>
-          ) : null}
 
-          <div className='flex flex-col'>
+          <div className="flex flex-col">
             <label htmlFor="subtitle">Subtítulo</label>
-            <Field type="text" name="subtitle" id="subtitle" placeholder="Subtítulo" />
+            <Field
+              type="text"
+              name="subtitle"
+              id="subtitle"
+              placeholder="Subtítulo"
+              className="h-10 w-auto border rounded-md p-2"
+            />
+            {formik.touched.subtitle && formik.errors.subtitle ? (
+              <div className="text-red-600">{formik.errors.subtitle}</div>
+            ) : null}
           </div>
 
-          <div className="flex items-center space-x-4">
-            <label htmlFor="logoUrl">URL da Logo</label>
-            <Field type="text" name="logoUrl" id="logoUrl" placeholder="Link" className="h-10 w-auto border rounded p-2" />
+          <div className="flex flex-col ">
+            <label htmlFor="logoUrl">Insira o link da logo</label>
+            <Field
+              type="text"
+              name="logoUrl"
+              id="logoUrl"
+              placeholder="Link"
+              className="h-10 w-auto border rounded-md p-2"
+            />
+            {formik.touched.logoUrl && formik.errors.logoUrl ? (
+              <div className="text-red-600">{formik.errors.logoUrl}</div>
+            ) : null}
           </div>
-          {formik.touched.subtitle && formik.errors.subtitle ? (
-            <div className="text-red-500">{formik.errors.subtitle}</div>
-          ) : null}
 
           <div>
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            <p className="text-sm text-gray-800">
+              Ao clicar em salvar, o titulo, subtitulo e logo antigos, seram removidos.
+            </p>
+            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
               Salvar
             </button>
           </div>

@@ -1,7 +1,10 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
 import React, { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
-import { Carousel } from 'flowbite-react';
 
 // Validação Yup para os itens do carrossel
 const carouselSchema = Yup.object().shape({
@@ -23,46 +26,39 @@ const CarouselComponent: React.FC = () => {
     setCarouselItems(updatedCarouselItems);
   };
 
-  const renderCarouselImages = () => {
-    return carouselItems.map((item, index) => (
-      <img className='h-96 w-full' key={index} src={item} alt={`Slide ${index + 1}`} />
-    ));
-  };
-
   const initialValues = { items: carouselItems };
 
   const handleSubmit = (values: any) => {
-    // Lida com a submissão do formulário aqui
     console.log('Itens do carrossel:', values.items);
   };
 
   return (
-    <div>
-      <h2>Carrossel</h2>
+    <div className="flex flex-col min-w-lg ">
+      <h1 className="text-2xl font-semibold mb-4">Adicionar fotos no carrossel de fotos</h1>
       <Formik initialValues={initialValues} validationSchema={carouselSchema} onSubmit={handleSubmit}>
         <Form>
-          {carouselItems.length > 0 && (
-            <Carousel className='h-96 w-full'>{renderCarouselImages()}</Carousel>
-          )}
           {carouselItems.map((_, index) => (
-            <div key={index} className="mb-2">
-              <label htmlFor={`carouselItem${index}`}>URL do Item #{index + 1}</label>
+            <div key={index} className="flex flex-col">
+              <label htmlFor={`carouselItem${index}`}>Link da foto numero {index + 1}</label>
               <Field
                 type="text"
                 name={`items[${index}]`}
                 id={`carouselItem${index}`}
                 placeholder="Digite a URL do item"
-                className="border rounded p-2"
+                className="h-10 w-auto border rounded-md p-2"
               />
-              <button onClick={() => removeCarouselItem(index)} className="ml-2 bg-red-500 text-white px-2 py-1 rounded">
+              <button
+                onClick={() => removeCarouselItem(index)}
+                className="mt-2 bg-red-500 text-white px-2 py-1 rounded w-24"
+              >
                 Remover
               </button>
             </div>
           ))}
           <button type="button" onClick={addCarouselItem} className="mt-2 bg-blue-500 text-white px-2 py-1 rounded">
-            Adicionar Item
+            Adicionar fotos novas
           </button>
-          <button type="submit" className="mt-2 bg-green-500 text-white px-2 py-1 rounded">
+          <button type="submit" className="ml-3 mt-2 bg-green-500 text-white px-2 py-1 rounded">
             Salvar
           </button>
         </Form>
