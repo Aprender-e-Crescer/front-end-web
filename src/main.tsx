@@ -2,12 +2,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App.jsx'
+import App from './App'
 
 
 import './index.css'
+import { Main } from './pages/main'
 
-import { Formulario } from './routes/form/Formulario.jsx'
  
 const router = createBrowserRouter([
   {
@@ -16,16 +16,14 @@ const router = createBrowserRouter([
     children: [
       { 
         path: "/",
-        element: <Formulario />
+        element: <Main />
       }
     ]
   }
 ])
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    
       <RouterProvider router={router}/>
-    
   </React.StrictMode>
 )
