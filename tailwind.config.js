@@ -6,6 +6,10 @@ export default {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
+    colors: {
+      'LarSud': 'B14205',
+      'AzuSud': '161548'
+    },
     extend: {},
   },
   plugins: [
