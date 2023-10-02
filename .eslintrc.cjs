@@ -22,6 +22,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier'],
   rules: {
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-template-curly-in-string': 'off',
@@ -37,13 +38,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
-    'jsx-a11y/media-has-caption': 'off',
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
     'import/extensions': [
       'error',
       'ignorePackages',

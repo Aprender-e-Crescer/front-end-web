@@ -1,0 +1,20 @@
+.footer{
+    position: relative;
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pe{
+    margin-left: 100px;
+}
+.pe img{
+    width: 180px;
+    height: 115px;
+}
+.pe2{
+    margin-right: 100px;
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+}
