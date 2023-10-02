@@ -1,0 +1,81 @@
+/* Seus estilos CSS para a barra de navegação */
+.navbar {
+    background-color: #0080C1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.1rem 2rem;
+    height: 70px;
+    font-weight: 410;
+    position: relative;
+  }
+  
+  /* Estilos para celulares */
+  @media screen and (max-width: 1060px) {
+    .navbar ul {
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #0080C1;
+      z-index: 1;
+      text-align: center;
+      transform-origin: top;
+      transform: scaleY(0);
+      transition: transform 0.3s ease-in-out;
+    }
+  
+    .navbar.open ul {
+      transform: scaleY(1);
+    }
+  
+    .navbar ul li {
+      padding: 10px 0;
+    }
+  
+    /* Estilos para o conteúdo abaixo da barra de navegação */
+    .content-below {
+      flex-grow: 1;
+    }
+  }
+  
+  /* Estilos para desktop */
+  @media screen and (min-width: 768px) {
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .navbar li {
+      margin-right: 50px;
+    }
+  
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+  
+  /* Estilos para o ícone do menu */
+  .hamburger-icon {
+    display: none;
+  }
+  
+  /* Exibir o ícone do menu apenas em telas menores */
+  @media screen and (max-width: 1060px) {
+    .hamburger-icon {
+      display: block;
+      cursor: pointer;
+    }
+  
+    .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 4px auto;
+    }
+  }
+  

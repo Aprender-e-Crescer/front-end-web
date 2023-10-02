@@ -1,0 +1,61 @@
+[
+    {
+        "label": "Nome",
+        "placeholder" : "Digite seu nome",
+        "type": "text",
+        "required": true,
+        "id": "nome"
+    },
+    {
+        "label": "Data de Nascimento",
+        "type": "date",
+        "required": true,
+        "id": "dtnasc"
+    },
+    {
+        "label": "Endereço",
+        "placeholder" : "Digite seu Endereço",
+        "type": "text",
+        "required": true,
+        "id": "endereco"
+    },
+    {
+        "label": "Está Cursando",
+        "placeholder" : "Selecione uma opção",
+        "type": "select",
+        "required": true,
+        "options": ["Ensino Médio", "Faculdade","Pós Graduação","Já sou formado"],
+        "id": "cursando"
+    },
+    {
+        "label": "Gosta de Tecnologia?",
+        "placeholder" : "Selecione uma opção",
+        "type": "select",
+        "required": true,
+        "options": ["Sim, muito!", "Mais ou Menos", "Não, porém é necessário", "Não gosto nenhum pouco!"],
+        "id": "gtecologia"
+    },
+    {
+        "label": "Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?",
+        "placeholder" : "Selecione uma opção",
+        "type": "select",
+        "required": true,
+        "options": ["Programação", "Suporte", "RH", "Design", "Atendimento"],
+        "id": "escolher"
+    },
+    {
+        "label": "Tamanho da camiseta que você veste",
+        "placeholder" : "Selecione uma opção",
+        "type": "select",
+        "required": true,
+        "options": ["PP", "P", "M", "G", "GG"],
+        "id": "tcamisa"
+    },
+    {
+        "label": "Nome completo dos responsáveis, caso não seja maior que 18 anos",
+        "placeholder": "Nome do pai/mãe ou responsável",
+        "type": "text",
+        "required": true,
+        "id": "responsaveis"
+    }
+]
