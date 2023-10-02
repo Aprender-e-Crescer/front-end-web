@@ -1,13 +1,10 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/function-component-definition */
 import React from 'react';
 import { Formik, FieldArray, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const VideoLinkSchema = Yup.object().shape({
   videoLinks: Yup.array()
-    .of(Yup.string().url('Digite um URL válido'))
+    .of(Yup.string())
     .required('Pelo menos um link de vídeo é necessário'),
 });
 
