@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Sudotec",
-        "items": [
+        "subitems": [
             {"id": 1, "title": "Quem somos"},
             {"id": 2, "title": "Estrutura"},
             {"id": 3, "title": "Estatuto Social"},
@@ -14,7 +14,7 @@
     {
         "id": 2,
         "title": "Portal",
-        "items": [
+        "subitems": [
             {"id": 7, "title": "Licitações"},
             {"id": 8, "title": "Relatório de Atividades"},
             {"id": 9, "title": "Prestação de Contas"},

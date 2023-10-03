@@ -6,29 +6,29 @@ interface IItems {
 }
 
 interface Props {
-  menu: (
+  items: (
     | {
         id: number;
         title: string;
-        items: IItems[];
+        subitems: IItems[];
       }
     | {
         id: number;
         title: string;
-        items?: undefined;
+        subitems?: undefined;
       }
   )[];
 }
 
-export function MenuFront({ menu }: Props) {
+export function MenuFront({ items }: Props) {
   return (
     <Navbar className="" fluid rounded>
       <div className="flex w-10 md:order-2">
         <Navbar.Collapse>
-          {menu.map(({ id, title, items }) =>
-            items !== undefined ? (
+          {items.map(({ id, title, subitems }) =>
+            subitems !== undefined ? (
               <Dropdown key={id} inline label={title}>
-                {items?.map(({ id: subItemId, title: subItemTitle }) => (
+                {subitems?.map(({ id: subItemId, title: subItemTitle }) => (
                   <Dropdown.Item key={subItemId}>{subItemTitle}</Dropdown.Item>
                 ))}
               </Dropdown>
