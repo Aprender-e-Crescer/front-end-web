@@ -1,3 +1,6 @@
+import { MenuFront } from '../components/MenuFront';
+import menuData from '../data/menu.json';
+
 export function Main() {
-  return <HeaderFront />;
+  return <MenuFront menu={menuData} />;
 }
