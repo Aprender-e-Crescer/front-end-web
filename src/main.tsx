@@ -7,6 +7,7 @@ import App from './App'
 
 import './index.css'
 import { Main } from './pages/main'
+import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 
  
 const router = createBrowserRouter([
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
     children: [
       { 
         path: "/",
-        element: <Main />
+        element: <Main /> 
+      },
+      { 
+        path: "/admin-landing-page-editor",
+        element: <AdminLandingPageEditor /> 
       }
     ]
   }

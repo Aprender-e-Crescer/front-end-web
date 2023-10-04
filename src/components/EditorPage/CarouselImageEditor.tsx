@@ -29,7 +29,7 @@ const CarouselComponent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-w-lg ">
+    <div className="flex flex-col min-w-lg  mt-32">
       <h1 className="text-2xl font-semibold mb-4">Adicionar fotos no carrossel de fotos</h1>
       <Formik initialValues={initialValues} validationSchema={carouselSchema} onSubmit={handleSubmit}>
         <Form>
