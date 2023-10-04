@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       { 
         path: "/formulario-edicao",
-        element: <FormUpSert />
+        element: <FormUpSert/>
       }
     ]
   }
