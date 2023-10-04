@@ -60,10 +60,11 @@ export function FormUpdateAdmin() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4 bg-orange-100 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-semibold text-orange-600 mb-4">Aprender e Crescer</h1>
+    <div className="py-4">
+    <div className=" max-w-xl mx-auto p-4 rounded-lg ">
+      <h1 className="text-3xl text-blue-900 text-center mb-4 font-extrabold">APRENDER E CRESCER</h1>
       {campos.map(campo => (
-        <div key={campo.id} className="mb-4 p-4 bg-orange-200 rounded-lg shadow-md">
+        <div key={campo.id} className="mb-4 p-4 bg-gray-100 rounded-lg shadow-md bg-gray-200">
           <select
             value={campo.tipo}
             className="border rounded px-2 py-1 w-full text-xs"
@@ -133,6 +134,7 @@ export function FormUpdateAdmin() {
       >
         Salvar
       </button>
+    </div>
     </div>
   );
 }
