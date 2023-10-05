@@ -2,8 +2,8 @@ import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
-// import { Chart } from '../components/Chart';
-// import chart from '../data/chart.json';
+import { Chart } from '../components/Chart';
+import chart from '../data/chart.json';
 import days from '../data/days.json';
 import short from '../data/short.json';
 import headerData from '../data/header.json';
@@ -13,7 +13,10 @@ export function AnswerViewer() {
   return (
     <div>
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <div className="">
+      <div>
+        <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
+      </div>
+      <div>
         <ShortAnswerViewer title={short.title} answers={short.answers} />
         <DateSelectViewer dates={days.dates} title={days.title} />
       </div>
