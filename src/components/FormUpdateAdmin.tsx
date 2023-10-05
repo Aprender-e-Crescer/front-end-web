@@ -65,22 +65,24 @@ export function FormUpdateAdmin() {
         <h1 className="text-3xl text-blue-800 text-center mb-4 font-extrabold">APRENDER E CRESCER</h1>
         {campos.map(campo => (
           <div key={campo.id} className="mb-4 p-4 rounded-lg shadow-md border-2 border-orange-400">
-            <input
-              type="text"
-              placeholder="Digite sua pergunta aqui..."
-              value={campo.pergunta}
-              className="border rounded px-2 py-1 w-full mt-2 text-xs font-normal"
-              onChange={e => handleChange(campo.id, { pergunta: e.target.value })}
-            />
-            <select
-              value={campo.tipo}
-              className="border rounded px-2 py-1 w-full text-xs font-bold"
-              onChange={e => handleChange(campo.id, { tipo: e.target.value, opcoes: [] })}
-            >
-              <option value="texto">Texto</option>
-              <option value="multiplaEscolha">Resposta Objetiva</option>
-              <option value="campoData">Campo de data</option>
-            </select>
+            <div className="flex flex-col gap-2">
+              <input
+                type="text"
+                placeholder="Digite sua pergunta aqui..."
+                value={campo.pergunta}
+                className="border rounded px-2 py-1 w-full mt-2 text-xs font-normal"
+                onChange={e => handleChange(campo.id, { pergunta: e.target.value })}
+              />
+              <select
+                value={campo.tipo}
+                className="border rounded px-2 py-1 w-full text-xs font-bold"
+                onChange={e => handleChange(campo.id, { tipo: e.target.value, opcoes: [] })}
+              >
+                <option value="texto">Texto</option>
+                <option value="multiplaEscolha">Resposta Objetiva</option>
+                <option value="campoData">Campo de data</option>
+              </select>
+            </div>
             <div className="flex">
               {campo.tipo === 'multiplaEscolha' && (
                 <div>
