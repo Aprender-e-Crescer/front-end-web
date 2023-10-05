@@ -3,8 +3,8 @@
 /* eslint-disable prettier/prettier */
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import Input from '../../components/input/Input.jsx';
-import InputDrop from '../../components/inputDrop/InputDrop.jsx';
+import Input from '../input/Input.jsx';
+import InputDrop from '../inputDrop/InputDrop.jsx';
 import './Form.css';
 import fields from '../../../data.json';
 import { pt } from 'yup-locale-pt';
