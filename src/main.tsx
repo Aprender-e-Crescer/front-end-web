@@ -7,6 +7,7 @@ import App from './App'
 
 import './index.css'
 import { Main } from './pages/main'
+import { AnswerViewer } from './pages/AnswerViewer'
 
  
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       { 
         path: "/",
         element: <Main />
+      },
+      { 
+        path: "/answer-viewer",
+        element: <AnswerViewer />
       }
     ]
   }
