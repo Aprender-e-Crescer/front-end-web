@@ -38,6 +38,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
+    "react/function-component-definition": ["error", "auto"],
     'import/extensions': [
       'error',
       'ignorePackages',

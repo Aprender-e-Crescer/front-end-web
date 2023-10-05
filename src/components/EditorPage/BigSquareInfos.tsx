@@ -1,22 +1,39 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Formik, FieldArray, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useTextInputsStore } from '../../stores/BigSquares'; // Importe o store Zustand
 
 const TextSchema = Yup.object().shape({
-  textInputs: Yup.array()
-    .of(Yup.string())
-    .required('Pelo menos um campo de texto é necessário'),
+  textInputs: Yup.array().of(Yup.string()).required('Pelo menos um campo de texto é necessário'),
 });
 
-const TextForm: React.FC = () => {
+function TextForm() {
+  const { textInputs, updateTextInputs } = useTextInputsStore();
+
+  useEffect(() => {
+    // Carrega os valores salvos no localStorage quando a página é carregada
+    const savedValues = localStorage.getItem('textInputs');
+    if (savedValues) {
+      try {
+        const parsedValues = JSON.parse(savedValues);
+        updateTextInputs(parsedValues);
+      } catch (error) {
+        console.error('Erro ao carregar valores do localStorage:', error);
+      }
+    }
+  }, [updateTextInputs]);
+
   return (
     <div className="min-w-lg flex flex-col mt-32">
-      <h1 className="text-2xl font-semibold mb-4">Editar o quadrado maior e principal da pagina</h1>
+      <h1 className="text-2xl font-semibold mb-4">Editar o quadrado maior e principal da página</h1>
       <Formik
-        initialValues={{ textInputs: [''] }}
+        initialValues={{ textInputs }}
         validationSchema={TextSchema}
         onSubmit={values => {
           console.log('Valores enviados:', values);
+
+          // Salva os valores no localStorage
+          localStorage.setItem('textInputs', JSON.stringify(values.textInputs));
         }}
       >
         {({ values }) => (
@@ -35,7 +52,9 @@ const TextForm: React.FC = () => {
                       <button
                         type="button"
                         className="ml-2 bg-red-500 text-white px-2 py-1 rounded-md"
-                        onClick={() => remove(index)}
+                        onClick={() => {
+                          remove(index); // Remova do Zustand
+                        }}
                       >
                         Remover
                       </button>
@@ -43,10 +62,12 @@ const TextForm: React.FC = () => {
                   ))}
                   <button
                     type="button"
-                    onClick={() => push('')}
+                    onClick={() => {
+                      push(''); // Adicione ao Zustand
+                    }}
                     className="mt-2 bg-blue-500 text-white px-2 py-1 rounded-md"
                   >
-                Adicionar novo quadrado grande
+                    Adicionar novo quadrado grande
                   </button>
                 </div>
               )}
@@ -61,6 +82,6 @@ const TextForm: React.FC = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default TextForm;

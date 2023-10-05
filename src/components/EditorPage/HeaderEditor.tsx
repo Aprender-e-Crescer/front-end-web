@@ -1,3 +1,7 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/function-component-definition */
+
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Field, Form, FormikProvider, useFormik } from 'formik';
@@ -5,9 +9,9 @@ import { Field, Form, FormikProvider, useFormik } from 'formik';
 const headerSchema = Yup.object().shape({
   logoFile: Yup.mixed()
     .required('Você precisa selecionar um arquivo')
-    .test('fileSize', 'O arquivo é muito grande', (value) => {
+    .test('fileSize', 'O arquivo é muito grande', value => {
       if (!value) return true; // No file selected, so no size to check
-      return value.size <= 5000000; // 5 MB
+      return value.size <= 10000000; // 5 MB
     }),
 });
 
@@ -32,7 +36,7 @@ const HeaderComponent: React.FC = () => {
       reader.onload = () => {
         resolve(reader.result as string);
       };
-      reader.onerror = (error) => {
+      reader.onerror = error => {
         reject(error);
       };
       reader.readAsDataURL(file);
@@ -52,13 +56,19 @@ const HeaderComponent: React.FC = () => {
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para alterar a logo principal da página.</h1>
 
           <div className="flex flex-col">
+            {imageBase64 && (
+              <div>
+                <img src={imageBase64} alt="Imagem em base64" className="w-60 h-52" />
+              </div>
+            )}
+
             <label htmlFor="logoFile">Selecione um arquivo de imagem</label>
             <input
               type="file"
               name="logoFile"
               id="logoFile"
               accept="image/*"
-              onChange={(event) => {
+              onChange={event => {
                 formik.setFieldValue('logoFile', event.currentTarget.files?.[0] || null);
               }}
             />
@@ -67,16 +77,8 @@ const HeaderComponent: React.FC = () => {
             ) : null}
           </div>
 
-          {imageBase64 && (
-            <div>
-              <img src={imageBase64} alt="Imagem em base64" />
-            </div>
-          )}
-
           <div>
-            <p className="text-sm text-gray-800">
-              Ao clicar em salvar, o título e a logo antigos serão removidos.
-            </p>
+            <p className="text-sm text-gray-800">Ao clicar em salvar, o título e a logo antigos serão removidos.</p>
             <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
               Salvar
             </button>

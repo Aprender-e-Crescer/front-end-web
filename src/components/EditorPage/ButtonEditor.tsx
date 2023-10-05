@@ -1,3 +1,6 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/function-component-definition */
+
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -7,9 +10,7 @@ interface FormValues {
 }
 
 const TextSchema = Yup.object().shape({
-  textInputs: Yup.array()
-    .of(Yup.string())
-    .required('Pelo menos um campo de texto é necessário'),
+  textInputs: Yup.array().of(Yup.string()).required('Pelo menos um campo de texto é necessário'),
 });
 
 const TextInputForm: React.FC = () => {
@@ -31,7 +32,7 @@ const TextInputForm: React.FC = () => {
                   type="text"
                   name={`textInputs[${index}]`}
                   placeholder="Digite um texto"
-                  className="w-60 h-20 border rounded-md py-2 px-3" 
+                  className="w-60 h-20 border rounded-md py-2 px-3"
                 />
               </div>
             ))}
