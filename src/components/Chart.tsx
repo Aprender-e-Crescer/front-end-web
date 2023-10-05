@@ -1,4 +1,5 @@
 import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 const chartStyle = {
   backgroundColor: [
@@ -28,6 +29,8 @@ interface Props {
     data: number[];
   }[];
 }
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function Chart({ title, labels, datasets }: Props) {
   return (
