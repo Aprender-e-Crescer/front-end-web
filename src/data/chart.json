@@ -1,0 +1,8 @@
+{
+        "title":"Qual sua cor favorita?",
+        "datas":{
+            "labels":"# pessoas",
+            "datasets": [16, 16, 16, 16]
+        }
+
+}
