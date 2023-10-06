@@ -1,28 +1,20 @@
-/* eslint-disable react/function-component-definition */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/function-component-definition */
-
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { Field, Form, FormikProvider, useFormik } from 'formik';
+import { Form, FormikProvider, useFormik } from 'formik';
+import data from '../components.json';
 
 const headerSchema = Yup.object().shape({
-  logoFile: Yup.mixed()
-    .required('Você precisa selecionar um arquivo')
-    .test('fileSize', 'O arquivo é muito grande', value => {
-      if (!value) return true; // No file selected, so no size to check
-      return value.size <= 10000000; // 5 MB
-    }),
+  logoFile: Yup.mixed().required('Você precisa selecionar um arquivo'),
 });
 
 const HeaderComponent: React.FC = () => {
   const initialValues = {
-    logoFile: null,
+    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: ['']  },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);
 
-  const handleSubmit = async (values: { logoFile: File | null }) => {
+  const handleSubmit = async (values: { logoFile: File }) => {
     if (values.logoFile) {
       const base64String = await convertToBase64(values.logoFile);
       console.log('Arquivo em base64:', base64String);
@@ -59,6 +51,12 @@ const HeaderComponent: React.FC = () => {
             {imageBase64 && (
               <div>
                 <img src={imageBase64} alt="Imagem em base64" className="w-60 h-52" />
+              </div>
+            )}
+
+            {!imageBase64 && (
+              <div>
+                <img src={initialValues.logoFile} className="w-60 h-52" />
               </div>
             )}
 

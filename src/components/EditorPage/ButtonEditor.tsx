@@ -1,51 +1,70 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/function-component-definition */
-
-import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, FieldArray, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import data from '../components.json';
 
-interface FormValues {
-  textInputs: string[];
-}
-
-const TextSchema = Yup.object().shape({
-  textInputs: Yup.array().of(Yup.string()).required('Pelo menos um campo de texto é necessário'),
+const validationSchema = Yup.object().shape({
+  buttonList: Yup.array().of(Yup.string().required('Campo do botão é obrigatório')),
 });
 
-const TextInputForm: React.FC = () => {
+const ButtonComponent = () => {
+  const initialValues = { buttonList: data.find(item => item.type === 'content-buttons')?.content };
+
   return (
-    <div className="min-w-lg flex flex-col mt-32">
-      <h1 className="text-2xl font-semibold mb-4">Editar o botão de inscrição</h1>
+    <div className="min-w-lg flex flex-col gap-2 mt-32">
+      <h1 className="text-2xl font-medium">Botões</h1>
       <Formik
-        initialValues={{ textInputs: [''] }}
-        validationSchema={TextSchema}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={values => {
           console.log('Valores enviados:', values);
         }}
       >
-        {({ values }) => (
-          <Form>
-            {values.textInputs.map((text, index) => (
-              <div key={index} className="mb-2 flex items-center">
-                <Field
-                  type="text"
-                  name={`textInputs[${index}]`}
-                  placeholder="Digite um texto"
-                  className="w-60 h-20 border rounded-md py-2 px-3"
-                />
-              </div>
-            ))}
-            <p className="text-sm text-gray-800">Ao clicar em salvar, os textos antigos serão atualizados.</p>
-            <ErrorMessage name="textInputs" component="div" className="text-red-500" />
-            <button type="submit" className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md">
-              Enviar
-            </button>
-          </Form>
+        {formik => (
+          <form onSubmit={formik.handleSubmit}>
+            <FieldArray name="buttonList">
+              {({ push, remove }) => (
+                <div>
+                  {formik.values.buttonList.map((buttonText, index) => (
+                    <div key={index} className="flex flex-col">
+                      <Field
+                        type="text"
+                        name={`buttonList[${index}]`}
+                        placeholder="Texto do botão"
+                        className="border rounded p-2"
+                      />
+                      <ErrorMessage name={`buttonList[${index}]`} component="div" className="text-red-600" />
+                      <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="mt-2 bg-red-500 text-white px-2 py-1 rounded w-24"
+                      >
+                        Remover
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </FieldArray>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  formik.values.buttonList.push('');
+                  formik.setFieldValue('buttonList', [...formik.values.buttonList]);
+                }}
+                className="mt-2 bg-blue-500 text-white px-2 py-1 rounded"
+              >
+                Adicionar Botão
+              </button>
+              <button type="submit" className="ml-3 mt-2 bg-green-500 text-white px-4 py-2 rounded">
+                Salvar
+              </button>
+            </div>
+          </form>
         )}
       </Formik>
     </div>
   );
 };
 
-export default TextInputForm;
+export default ButtonComponent;

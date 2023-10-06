@@ -5,24 +5,22 @@ import footerData from '../data/footer.json';
 import Header from '../components/EditorPage/HeaderEditor';
 import CarouselComponent from '../components/EditorPage/CarouselImageEditor';
 import LittleSquaresInfos from '../components/EditorPage/LittleSquaresInfos';
-import BigSquareInfos from '../components/EditorPage/BigSquareInfos';
+import CarouselDepoimentoEditor from '../components/EditorPage/CarouselOpinionsEditor';
+import SubContent from '../components/EditorPage/SubContent';
+import VideoEditor from '../components/EditorPage/VideosEditor';
 import Button from '../components/EditorPage/ButtonEditor';
-import VideosEditor from '../components/EditorPage/VideosEditor';
-import CarouselVideoEditor from '../components/EditorPage/CarouselOpinionsEditor';
 
 export function AdminLandingPageEditor() {
   return (
     <div>
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-
       <Header />
       <CarouselComponent />
       <LittleSquaresInfos />
-      <BigSquareInfos />
+      <SubContent />
+      <VideoEditor />
       <Button />
-      <VideosEditor />
-      <CarouselVideoEditor />
-
+      <CarouselDepoimentoEditor />
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}
