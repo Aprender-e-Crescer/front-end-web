@@ -1,6 +1,6 @@
 // Importando a função 'useState' da biblioteca 'react'
 import { useState } from 'react';
-import { PlusIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
 
 export function FormUpdateAdmin() {
   const [campos, setCampos] = useState<
@@ -64,13 +64,13 @@ export function FormUpdateAdmin() {
       <div className=" max-w-xl mx-auto rounded-lg ">
         <h1 className="text-3xl text-blue-800 text-center mb-4 font-extrabold">APRENDER E CRESCER</h1>
         {campos.map(campo => (
-          <div key={campo.id} className="mb-4 p-4 rounded-lg shadow-md border-2 border-orange-400">
+          <div key={campo.id} className="mb-4 p-4 rounded-lg shadow-md border-2 border-orange-400 ">
             <div className="flex flex-col gap-2">
               <input
                 type="text"
                 placeholder="Digite sua pergunta aqui..."
                 value={campo.pergunta}
-                className="border rounded px-2 py-1 w-full mt-2 text-xs font-normal"
+                className="borderrounded px-2 py-1 w-full mt-2 text-xs font-normal focus:ring-0"
                 onChange={e => handleChange(campo.id, { pergunta: e.target.value })}
               />
               <select
@@ -83,44 +83,45 @@ export function FormUpdateAdmin() {
                 <option value="campoData">Campo de data</option>
               </select>
             </div>
-            <div className="flex">
+            <div className="flex justify-center py-2">
               {campo.tipo === 'multiplaEscolha' && (
-                <div>
+                <div className="flex  flex-col gap-2">
                   {campo.opcoes.map(opcao => (
-                    <div key={opcao.id} className=" flex flex-row items-center">
-                      <label htmlFor={`opcao-${campo.id}-${opcao.id}`}>{opcao.texto}</label>
+                    <div key={opcao.id} className="flex flex-row h-8">
                       <input
-                        className="mt-2 border-none bg-orange-50 rounded-sm mr-4"
+                        className="border-none bg-gray-200 rounded-l-full"
                         type="text"
                         placeholder="Digite a opção"
                       />
                       <button
                         type="button"
                         onClick={() => removerOpcao(campo.id, opcao.id)}
-                        className="bg-red-900 text-white rounded-full mt-2 text-xs w-3 h-3 flex items-center justify-center"
+                        className="w-10 h-8 flex items-center justify-center bg-gray-200 rounded-r-full text-gray-500 border-none"
                       >
-                        <XMarkIcon className="w-2 h-2 " />
+                        X
                       </button>
                     </div>
                   ))}
-                  <button
-                    type="button"
-                    onClick={() => adicionarOpcao(campo.id)}
-                    className="bg-orange-500 text-white px-2 py-1 rounded-full hover:bg-orange-600 mt-2 text-xs"
-                  >
-                    Adicionar Opção
-                  </button>
                 </div>
               )}
-              <div className="mt-2">
+            </div>
+            <div className="flex justify-between flex-row-reverse">
+              <button
+                type="button"
+                onClick={() => removerCampo(campo.id)}
+                className="bg-red-600 text-white px-2 py-1 rounded-full hover:bg-red-600 mt-2 text-xs"
+              >
+                <TrashIcon className="w-3 h-5" />
+              </button>
+              {campo.tipo === 'multiplaEscolha' && (
                 <button
                   type="button"
-                  onClick={() => removerCampo(campo.id)}
-                  className="bg-red-600 text-white px-2 py-1 rounded-full hover:bg-red-600 mt-2 text-xs"
+                  onClick={() => adicionarOpcao(campo.id)}
+                  className="bg-orange-500 text-white px-2 py-1 rounded-full hover:bg-orange-600 mt-2 text-xs font-extrabold"
                 >
-                  <TrashIcon className="w-3 h-5 flex justify-center" />
+                  Adicionar Opção
                 </button>
-              </div>
+              )}
             </div>
           </div>
         ))}
