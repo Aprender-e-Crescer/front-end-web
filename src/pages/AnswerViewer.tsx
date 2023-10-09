@@ -15,8 +15,6 @@ export function AnswerViewer() {
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div>
         <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
-      </div>
-      <div>
         <ShortAnswerViewer title={short.title} answers={short.answers} />
         <DateSelectViewer dates={days.dates} title={days.title} />
       </div>
