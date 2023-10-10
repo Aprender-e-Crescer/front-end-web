@@ -18,7 +18,7 @@ export function FooterFront({ leftItems, rightItems, subtitles, logo }: Props) {
             <div>
               <Footer.Title title={leftItems.title} />
               <Footer.LinkGroup className="flex flex-col ">
-                {rightItems.items.map(item => (
+                {leftItems.items.map(item => (
                   <Footer.Link href="#">{item}</Footer.Link>
                 ))}
               </Footer.LinkGroup>

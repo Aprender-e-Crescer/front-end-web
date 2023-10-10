@@ -1,20 +1,35 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable prettier/prettier */
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import Input from '../../components/input/Input.jsx';
-import InputDrop from '../../components/inputDrop/InputDrop.jsx';
-import './Form.css';
-import fields from '../../../data.json';
 import { pt } from 'yup-locale-pt';
+import { useState, useEffect } from 'react';
+import Input from '../components/Input/Input';
+import InputDrop from '../components/inputDrop/InputDrop';
+import { HTTP } from '../services/api';
 
-const fieldsWithName = fields.map(field => ({
-  ...field,
-  name: `${field.label.toLowerCase().replaceAll(' ', '-')}-${field.id}`,
-}));
-
+Yup.setLocale(pt);
 export function Formulario() {
+  // TODO - create type for response data
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await HTTP.get('api/form/ac');
+      const result = response.data;
+      setData(result);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const fieldsWithName = data.map(field => ({
+    ...field,
+    name: `${field.label.toLowerCase().replaceAll(' ', '-')}-${field.id}`,
+  }));
+
   const schema = Yup.object().shape(
     fieldsWithName.reduce((acc, field) => {
       acc[field.name] = field.required ? Yup.string().required().label(field.label) : Yup.string().label(field.label);
@@ -22,16 +37,21 @@ export function Formulario() {
     }, {}),
   );
 
-  const initialValues = {};
-  const validationSchema = {};
+  const initialValues: { [key: string]: string } = {};
 
   fieldsWithName.forEach(field => {
     initialValues[field.name] = '';
-    validationSchema[field.name] = field.required ? Yup.string().required('Campo obrigatório') : Yup.string();
   });
 
-  const handleSubmit = values => {
-    console.log('agr deu boa', values);
+  const handleSubmit = async (values: typeof initialValues) => {
+    try {
+      await HTTP.post('salva/dados', values);
+
+      getData();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Erro ao salvar os dados:', error);
+    }
   };
 
   return (
@@ -47,14 +67,7 @@ export function Formulario() {
               <div key={field.label}>
                 {field.options ? (
                   <div>
-                    <InputDrop
-                      fieldsWithName={fieldsWithName}
-                      name={field.name}
-                      type={field.type}
-                      options={field.options}
-                      placeholder={field.placeholder}
-                      required={field.required}
-                    >
+                    <InputDrop name={field.name} options={field.options}>
                       {field.label}
                     </InputDrop>
                     {errors[field.name] && touched[field.name] ? (
@@ -66,7 +79,6 @@ export function Formulario() {
                 ) : (
                   <div>
                     <Input
-                      fieldsWithName={fieldsWithName}
                       name={field.name}
                       type={field.type}
                       placeholder={field.placeholder}

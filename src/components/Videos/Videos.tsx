@@ -1,42 +1,26 @@
 export type Videosprops = {
-  videoURL1: string;
-  videoURL2: string;
-  urlLOGO: string;
+  videos: string[];
 };
 
-function Videos({ videoURL1, videoURL2, urlLOGO }: Videosprops) {
+function Videos({ videos }: Videosprops) {
   return (
-    <>
-      <div className="flex justify-center gap-20  flex-wrap mt-32">
-        <div className="flex justify-center items-center  video-frame">
-          <div className="border border-gray-300 rounded-lg overflow-hidden">
+    <div className="flex justify-center flex-wrap mt-32">
+      <div className="flex flex-row justify-center video-frame">
+        <div className="border border-gray-300 rounded-lg overflow-hidden flex gap-6 flex-wrap">
+          {videos.map((video, index) => (
             <iframe
               width="560"
               height="315"
-              src={videoURL1}
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              src={video}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            ></iframe>
-          </div>
-        </div>
-
-        <div className="flex justify-center items-center ">
-          <img src={urlLOGO} alt="" />
-        </div>
-
-        <div className="flex justify-center items-center  video-frame">
-          <div className="border border-gray-300 rounded-lg overflow-hidden">
-            <iframe
-              width="560"
-              height="315"
-              src={videoURL2}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            ></iframe>
-          </div>
+            />
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

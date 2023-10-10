@@ -1,0 +1,17 @@
+{
+  "title": "Nível de escolaridade?",
+  "labels": [
+    "Nenhum",
+    "Ensino Fundamnetal incompleto",
+    "Ensino Fundamnetal completo",
+    "Ensino Médio incompleto",
+    "Ensino Médio completo",
+    "Ensino superior"
+  ],
+  "datasets": [
+    {
+      "label": "# of pessoas",
+      "data": [16, 16, 16, 16, 16, 16]
+    }
+  ]
+}

@@ -1,10 +1,8 @@
 import Card from './Cardmain';
-import Cardjson from '../components.json';
+import data from '../../data/components.json';
 
-const Cardsview = () => {
-  const { cardMain1, cardMain2, cardMain3 } = Cardjson[1] || {};
-
-  return <Card cardMain1={cardMain1 || ''} cardMain2={cardMain2 || ''} cardMain3={cardMain3 || ''} />;
-};
+function Cardsview() {
+  return <Card cards={data.find(item => item.type === 'content-cards')?.content as string[]} />;
+}
 
 export default Cardsview;

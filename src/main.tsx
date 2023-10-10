@@ -3,25 +3,38 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
-
+import { AnswerViewer } from './pages/AnswerViewer'
+import { FormUpSert } from './pages/FormUpSert'
+import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
+import { Formulario } from './pages/Formulario'
+import { ACLandingPage } from './pages/ACLandingPage'
 
 import './index.css'
-import { Main } from './pages/main'
-import { FormUpSert } from './pages/FormUpSert'
-
  
 const router = createBrowserRouter([
   {
-    // eslint-disable-next-line react/jsx-filename-extension
+    // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
-      { 
-        path: "/",
-        element: <Main />
+      {
+        path: '/a-c-landing-page',
+        element: <ACLandingPage />
+      },
+      {
+        path: "/answer-viewer",
+        element: <AnswerViewer />
       },
       { 
         path: "/formulario-edicao",
         element: <FormUpSert/>
+      },
+      {
+        path: "/form",
+        element: <Formulario />
+      },
+      { 
+        path: "/admin-landing-page-editor",
+        element: <AdminLandingPageEditor /> 
       }
     ]
   }

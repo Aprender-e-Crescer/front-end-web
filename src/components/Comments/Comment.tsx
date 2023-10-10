@@ -1,37 +1,37 @@
+/* eslint-disable react/no-unused-prop-types */
 import { Carousel } from 'flowbite-react';
+import data from '../../data/components.json';
+
 export type Comment = {
-  comment: string;
-  name: string;
-  photo: string;
+  text: string;
+  who_is: string;
+  image: string;
 };
 
-export type CommentProps = {
-  comments: Comment[];
-};
-
-function Comment({ comments }: CommentProps) {
+function Comment() {
   return (
-    <>
-      <section className="flex p-20 justify-center mt-12">
-        <div className="bg-red-600 h-96 w-20 hidden sm:block"></div>
-        <div className="bg-orange-500 h-96 w-20 hidden sm:block"></div>
-        <div className="bg-yellow-300 h-96 w-20 hidden sm:block"></div>
-        <div className="bg-zinc-100 w-2/3 break-normal">
-          <Carousel className="h-96 ">
-            {comments.map((comment, index) => (
-              <div key={index} className="bg-blue-200 p-4 rounded-lg flex items-center gap-8">
-                <img className="w-28 h-28 rounded-full" src={comment.photo} alt="" />
-                <h1>{comment.name}</h1>
-                <span>{comment.comment}</span>
-              </div>
-            ))}
+    <section className="bg-transparen">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-semibold text-center mb-2">Comentários</h2>
+        <div className="w-full sm:w-1/2 mx-auto">
+          <Carousel className="h-96">
+            {data
+              .find(item => item.type === 'carrousel-testimony')
+              ?.content.map(({ image, text, who_is: whoIs }: Comment) => (
+                <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+                  <div className="flex items-center mb-2">
+                    <img className="w-32 h-32 rounded-full" src={image} alt={whoIs} />
+                    <div className="ml-3">
+                      <h3 className="text-lg font-semibold">{whoIs}</h3>
+                      <p className="text-xl text-gray-600">{text}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
           </Carousel>
         </div>
-        <div className="bg-yellow-300 h-96 w-20 hidden sm:block"></div>
-        <div className="bg-orange-500 h-96 w-20 hidden sm:block"></div>
-        <div className="bg-red-600 h-96 w-20 hidden sm:block"></div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
