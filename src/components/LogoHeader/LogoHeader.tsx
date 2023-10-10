@@ -1,19 +1,12 @@
-import ImgLogo from '../images/inicio-site.png'
+export type logoProps = {
+  logo: string;
+};
+function LogoHeader({ logo }: logoProps) {
+  return (
+    <div className="flex justify-center mt-10">
+      <img src={logo} alt="" />
+    </div>
+  );
+}
 
-
-
-  
-  function LogoHeader() {
-    return (
-      <>
-        <section>
-            <div className="flex justify-center">
-              <img src={ImgLogo} alt="" />
-            </div>
-          </section>
-      </>
-    );
-  }
-  
-  export default LogoHeader;
-  
+export default LogoHeader;
