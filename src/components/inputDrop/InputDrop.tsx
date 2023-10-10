@@ -25,6 +25,7 @@ function InputDrop({ options, children, name, id }: PropsWithChildren<InputDropP
       />
       <label htmlFor={id} className="text-[18px] font-bold">
         {children}:
+        <br />
         <Field
           className="w-full border rounded text-base p-2.5 border-solid border-[#ccc] hover:shadow-[0_0_5px_rgba(0,123,255,0.5)] hover:border-[#007bff] focus:shadow-[0_0_5px_rgba(0,123,255,0.5)] focus:border-[#007bff] outline-none"
           as="select"

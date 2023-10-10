@@ -61,6 +61,7 @@ function HeaderComponent() {
 
             <label htmlFor="logoFile">
               Selecione um arquivo de imagem
+              <br />
               <input
                 type="file"
                 name="logoFile"

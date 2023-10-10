@@ -16,6 +16,7 @@ export default function Input({ id, name, error = '', type = 'text', value, labe
     <div>
       <label className="text-zinc-100 mb-1" htmlFor={id}>
         {label}
+        <br />
         <input
           id={id}
           type={type}

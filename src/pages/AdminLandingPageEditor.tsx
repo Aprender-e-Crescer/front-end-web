@@ -12,15 +12,17 @@ import Button from '../components/EditorPage/ButtonEditor';
 
 export function AdminLandingPageEditor() {
   return (
-    <div>
+    <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <Header />
-      <CarouselComponent />
-      <LittleSquaresInfos />
-      <SubContent />
-      <VideoEditor />
-      <Button />
-      <CarouselDepoimentoEditor />
+      <div className="w-full md:w-[80%] self-center">
+        <Header />
+        <CarouselComponent />
+        <LittleSquaresInfos />
+        <SubContent />
+        <VideoEditor />
+        <Button />
+        <CarouselDepoimentoEditor />
+      </div>
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}

@@ -7,6 +7,10 @@
     ]
   },
   {
+    "type": "content-subcards",
+    "content": ["teste"]
+  },
+  {
     "type": "content-cards",
     "content": ["+25 Edições", "+5 cidades", "+1300 alunos"]
   },

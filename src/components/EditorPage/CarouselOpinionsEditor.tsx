@@ -56,6 +56,7 @@ function PhotoComponent() {
             <div key={index} className="flex flex-col">
               <label htmlFor={`image${index}`}>
                 Link da Imagem
+                <br />
                 <input
                   type="url"
                   name={`image-${index}`}
@@ -72,6 +73,7 @@ function PhotoComponent() {
 
               <label htmlFor={`who_is${index}`}>
                 Título
+                <br />
                 <input
                   type="text"
                   name={`who_is-${index}`}
@@ -88,6 +90,7 @@ function PhotoComponent() {
 
               <label htmlFor={`text${index}`}>
                 Parágrafo
+                <br />
                 <textarea
                   name={`text-${index}`}
                   id={`text-${index}`}
