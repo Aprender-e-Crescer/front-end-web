@@ -6,6 +6,7 @@ import App from './App'
 
 
 import './index.css'
+import { AnswerViewer } from './pages/AnswerViewer'
 import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
+      {
+        path: "/answer-viewer",
+        element: <AnswerViewer />
+      },
       { 
         path: "/formulario-edicao",
         element: <FormUpSert/>
