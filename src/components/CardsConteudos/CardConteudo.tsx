@@ -1,5 +1,3 @@
-import '../app.css';
-
 export type CardsConteudoprops = {
   mainContent: string;
   subContent: string;

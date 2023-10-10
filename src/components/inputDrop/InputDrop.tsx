@@ -1,5 +1,4 @@
-import { Field, useFormikContext } from 'formik'; // Importe useFormikContext
-import './InputDrop.modules.css';
+import { Field, useFormikContext } from 'formik';
 import { PropsWithChildren } from 'react';
 
 interface InputDropProps {
@@ -19,11 +18,20 @@ function InputDrop({ options, children, name, id }: PropsWithChildren<InputDropP
   };
 
   return (
-    <div className="containerInput">
-      <input type="text" />
-      <label htmlFor={id}>
+    <div className="flex-row items-center m-2.5">
+      <input
+        type="text"
+        className="border rounded text-base p-2.5 border-solid border-[#ccc] hover:shadow-[0_0_5px_rgba(0,123,255,0.5)] hover:border-[#007bff] focus:shadow-[0_0_5px_rgba(0,123,255,0.5)] focus:border-[#007bff] outline-none"
+      />
+      <label htmlFor={id} className="text-[18px] font-bold">
         {children}:
-        <Field className="w-full" as="select" name={name} id={id} onChange={handleSelectChange}>
+        <Field
+          className="w-full border rounded text-base p-2.5 border-solid border-[#ccc] hover:shadow-[0_0_5px_rgba(0,123,255,0.5)] hover:border-[#007bff] focus:shadow-[0_0_5px_rgba(0,123,255,0.5)] focus:border-[#007bff] outline-none"
+          as="select"
+          name={name}
+          id={id}
+          onChange={handleSelectChange}
+        >
           <option value="">Selecione uma opção</option>
           {options.map((option, index) => (
             <option key={index} value={option}>

@@ -55,10 +55,13 @@ export function Formulario() {
   };
 
   return (
-    <section className="sectionForm">
+    <section className="relative transition-transform duration-[0.3s] ease-[ease-in-out] mx-auto my-0">
       <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
         {({ errors, touched }) => (
-          <Form className="form">
+          <Form
+            style={{ fontFamily: 'Arial, sans-serif' }}
+            className="flex flex-col bg-[#f7f7f7] border m-auto p-5 rounded-[10px] border-solid border-[#ccc]"
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
               <img src="/img/aprendereCrescer2.png" alt="" style={{ width: '150px', height: '150px' }} />
               <h1 className="title">Inscrever-se para o programa de qualificação Aprender e Crescer</h1>
@@ -95,11 +98,17 @@ export function Formulario() {
                 )}
               </div>
             ))}
-            <div className="buttons">
-              <button className="buttoncleanform" type="reset">
+            <div className="flex justify-between">
+              <button
+                className="bg-[#fa3333] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#d33f3f]"
+                type="reset"
+              >
                 Limpar Formulário
               </button>
-              <button className="button" type="submit">
+              <button
+                className="bg-[#007bff] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#267edd]"
+                type="submit"
+              >
                 Enviar
               </button>
             </div>
