@@ -15,7 +15,7 @@ const InputDrop = ({ options, children, name, id }) => {
   return (
     <div className="containerInput">
       <label>{children}:</label>
-      <Field as="select" name={name} id={id} onChange={handleSelectChange}>
+      <Field className="w-full" as="select" name={name} id={id} onChange={handleSelectChange}>
         <option value="">Selecione uma opção</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
