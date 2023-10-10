@@ -1,14 +1,12 @@
-import Videospropsjson from '../components.json';
+import data from '../components.json';
 import Videos from './Videos';
 
-const Videosview = () => {
-  const { videoURL1, videoURL2, urlLOGO } = Videospropsjson[2] || {};
-
+function Videosview() {
   return (
     <div>
-      <Videos videoURL1={videoURL1 || ''} videoURL2={videoURL2 || ''} urlLOGO={urlLOGO || ''} />
+      <Videos videos={data.find(item => item.type === 'video')?.content as string[]} />
     </div>
   );
-};
+}
 
 export default Videosview;

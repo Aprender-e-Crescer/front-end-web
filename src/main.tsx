@@ -6,17 +6,32 @@ import App from './App'
 
 
 import './index.css'
-import { Main } from './pages/main'
+import { AnswerViewer } from './pages/AnswerViewer'
+import { FormUpSert } from './pages/FormUpSert'
+import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 
+import { Formulario } from './pages/form/formulario.jsx'
  
 const router = createBrowserRouter([
   {
-    // eslint-disable-next-line react/jsx-filename-extension
+    // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
+      {
+        path: "/answer-viewer",
+        element: <AnswerViewer />
+      },
       { 
-        path: "/",
-        element: <Main />
+        path: "/formulario-edicao",
+        element: <FormUpSert/>
+      },
+      {
+        path: "/form",
+        element: <Formulario />
+      },
+      { 
+        path: "/admin-landing-page-editor",
+        element: <AdminLandingPageEditor /> 
       }
     ]
   }

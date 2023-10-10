@@ -1,14 +1,12 @@
-import Carousels from './CarouselHeader';
-import componentsJson from '../components.json';
+import Carousels from './carouselHeader';
+import data from '../components.json';
 
-const Carouselview = () => {
-  const { imageUrls } = componentsJson[3];
-
+function Carouselview() {
   return (
     <div>
-      <Carousels imageUrls={imageUrls || []} />
+      <Carousels imageUrls={data.find(item => item.type === 'carrousel-images')?.content as string[]} />
     </div>
   );
-};
+}
 
 export default Carouselview;
