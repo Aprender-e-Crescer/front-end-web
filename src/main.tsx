@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/a-c-landing-page',
+        path: '/',
         element: <ACLandingPage />
       },
       {
