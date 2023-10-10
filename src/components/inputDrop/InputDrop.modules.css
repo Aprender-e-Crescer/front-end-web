@@ -4,7 +4,6 @@
     align-items: center ;
 }
 .containerInput select {
-    width: 97.5%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
