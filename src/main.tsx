@@ -6,21 +6,31 @@ import App from './App'
 
 
 import './index.css'
-import { Main } from './pages/main'
 import RestrictLoginFront from './components/RestrictLoginFront'
+import { AnswerViewer } from './pages/AnswerViewer'
+import { FormUpSert } from './pages/FormUpSert'
+import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
  
 const router = createBrowserRouter([
   {
-    // eslint-disable-next-line react/jsx-filename-extension
+    // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
-      { 
-        path: "/",
-        element: <Main />
+      {
+        path: "/answer-viewer",
+        element: <AnswerViewer />
       },
       { 
         path: "/arearestrita",
         element: <RestrictLoginFront/>
+      },
+      {
+        path: "/formulario-edicao",
+        element: <FormUpSert/>
+      },
+      { 
+        path: "/admin-landing-page-editor",
+        element: <AdminLandingPageEditor /> 
       }
     ]
   }
