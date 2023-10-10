@@ -10,7 +10,11 @@ export default {
       'LarSud': 'B14205',
       'AzuSud': '161548'
     },
-    extend: {},
+    extend: {
+      borderWidth: {
+        '25': '25px', 
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin'),
