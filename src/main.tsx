@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
+
 import { AnswerViewer } from './pages/AnswerViewer'
 import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
@@ -24,13 +25,13 @@ const router = createBrowserRouter([
         path: "/answer-viewer",
         element: <AnswerViewer />
       },
-      { 
-        path: "/formulario-edicao",
-        element: <FormUpSert/>
-      },
       {
         path: "/form",
         element: <Formulario />
+      },
+      {
+        path: "/formulario-edicao",
+        element: <FormUpSert/>
       },
       { 
         path: "/admin-landing-page-editor",
