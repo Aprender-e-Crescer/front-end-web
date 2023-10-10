@@ -6,18 +6,22 @@ import App from './App'
 
 
 import './index.css'
-import { Main } from './pages/main'
 
+import { Formulario } from './pages/form/formulario.jsx'
+import { Main } from './pages/main.js'
  
 const router = createBrowserRouter([
   {
-    // eslint-disable-next-line react/jsx-filename-extension
     element: <App />,
     children: [
       { 
         path: "/",
         element: <Main />
-      }
+      },
+      { 
+        path: "/form",
+        element: <Formulario />
+      },
     ]
   }
 ])
