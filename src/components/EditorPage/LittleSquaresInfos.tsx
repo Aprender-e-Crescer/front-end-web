@@ -1,12 +1,12 @@
 import { Formik, FieldArray, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 const validationSchema = Yup.object().shape({
   textList: Yup.array().of(Yup.string().required('Campo de texto é obrigatório')),
 });
 
-const TextSquareComponent = () => {
+function TextSquareComponent() {
   const initialValues = { textList: data.find(item => item.type === 'content-cards')?.content };
 
   return (
@@ -16,13 +16,14 @@ const TextSquareComponent = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={values => {
+          // eslint-disable-next-line no-console
           console.log('Valores enviados:', values);
         }}
       >
         {formik => (
           <form onSubmit={formik.handleSubmit}>
             <FieldArray name="textList">
-              {({ push, remove }) => (
+              {({ remove }) => (
                 <div>
                   {formik.values.textList.map((text, index) => (
                     <div key={index} className="flex flex-col">
@@ -65,6 +66,6 @@ const TextSquareComponent = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default TextSquareComponent;

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import { Carousel } from 'flowbite-react';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 export type Comment = {
   text: string;
@@ -11,7 +11,7 @@ export type Comment = {
 function Comment() {
   return (
     <section className="bg-transparen">
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1000px] h-automy-8 py-0 mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-2">Comentários</h2>
         <div className="w-full sm:w-1/2 mx-auto">
           <Carousel className="h-96">

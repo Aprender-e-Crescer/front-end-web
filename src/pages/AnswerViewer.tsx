@@ -11,9 +11,9 @@ import footerData from '../data/footer.json';
 
 export function AnswerViewer() {
   return (
-    <div>
+    <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <div>
+      <div className="w-full md:w-[80%] self-center">
         <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
         <ShortAnswerViewer title={short.title} answers={short.answers} />
         <DateSelectViewer dates={days.dates} title={days.title} />

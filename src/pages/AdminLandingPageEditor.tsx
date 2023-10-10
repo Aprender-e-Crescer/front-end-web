@@ -6,21 +6,26 @@ import Header from '../components/EditorPage/HeaderEditor';
 import CarouselComponent from '../components/EditorPage/CarouselImageEditor';
 import LittleSquaresInfos from '../components/EditorPage/LittleSquaresInfos';
 import CarouselDepoimentoEditor from '../components/EditorPage/CarouselOpinionsEditor';
-import SubContent from '../components/EditorPage/SubContent';
+import MainContent from '../components/EditorPage/MainContent';
 import VideoEditor from '../components/EditorPage/VideosEditor';
 import Button from '../components/EditorPage/ButtonEditor';
+import SubMainContent from '../components/EditorPage/SubMainContent'
 
 export function AdminLandingPageEditor() {
   return (
-    <div>
+    <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <Header />
-      <CarouselComponent />
-      <LittleSquaresInfos />
-      <SubContent />
-      <VideoEditor />
-      <Button />
-      <CarouselDepoimentoEditor />
+      <div className="w-full md:w-[80%] self-center">
+        <Header />
+        <CarouselComponent />
+        <LittleSquaresInfos />
+        <MainContent/>
+        <SubMainContent/>
+        <Button/>
+        <VideoEditor/>
+        <CarouselDepoimentoEditor/>
+
+      </div>
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}

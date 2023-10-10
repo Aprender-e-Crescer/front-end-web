@@ -5,7 +5,7 @@ export type Videosprops = {
 function Videos({ videos }: Videosprops) {
   return (
     <div className="flex justify-center flex-wrap mt-32">
-      <div className="flex flex-row justify-center video-frame">
+      <div className="flex flex-row justify-center overflow-hidden rounded-lg">
         <div className="border border-gray-300 rounded-lg overflow-hidden flex gap-6 flex-wrap">
           {videos.map((video, index) => (
             <iframe

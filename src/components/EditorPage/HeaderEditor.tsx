@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 const headerSchema = Yup.object().shape({
   logoFile: Yup.mixed().required('Você precisa selecionar um arquivo'),
 });
 
-const HeaderComponent: React.FC = () => {
+function HeaderComponent() {
   const initialValues = {
-    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: ['']  },
+    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: [''] },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);
@@ -17,7 +17,6 @@ const HeaderComponent: React.FC = () => {
   const handleSubmit = async (values: { logoFile: File }) => {
     if (values.logoFile) {
       const base64String = await convertToBase64(values.logoFile);
-      console.log('Arquivo em base64:', base64String);
       setImageBase64(base64String);
     }
   };
@@ -56,22 +55,25 @@ const HeaderComponent: React.FC = () => {
 
             {!imageBase64 && (
               <div>
-                <img src={initialValues.logoFile} className="w-60 h-52" />
+                <img alt="logo" src={initialValues.logoFile as string} className="w-60 h-52" />
               </div>
             )}
 
-            <label htmlFor="logoFile">Selecione um arquivo de imagem</label>
-            <input
-              type="file"
-              name="logoFile"
-              id="logoFile"
-              accept="image/*"
-              onChange={event => {
-                formik.setFieldValue('logoFile', event.currentTarget.files?.[0] || null);
-              }}
-            />
+            <label htmlFor="logoFile">
+              Selecione um arquivo de imagem
+              <br />
+              <input
+                type="file"
+                name="logoFile"
+                id="logoFile"
+                accept="image/*"
+                onChange={event => {
+                  formik.setFieldValue('logoFile', event.currentTarget.files?.[0] || null);
+                }}
+              />
+            </label>
             {formik.touched.logoFile && formik.errors.logoFile ? (
-              <div className="text-red-600">{formik.errors.logoFile}</div>
+              <div className="text-red-600">{formik.errors.logoFile as string}</div>
             ) : null}
           </div>
 
@@ -85,6 +87,6 @@ const HeaderComponent: React.FC = () => {
       </Form>
     </FormikProvider>
   );
-};
+}
 
 export default HeaderComponent;
