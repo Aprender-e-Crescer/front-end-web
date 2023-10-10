@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import { Carousel } from 'flowbite-react';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 export type Comment = {
   text: string;

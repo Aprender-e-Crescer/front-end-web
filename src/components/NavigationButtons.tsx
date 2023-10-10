@@ -1,5 +1,13 @@
 import { Button } from 'flowbite-react';
-import bttn from './botoes.json';
+// TODO - import or get from server buttons
+// import bttn from './botoes.json';
+
+const bttn = [
+  {
+    nome: 'teste',
+    links: '/teste',
+  },
+];
 
 interface BotaoInfo {
   nome: string;

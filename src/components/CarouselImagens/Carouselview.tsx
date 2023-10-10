@@ -1,5 +1,5 @@
 import Carousels from './carouselHeader';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 function Carouselview() {
   return (

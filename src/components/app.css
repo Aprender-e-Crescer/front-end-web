@@ -13,6 +13,7 @@
   }
 }
 
+/* TODO - check real url, right now its on assets folder */
 .imagem-fundo {
   background-image: url(./images/imagem-fundo.png);
   width: 100%;

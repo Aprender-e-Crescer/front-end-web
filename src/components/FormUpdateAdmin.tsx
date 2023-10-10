@@ -56,6 +56,7 @@ export function FormUpdateAdmin() {
   };
 
   const handleSave = () => {
+    // eslint-disable-next-line no-console
     console.log('Campos do formulário:', campos);
   };
 

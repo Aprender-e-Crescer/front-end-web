@@ -14,8 +14,9 @@ export default function Form() {
       observacoes: '',
     },
     validationSchema: registerSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: valuesSubmited => {
+      // eslint-disable-next-line no-console
+      console.log(valuesSubmited);
     },
   });
 
@@ -28,6 +29,7 @@ export default function Form() {
       <h1 className="text-center text-zinc-100 text-lg mb-5">Formulário</h1>
       <div className="flex flex-col gap-6">
         <Input
+          id="name"
           name="nome"
           label="Nome/Empresa"
           value={values.nome}
@@ -36,6 +38,7 @@ export default function Form() {
         />
 
         <Input
+          id="email"
           name="email"
           label="E-mail"
           value={values.email}
@@ -44,6 +47,7 @@ export default function Form() {
         />
 
         <Input
+          id="phone"
           name="telefone"
           label="Telefone"
           value={values.telefone}
@@ -52,6 +56,7 @@ export default function Form() {
         />
 
         <Input
+          id="phone"
           name="observacoes"
           label="Observações"
           value={values.observacoes}

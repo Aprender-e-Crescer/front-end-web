@@ -1,17 +1,18 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 const videoSchema = Yup.object().shape({
   videoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos um link é necessário'),
 });
 
-const VideoComponent: React.FC = () => {
+function VideoComponent() {
   const initialValues = {
     videoLinks: data.find(item => item.type === 'video')?.content,
   };
 
   const handleSubmit = async (values: { videoLinks: string[] }) => {
+    // eslint-disable-next-line no-console
     console.log('Links de vídeo:', values.videoLinks);
   };
 
@@ -39,16 +40,18 @@ const VideoComponent: React.FC = () => {
 
           {formik.values.videoLinks.map((_, index) => (
             <div key={index} className="flex flex-col">
-              <label htmlFor={`videoLink${index}`}>Insira um link de vídeo</label>
-              <input
-                type="url"
-                name={`videoLinks[${index}]`}
-                id={`videoLink${index}`}
-                placeholder="https://www.example.com/video"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.videoLinks[index]}
-              />
+              <label htmlFor={`videoLink${index}`}>
+                Insira um link de vídeo
+                <input
+                  type="url"
+                  name={`videoLinks[${index}]`}
+                  id={`videoLink${index}`}
+                  placeholder="https://www.example.com/video"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.videoLinks[index]}
+                />
+              </label>
               {formik.touched.videoLinks && formik.errors.videoLinks && formik.errors.videoLinks[index] ? (
                 <div className="text-red-600">{formik.errors.videoLinks[index]}</div>
               ) : null}
@@ -76,6 +79,6 @@ const VideoComponent: React.FC = () => {
       </Form>
     </FormikProvider>
   );
-};
+}
 
 export default VideoComponent;

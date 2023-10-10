@@ -9,7 +9,7 @@ import Videosview from '../components/Videos/Videosview';
 import Comment from '../components/Comments/Comment';
 import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
 
-export function Main() {
+export function ACLandingPage() {
   return (
     <div className="imagem-fundo">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
