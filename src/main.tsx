@@ -6,6 +6,7 @@ import App from './App'
 
 
 import './index.css'
+import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 
 import { Formulario } from './pages/form/formulario.jsx'
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { 
+        path: "/formulario-edicao",
+        element: <FormUpSert/>
+      },
+      {
         path: "/form",
         element: <Formulario />
       },
