@@ -12,7 +12,7 @@ import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
  
 const router = createBrowserRouter([
   {
-    // eslint-disable-next-line react/jsx-filename-extension
+    // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
       { 
