@@ -6,22 +6,23 @@ import App from './App'
 
 
 import './index.css'
+import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 
 import { Formulario } from './pages/form/formulario.jsx'
-import { Main } from './pages/main.js'
  
 const router = createBrowserRouter([
   {
+    // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
     children: [
-      { 
-        path: "/",
-        element: <Main />
-      },
       { 
         path: "/form",
         element: <Formulario />
       },
+      { 
+        path: "/admin-landing-page-editor",
+        element: <AdminLandingPageEditor /> 
+      }
     ]
   }
 ])
