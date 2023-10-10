@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../components.json'
+import data from '../components.json';
 
 const photoSchema = Yup.object().shape({
   photoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos uma foto é necessária'),
@@ -9,7 +9,7 @@ const photoSchema = Yup.object().shape({
 
 const PhotoComponent: React.FC = () => {
   const initialValues = {
-    photoLinks: data.find(item => item.type === "carrousel-images")?.content
+    photoLinks: data.find(item => item.type === 'carrousel-images')?.content,
   };
 
   const handleSubmit = async (values: { photoLinks: string[] }) => {

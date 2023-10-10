@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./NavBar.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css';
 
-const NavBar = () => {
+function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -10,13 +10,13 @@ const NavBar = () => {
   };
 
   return (
-    <nav className={`navbar ${menuOpen ? "open" : ""}`}>
+    <nav className={`navbar ${menuOpen ? 'open' : ''}`}>
       <div className="hamburger-icon" onClick={toggleMenu}>
-        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
-        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
-        <div className={`bar ${menuOpen ? "open" : ""}`}></div>
+        <div className={`bar ${menuOpen ? 'open' : ''}`} />
+        <div className={`bar ${menuOpen ? 'open' : ''}`} />
+        <div className={`bar ${menuOpen ? 'open' : ''}`} />
       </div>
-      <ul className={`menu-items ${menuOpen ? "open" : ""}`}>
+      <ul className={`menu-items ${menuOpen ? 'open' : ''}`}>
         <li>
           <Link to="/">SUDOTEC</Link>
         </li>
@@ -41,6 +41,6 @@ const NavBar = () => {
       </ul>
     </nav>
   );
-};
+}
 
 export default NavBar;

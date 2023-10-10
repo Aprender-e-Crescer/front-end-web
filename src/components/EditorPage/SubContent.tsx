@@ -6,7 +6,7 @@ const validationSchema = Yup.object().shape({
   paragraphList: Yup.array().of(Yup.string().required('Campo de parágrafo é obrigatório')),
 });
 
-const StyledParagraphComponent = () => {
+function StyledParagraphComponent() {
   const initialValues = { paragraphList: data.find(item => item.type === 'content-subcards')?.content };
 
   return (
@@ -65,6 +65,6 @@ const StyledParagraphComponent = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default StyledParagraphComponent;

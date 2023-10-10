@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Field, useFormikContext } from 'formik'; // Importe useFormikContext
 import './InputDrop.modules.css';
 
-const InputDrop = ({ options, children, name, id }) => {
-
+function InputDrop({ options, children, name, id }) {
   const { setFieldValue } = useFormikContext();
   const selectedOptionFromFormik = useFormikContext().values[name];
 
-  const handleSelectChange = (e) => {
+  const handleSelectChange = e => {
     const selectedValue = e.target.value;
     setFieldValue(name, selectedValue);
   };
@@ -26,6 +25,6 @@ const InputDrop = ({ options, children, name, id }) => {
       {selectedOptionFromFormik && <p>Você selecionou: {selectedOptionFromFormik}</p>}
     </div>
   );
-};
+}
 
 export default InputDrop;

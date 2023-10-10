@@ -21,7 +21,6 @@ const VideoComponent: React.FC = () => {
     onSubmit: handleSubmit,
   });
 
-
   const addVideoInput = () => {
     formik.setFieldValue('videoLinks', [...formik.values.videoLinks, '']);
   };

@@ -6,7 +6,7 @@ const validationSchema = Yup.object().shape({
   textList: Yup.array().of(Yup.string().required('Campo de texto é obrigatório')),
 });
 
-const TextSquareComponent = () => {
+function TextSquareComponent() {
   const initialValues = { textList: data.find(item => item.type === 'content-cards')?.content };
 
   return (
@@ -65,6 +65,6 @@ const TextSquareComponent = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default TextSquareComponent;

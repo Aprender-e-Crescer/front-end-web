@@ -6,7 +6,7 @@ const validationSchema = Yup.object().shape({
   buttonList: Yup.array().of(Yup.string().required('Campo do botão é obrigatório')),
 });
 
-const ButtonComponent = () => {
+function ButtonComponent() {
   const initialValues = { buttonList: data.find(item => item.type === 'content-buttons')?.content };
 
   return (
@@ -65,6 +65,6 @@ const ButtonComponent = () => {
       </Formik>
     </div>
   );
-};
+}
 
 export default ButtonComponent;

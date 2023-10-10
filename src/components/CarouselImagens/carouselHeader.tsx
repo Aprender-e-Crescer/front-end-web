@@ -5,10 +5,9 @@ export type CarouselProps = {
 };
 
 function Carousels({ imageUrls }: CarouselProps) {
-  
   return (
-    <div className="flex justify-center" >
-      <Carousel  className="h-96 w-4/5 my-16">
+    <div className="flex justify-center">
+      <Carousel className="h-96 w-4/5 my-16">
         {imageUrls.map((url, index) => (
           <img src={url} alt={`Imagem ${index + 1}`} />
         ))}

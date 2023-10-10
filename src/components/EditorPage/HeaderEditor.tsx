@@ -9,7 +9,7 @@ const headerSchema = Yup.object().shape({
 
 const HeaderComponent: React.FC = () => {
   const initialValues = {
-    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: ['']  },
+    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: [''] },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);
