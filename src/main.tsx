@@ -7,7 +7,7 @@ import App from './App'
 
 import './index.css'
 import { Main } from './pages/main'
-
+import RestrictLoginFront from './components/RestrictLoginFront'
  
 const router = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
       { 
         path: "/",
         element: <Main />
+      },
+      { 
+        path: "/arearestrita",
+        element: <RestrictLoginFront/>
       }
     ]
   }

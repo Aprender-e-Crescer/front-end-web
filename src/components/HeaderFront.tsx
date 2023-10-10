@@ -1,6 +1,6 @@
-import { Button } from 'flowbite-react';
 import { MenuFront } from './MenuFront';
 import menuData from '../data/menu.json';
+import RestrictLoginFront from "./RestrictLoginFront";
 
 interface Props {
   logo: string;
@@ -9,7 +9,7 @@ interface Props {
 
 export function HeaderFront({ phone, logo }: Props) {
   return (
-    <header className="flex flex-1 items-center h-28 p-4  shadow-lg shadow-cyan-500/50 ">
+    <header className="flex flex-1 items-center h-28 p-4 shadow-lg shadow-cyan-500/50 ">
       <div className="flex flex-1 mx-20 items-center space-x-2">
         <img src={logo} alt="Logo do Site" className="h-30 w-40" />
         <MenuFront items={menuData} />
@@ -33,9 +33,7 @@ export function HeaderFront({ phone, logo }: Props) {
           <p>{phone}</p>
         </div>
         {/* Botão de Área Restrita */}
-        <Button className="mr-20" size="lg" gradientDuoTone="purpleToBlue" outline>
-          <p>Área restrita</p>
-        </Button>
+        <RestrictLoginFront />
       </div>
     </header>
   );
