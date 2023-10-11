@@ -56,7 +56,7 @@ export default function RestrictLoginFront() {
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
             {() => (
               <Form>
-                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="bg-white rounded px-8 pt-6 pb-8 mb-4">
                   <h3 className="text-xl font-medium text-gray-900 dark:text-black mb-6 text-center">
                     Login Área Restrita
                   </h3>
@@ -95,12 +95,10 @@ export default function RestrictLoginFront() {
                     </div>
                   </div>
                   <div className="mb-4">
-                    <div className="flex items-center gap-2">
-                      <label htmlFor="remember" className="text-gray-600 dark:text-gray-400">
-                        <Checkbox id="remember" className="text-blue-500 dark:text-blue-300" />
-                        Mantenha-se conectado
-                      </label>
-                    </div>
+                    <label htmlFor="remember" className="text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                      <Checkbox id="remember" className="text-blue-500 dark:text-blue-300" />
+                      Mantenha-se conectado
+                    </label>
                   </div>
                   <div className="mb-6">
                     <a href="/" className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
