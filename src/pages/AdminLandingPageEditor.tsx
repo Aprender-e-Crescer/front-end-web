@@ -9,7 +9,7 @@ import CarouselDepoimentoEditor from '../components/EditorPage/CarouselOpinionsE
 import MainContent from '../components/EditorPage/MainContent';
 import VideoEditor from '../components/EditorPage/VideosEditor';
 import Button from '../components/EditorPage/ButtonEditor';
-import SubMainContent from '../components/EditorPage/SubMainContent'
+import SubMainContent from '../components/EditorPage/SubMainContent';
 
 export function AdminLandingPageEditor() {
   return (
@@ -19,12 +19,11 @@ export function AdminLandingPageEditor() {
         <Header />
         <CarouselComponent />
         <LittleSquaresInfos />
-        <MainContent/>
-        <SubMainContent/>
-        <Button/>
-        <VideoEditor/>
-        <CarouselDepoimentoEditor/>
-
+        <MainContent />
+        <SubMainContent />
+        <Button />
+        <VideoEditor />
+        <CarouselDepoimentoEditor />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

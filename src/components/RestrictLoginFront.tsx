@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -24,6 +24,7 @@ export default function RestrictLoginFront() {
   const handleSubmit = async (values: FormData, { resetForm }: FormikHelpers<FormData>) => {
     try {
       await validationSchema.validate(values, { abortEarly: false });
+      // eslint-disable-next-line no-console
       console.log('Dados do formulário:', values);
 
       setSubmittedData([...submittedData, values]);
@@ -31,10 +32,11 @@ export default function RestrictLoginFront() {
       resetForm();
 
       setOpenModal(undefined);
-    } catch (errors) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (errors: any) {
       // Lida com os erros de validação do Yup
       const validationErrors: Record<string, string> = {};
-      errors.inner.forEach((error) => {
+      errors.inner.forEach((error: { path: string | number; message: string }) => {
         validationErrors[error.path] = error.message;
       });
 
@@ -42,14 +44,13 @@ export default function RestrictLoginFront() {
       setErrors(validationErrors);
     }
   };
-  const props = { openModal, setOpenModal };
 
   return (
     <>
-      <Button gradientDuoTone="redToYellow" outline onClick={() => props.setOpenModal('form-elements')}>
+      <Button gradientDuoTone="redToYellow" outline onClick={() => setOpenModal('form-elements')}>
         Área Restrita
       </Button>
-      <Modal show={props.openModal === 'form-elements'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+      <Modal show={openModal === 'form-elements'} size="md" popup onClose={() => setOpenModal(undefined)}>
         <Modal.Header />
         <Modal.Body>
           <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
@@ -63,15 +64,16 @@ export default function RestrictLoginFront() {
                     <div className="mb-2">
                       <label htmlFor="username" className="block text-gray-600 dark:text-gray-400 font-semibold mb-2">
                         Usuário:
+                        <br />
+                        <Field
+                          type="text"
+                          id="username"
+                          name="username"
+                          placeholder="Digite o usuário aqui"
+                          className="bg-gray-100 dark:bg-gray-800 border rounded py-2 px-3 w-full text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                          required
+                        />
                       </label>
-                      <Field
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Digite o usuário aqui"
-                        className="bg-gray-100 dark:bg-gray-800 border rounded py-2 px-3 w-full text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                      />
                       <ErrorMessage name="username" component="div" className="text-red-500 text-xs italic" />
                     </div>
                   </div>
@@ -79,22 +81,23 @@ export default function RestrictLoginFront() {
                     <div className="mb-2">
                       <label htmlFor="password" className="block text-gray-600 dark:text-gray-400 font-semibold mb-2">
                         Senha:
+                        <br />
+                        <Field
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="Digite a senha aqui"
+                          className="bg-gray-100 dark:bg-gray-800 border rounded py-2 px-3 w-full text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                          required
+                        />
                       </label>
-                      <Field
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Digite a senha aqui"
-                        className="bg-gray-100 dark:bg-gray-800 border rounded py-2 px-3 w-full text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                      />
                       <ErrorMessage name="password" component="div" className="text-red-500 text-xs italic" />
                     </div>
                   </div>
                   <div className="mb-4">
                     <div className="flex items-center gap-2">
-                      <Checkbox id="remember" className="text-blue-500 dark:text-blue-300" />
                       <label htmlFor="remember" className="text-gray-600 dark:text-gray-400">
+                        <Checkbox id="remember" className="text-blue-500 dark:text-blue-300" />
                         Mantenha-se conectado
                       </label>
                     </div>

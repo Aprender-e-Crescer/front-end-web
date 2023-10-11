@@ -65,7 +65,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.image}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
@@ -83,7 +83,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.who_is}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
@@ -100,7 +100,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.text}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (

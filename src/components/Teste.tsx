@@ -15,6 +15,7 @@ function TesteArea() {
   const [submittedData, setSubmittedData] = useState<FormData[]>([]);
 
   const handleSubmit = (values: FormData) => {
+    // eslint-disable-next-line no-console
     console.log('Dados do formulário:', values);
 
     // Adicione os dados ao array
@@ -29,26 +30,28 @@ function TesteArea() {
             <div className="mb-4">
               <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
                 Usuário:
+                <br />
+                <Field
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Digite o usuário"
+                />
               </label>
-              <Field
-                type="text"
-                id="username"
-                name="username"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Digite o usuário"
-              />
             </div>
             <div className="mb-6">
               <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
                 Senha:
+                <br />
+                <Field
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Digite a senha"
+                />
               </label>
-              <Field
-                type="password"
-                id="password"
-                name="password"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Digite a senha"
-              />
             </div>
             <div className="flex justify-center items-center ">
               <button

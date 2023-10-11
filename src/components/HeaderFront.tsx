@@ -1,6 +1,6 @@
 import { MenuFront } from './MenuFront';
 import menuData from '../data/menu.json';
-import RestrictLoginFront from "./RestrictLoginFront";
+import RestrictLoginFront from './RestrictLoginFront';
 
 interface Props {
   logo: string;
