@@ -1,4 +1,5 @@
 import { Switch, Case } from 'react-if';
+import { Card } from 'flowbite-react';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
 import { Chart } from '../components/Chart';
@@ -12,7 +13,10 @@ export function AnswerViewer() {
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <div className="w-full md:w-[80%] self-center">
+      <div className="w-full md:w-[80%] self-center pt-10">
+        <Card>
+          <h3 className="text-3xl text-bold">{pageData[0].data.answers?.length || 0} Respostas</h3>
+        </Card>
         {pageData.map(({ type, data }) => (
           <Switch>
             <Case condition={type === 'ShortAnswersViewer'}>
