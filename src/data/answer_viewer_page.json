@@ -67,34 +67,71 @@
   },
 
   {
-    "type": "Chart",
-    "data": {
-      "title": "Esta cursando",
-      "label": ["Ensino Médio, Faculdade, Pós-Graduação, Já sou formado"]
-    }
+   "type":"Chart",
+   "title": "Nível de escolaridade?",
+   "labels": [
+     "Nenhum",
+     "Ensino Fundamental incompleto",
+     "Ensino Fundamental completo",
+     "Ensino Médio incompleto",
+     "Ensino Médio completo",
+     "Ensino superior"
+   ],
+   "datasets": [
+     {
+       "label": "# of pessoas",
+       "data": [1, 1, 1, 1, 2, 4]
+     }
+   ]
   },
-
   {
-    "type": "Chart",
-    "data": {
-      "title": "Gosta de tecnologia?",
-      "label": ["Sim muito, Mais ou Menos, Não Porém é necessário, Não gosto nenhum pouco"]
+    "type":"Chart", 
+    "title": "Gosta de Tecnologia?",
+    "labels": [
+      "Sim muito", 
+      "Mais ou Menos", 
+      "Não, Porém é necessário",
+      "Não gosto nenhum pouco"
+    ],
+  "datasets": [
+    {
+      "label": "# of pessoas",
+      "data": [5, 3, 1, 1]
     }
+   ]
   },
-
   {
-    "type": "Chart",
-    "data": {
-      "title": "Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?",
-      "label": ["Programação, Suporte, RH, Design, Atendimento"]
+    "type":"Chart",  
+    "title": "Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?",
+    "labels": [
+      "Programação", 
+      "Suporte", 
+      "RH",
+      "Design",
+      "Atendimento"
+    ],
+  "datasets": [
+    {
+      "label": "# of pessoas",
+      "data": [3, 1, 1, 3, 2]
     }
+   ]
   },
-
   {
-    "type": "Chart",
-    "data": {
-      "title": "Tamanho da camiseta que você veste??",
-      "label": ["PP, P, M, G, GG"]
+    "type":"Chart",
+    "title": "Tamanho da camiseta que você veste?",
+    "labels": [
+    "PP", 
+    "P", 
+    "M",
+    "G",
+    "GG"
+    ],
+  "datasets": [
+    {
+      "label": "# of pessoas",
+      "data": [2, 2, 2, 2, 2]
     }
+   ]
   }
 ]

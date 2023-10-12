@@ -1,11 +1,10 @@
-import { HeaderFront } from '../components/HeaderFront';
-import { FooterFront } from '../components/FooterFront';
+import { Switch, Case } from 'react-if';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
 import { Chart } from '../components/Chart';
-import chart from '../data/chart.json';
-import days from '../data/days.json';
-import short from '../data/short.json';
+import { HeaderFront } from '../components/HeaderFront';
+import { FooterFront } from '../components/FooterFront';
+import pageData from '../data/answer_viewer_page.json';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
 
@@ -14,9 +13,27 @@ export function AnswerViewer() {
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
-        <ShortAnswerViewer title={short.title} answers={short.answers} />
-        <DateSelectViewer dates={days.dates} title={days.title} />
+        {pageData.map(({ type, data }) => (
+          <Switch>
+            <Case condition={type === 'ShortAnswersViewer'}>
+              <ShortAnswerViewer {...data} />
+            </Case>
+          </Switch>
+        ))}
+        {pageData.map(({ type, data }) => (
+          <Switch>
+            <Case condition={type === 'DateSelectViewer'}>
+              <DateSelectViewer {...data} />
+            </Case>
+          </Switch>
+        ))}
+        {pageData.map(({ type, data }) => (
+          <Switch>
+            <Case condition={type === 'Chart'}>
+              <Chart {...data} />
+            </Case>
+          </Switch>
+        ))}
       </div>
       <FooterFront
         leftItems={footerData.leftItems}
