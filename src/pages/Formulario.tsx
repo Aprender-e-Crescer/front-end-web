@@ -50,10 +50,10 @@ export function Formulario() {
       await HTTP.post('salva/dados', values);
       getData();
       setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handle });
+      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handleModalClose });
     } catch (error) {
       setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário' });
+      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário', handleModalClose });
     }
   };
 
