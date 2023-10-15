@@ -12,12 +12,16 @@ export function Formulario() {
 
   const [fields, setFields] = useState([]);
 
-  const handleModalClose = () => {
+  const handleModalCloseOnSuccess = () => {
     setOpenModal({ isModalOpen: false });
     navigate('/');
   };
 
-  const [{ isModalOpen, modalTitle }, setOpenModal] = useState<{
+  const handleModalCloseOnFailure = () => {
+    setOpenModal({ isModalOpen: false });
+  };
+
+  const [{ isModalOpen, modalTitle, handleModalClose }, setOpenModal] = useState<{
     isModalOpen: boolean;
     modalTitle?: string;
     handleModalClose?: () => void;
@@ -50,10 +54,18 @@ export function Formulario() {
       await HTTP.post('salva/dados', values);
       getData();
       setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handleModalClose });
+      setOpenModal({
+        isModalOpen: true,
+        modalTitle: 'Formulário enviado com sucesso!',
+        handleModalClose: handleModalCloseOnSuccess,
+      });
     } catch (error) {
       setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário', handleModalClose });
+      setOpenModal({
+        isModalOpen: true,
+        modalTitle: 'Erro ao enviar formulário',
+        handleModalClose: handleModalCloseOnFailure,
+      });
     }
   };
 
