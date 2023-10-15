@@ -22,24 +22,25 @@ interface Props {
 
 export function MenuFront({ items }: Props) {
   return (
-    <Navbar className="" fluid rounded>
-      <div className="flex w-10 md:order-2">
-        <Navbar.Collapse>
-          {items.map(({ id, title, subitems }) =>
-            subitems !== undefined ? (
-              <Dropdown key={id} inline label={title}>
-                {subitems?.map(({ id: subItemId, title: subItemTitle }) => (
-                  <Dropdown.Item key={subItemId}>{subItemTitle}</Dropdown.Item>
-                ))}
-              </Dropdown>
-            ) : (
-              <Navbar.Link key={id} href="#">
-                {title}
-              </Navbar.Link>
-            ),
-          )}
-        </Navbar.Collapse>
-      </div>
-    </Navbar>
+    <div className="px-4">
+      <Navbar.Toggle className="lg:hidden" />
+      <Navbar.Collapse className="[&>ul]:gap-2 md:gap-0">
+        {items.map(({ id, title, subitems }) =>
+          subitems !== undefined ? (
+            <Dropdown key={id} inline label={title}>
+              {subitems?.map(({ id: subItemId, title: subItemTitle }) => (
+                <Dropdown.Item key={subItemId} className="text-black">
+                  {subItemTitle}
+                </Dropdown.Item>
+              ))}
+            </Dropdown>
+          ) : (
+            <Navbar.Link key={id} href="#" className="text-black m-0 p-0">
+              {title}
+            </Navbar.Link>
+          ),
+        )}
+      </Navbar.Collapse>
+    </div>
   );
 }
