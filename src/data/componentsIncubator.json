@@ -1,0 +1,21 @@
+[
+    {
+      "type": "title",
+      "content": "INCUBADORA TECNOLÓGICA"
+    },
+    {
+      "type": "main-content",
+      "content": "A incubadora ITS coloca a disposição dos incubados uma estrutura física adequada, consultorias periódicas de especialistas em gestão, acesso privilegiado aos parceiros de negócios e apoio para consolidação da empresa no mercado. Através do convênio ITS/DV, a ITS ampliou sua rede de relacionamentos constituindo mais de 12 parceiros.\nObjetivo geral\nFomentar o desenvolvimento econômico da região sudoeste do Paraná, através do estimulo, apoio e transformação de ideias em empresas inovadoras.\nObjetivos específicos\nSensibilizar a necessidade de empreendimentos inovadores de base tecnológica;\nEstimular a cultura do empreendedorismo;\nIdentificar, Catalogar e Selecionar projetos e ideias inovadoras potencial de gerar novos negócios;\nOferecer um ambiente propício a inovação e ao desenvolvimento do empreendimento;\nDisponibilizar serviços nas áreas estratégicas para o desenvolvimento do empreendimento, como planejamento,engenharia de software,marketing, contabilidade, legislação;\nCaptar recursos junto a instituições de fomento;\nEstabelecer uma rede de relacionamentos sustentável e duradoura;\nDisponibilizar consultorias e treinamentos;\nGraduar continua e com qualidade, as empresas incubadas."
+    },
+    {
+        "type": "content-buttons",
+        "content": [{"title": "COMO FUNCIONA / ESTRUTURA", "link":"/como-funciona-estrutura"},
+        {"title": "QUERO PARTICIPAR", "link":"/quero-participar-incubadora"},
+        {"title": "EMPRESAS INCUBADAS", "link":"/empresas/1"},
+        {"title": "EMPRESAS GRADUADAS", "link":"/empresas/2"},
+        {"title": "MENTORES E CONSULTORES", "link":"/mentores"},
+        {"title": "CENTRAL DE DOWNLOADS", "link":"/downloads/3/visualizar"}
+    ]
+    }
+  ]
+  
