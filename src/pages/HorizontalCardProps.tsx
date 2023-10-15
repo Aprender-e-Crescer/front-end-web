@@ -18,6 +18,9 @@ const HorizontalCard: React.FC<HorizontalCardProps> = ({ imgSrc, title, content 
       <p className="font-normal text-gray-700 dark:text-gray-400">
         {content}
       </p>
+      <div className="flex flex-col justify-center gap-4">
+              {content.split('\n').map(str => <p>{str}</p>)}
+            </div>
     </Card>
   );
 }
