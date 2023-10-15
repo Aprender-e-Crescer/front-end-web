@@ -3,9 +3,9 @@ import { FooterFront } from '../components/FooterFront';
 import { PopUpModal } from '../components/PopUpModal';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
-import popUpModalData from '../data/popUpModal2.json';
+import popUpModalData from '../data/popUpModal.json';
 
-export function BusinessIncubated() {
+export function BusinessGraduates() {
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />

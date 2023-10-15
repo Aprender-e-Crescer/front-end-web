@@ -9,6 +9,7 @@ import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 import { Formulario } from './pages/Formulario'
 import { ACLandingPage } from './pages/ACLandingPage'
+import { BusinessGraduates } from './pages/BusinessGraduates'
 import { BusinessIncubated } from './pages/BusinessIncubated'
 
 import './index.css'
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
         element: <AdminLandingPageEditor /> 
       },
       { 
-        path: "/empresas-encubadas",
+        path: "/empresas-graduadas",
+        element: <BusinessGraduates /> 
+      },
+      { 
+        path: "/empresas-incubadas",
         element: <BusinessIncubated /> 
       }
     ]
