@@ -11,6 +11,7 @@ import { Formulario } from './pages/Formulario'
 import { ACLandingPage } from './pages/ACLandingPage'
 import { BusinessGraduates } from './pages/BusinessGraduates'
 import { BusinessIncubated } from './pages/BusinessIncubated'
+import { MentorNetwork } from './pages/MentorNetwork'
 
 import './index.css'
  
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       { 
         path: "/empresas-incubadas",
         element: <BusinessIncubated /> 
+      },
+      { 
+        path: "/rede-de-mentores",
+        element: <MentorNetwork /> 
       }
     ]
   }
