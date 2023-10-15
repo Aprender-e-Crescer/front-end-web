@@ -11,10 +11,10 @@
         "type": "content-buttons",
         "content": [{"title": "COMO FUNCIONA / ESTRUTURA", "link":"/como-funciona-estrutura"},
         {"title": "QUERO PARTICIPAR", "link":"/quero-participar-incubadora"},
-        {"title": "EMPRESAS INCUBADAS", "link":"/empresas/1"},
-        {"title": "EMPRESAS GRADUADAS", "link":"/empresas/2"},
+        {"title": "EMPRESAS INCUBADAS", "link":"/empresas-incubadas"},
+        {"title": "EMPRESAS GRADUADAS", "link":"/empresas-graduadas"},
         {"title": "MENTORES E CONSULTORES", "link":"/mentores"},
-        {"title": "CENTRAL DE DOWNLOADS", "link":"/downloads/3/visualizar"}
+        {"title": "CENTRAL DE DOWNLOADS", "link":"/incubadora-central-de-downloads"}
     ]
     }
   ]
