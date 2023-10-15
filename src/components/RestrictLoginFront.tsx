@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
+import axios from 'axios';
 interface FormData {
   username: string;
   password: string;
@@ -100,9 +100,9 @@ export default function RestrictLoginFront() {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <a href="/" className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
+                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
                       Esqueceu a senha?
-                    </a>
+                    </p>
                   </div>
                   <button
                     type="submit"
