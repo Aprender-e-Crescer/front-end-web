@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { HTTP } from '../services/api';
+import { BrowserRouter, Link, Route, Routes, useNavigate } from "react-router-dom";
+import create from "zustand"
 interface FormData {
   username: string;
   password: string;
@@ -13,7 +15,53 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
+const useStore = create(
+  persist(
+    (set) => ({
+      user: { name: 'Usuário Padrão' },
+      updateUser: (name: string) => set((state) => ({ user: { name } })),
+    }),
+    { name: 'user-store' }
+  )
+);
+
+function UserProfile() {
+  const user = useStore((state) => state.user);
+  const updateUser = useStore((state) => state.updateUser);
+
+  const handleUpdateName = () => {
+    const newName = prompt('Novo nome:');
+    if (newName) {
+      updateUser(newName);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Perfil do Usuário</h2>
+      <p>Nome: {user.name}</p>
+      <button onClick={handleUpdateName}>Atualizar Nome</button>
+    </div>
+  );
+}
+
+
+const login = async (values: FormData) => {
+  try {
+    const { data } = await HTTP.post('/api/auth/login', {
+      email: values.username,
+      password: values.password,
+    });
+
+    return data;
+  } catch (error) {
+    console.error('Erro ao fazer login', error);
+  }
+};
+
 export default function RestrictLoginFront() {
+  const navigate = useNavigate();
+
   const initialValues: FormData = {
     username: '',
     password: '',
@@ -25,20 +73,20 @@ export default function RestrictLoginFront() {
     try {
       await validationSchema.validate(values, { abortEarly: false });
       console.log('Dados do formulário:', values);
+  
+     
+      const data = await login(values);
 
-      setSubmittedData([...submittedData, values]);
-
-      resetForm();
-
-      setOpenModal(undefined);
+      if (data.accessToken) {
+        navigate('/admin');
+      }
     } catch (errors) {
-      // Lida com os erros de validação do Yup
       const validationErrors: Record<string, string> = {};
       errors.inner.forEach((error) => {
         validationErrors[error.path] = error.message;
       });
-
-      // Define os erros no Formik para que sejam exibidos
+  
+   
       setErrors(validationErrors);
     }
   };
