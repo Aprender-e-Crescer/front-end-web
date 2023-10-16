@@ -1,7 +1,12 @@
-import React from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../components.json';
+import data from '../../data/components.json';
+
+interface IPhotoItems {
+  image: string;
+  who_is: string;
+  text: string;
+}
 
 const photoSchema = Yup.object().shape({
   photoItems: Yup.array().of(
@@ -13,14 +18,15 @@ const photoSchema = Yup.object().shape({
   ),
 });
 
-const PhotoComponent: React.FC = () => {
+function PhotoComponent() {
   const initialValues = {
-    photoItems: data.find(item => item.type === 'carrousel-testimony')?.content || [
+    photoItems: (data.find(item => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [
       { image: '', who_is: '', text: '' },
     ],
   };
 
-  const handleSubmit = async (values: { photoItems: { image: string; who_is: string; text: string }[] }) => {
+  const handleSubmit = async (values: { photoItems: IPhotoItems[] }) => {
+    // eslint-disable-next-line no-console
     console.log('Itens de fotos:', values.photoItems);
   };
 
@@ -43,52 +49,63 @@ const PhotoComponent: React.FC = () => {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-16  mt-32">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar itens de fotos.</h1>
-
           {formik.values.photoItems.map((item, index) => (
+            // TODO - use id instead of index
             <div key={index} className="flex flex-col">
-              <label htmlFor={`image${index}`}>Link da Imagem</label>
-              <input
-                type="url"
-                name={`image-${index}`}
-                id={`image-${index}`}
-                placeholder="https://www.example.com/image"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={item.image}
-              />
+              <label htmlFor={`image${index}`}>
+                Link da Imagem
+                <br />
+                <input
+                  type="url"
+                  name={`image-${index}`}
+                  id={`image-${index}`}
+                  placeholder="https://www.example.com/image"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={item.image}
+                  className="w-full"
+                />
+              </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
                 <div className="text-red-600">{formik.errors.photoItems[index].image}</div>
               )}
 
-              <label htmlFor={`who_is${index}`}>Título</label>
-              <input
-                type="text"
-                name={`who_is-${index}`}
-                id={`who_is-${index}`}
-                placeholder="Título da Imagem"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={item.who_is}
-              />
+              <label htmlFor={`who_is${index}`}>
+                Título
+                <br />
+                <input
+                  type="text"
+                  name={`who_is-${index}`}
+                  id={`who_is-${index}`}
+                  placeholder="Título da Imagem"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={item.who_is}
+                  className="w-full"
+                />
+              </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
                 <div className="text-red-600">{formik.errors.photoItems[index].who_is}</div>
               )}
 
-              <label htmlFor={`text${index}`}>Parágrafo</label>
-              <textarea
-                name={`text-${index}`}
-                id={`text-${index}`}
-                placeholder="Descrição da Imagem"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={item.text}
-              />
+              <label htmlFor={`text${index}`}>
+                Parágrafo
+                <br />
+                <textarea
+                  name={`text-${index}`}
+                  id={`text-${index}`}
+                  placeholder="Descrição da Imagem"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={item.text}
+                  className="w-full"
+                />
+              </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
                 <div className="text-red-600">{formik.errors.photoItems[index].text}</div>
               )}
-
               <button
                 type="button"
                 onClick={() => removePhotoItem(index)}
@@ -112,6 +129,6 @@ const PhotoComponent: React.FC = () => {
       </Form>
     </FormikProvider>
   );
-};
+}
 
 export default PhotoComponent;

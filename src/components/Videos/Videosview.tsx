@@ -1,4 +1,4 @@
-import data from '../components.json';
+import data from '../../data/components.json';
 import Videos from './Videos';
 
 function Videosview() {

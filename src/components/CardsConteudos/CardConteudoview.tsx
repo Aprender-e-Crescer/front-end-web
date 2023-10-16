@@ -1,5 +1,5 @@
 import CardConteudo from './CardConteudo';
-import data from '../components.json';
+import data from '../../data/components.json';
 
 function CardConteudoview() {
   return (

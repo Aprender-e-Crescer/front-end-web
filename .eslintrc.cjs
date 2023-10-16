@@ -22,6 +22,10 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier'],
   rules: {
+    // TODO - remove this in the future
+    'react/no-array-index-key': 'off',
+    'react/no-unused-prop-types': 'off',
+    'react/button-has-type': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
@@ -38,7 +42,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unused-expressions': 'off',
     'no-use-before-define': 'off',
-    "react/function-component-definition": ["error", "auto"],
     'import/extensions': [
       'error',
       'ignorePackages',

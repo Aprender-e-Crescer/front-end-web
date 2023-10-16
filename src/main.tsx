@@ -4,12 +4,13 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 
-
-import './index.css'
-import RestrictLoginFront from './components/RestrictLoginFront'
 import { AnswerViewer } from './pages/AnswerViewer'
 import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
+import { Formulario } from './pages/Formulario'
+import { ACLandingPage } from './pages/ACLandingPage'
+
+import './index.css'
  
 const router = createBrowserRouter([
   {
@@ -17,12 +18,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: '/',
+        element: <ACLandingPage />
+      },
+      {
         path: "/answer-viewer",
         element: <AnswerViewer />
       },
-      { 
-        path: "/arearestrita",
-        element: <RestrictLoginFront/>
+      {
+        path: "/form",
+        element: <Formulario />
       },
       {
         path: "/formulario-edicao",

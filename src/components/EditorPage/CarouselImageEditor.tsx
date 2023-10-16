@@ -1,18 +1,18 @@
-import React from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../components.json'
+import data from '../../data/components.json';
 
 const photoSchema = Yup.object().shape({
   photoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos uma foto é necessária'),
 });
 
-const PhotoComponent: React.FC = () => {
+function PhotoComponent() {
   const initialValues = {
-    photoLinks: data.find(item => item.type === "carrousel-images")?.content
+    photoLinks: data.find(item => item.type === 'carrousel-images')?.content,
   };
 
   const handleSubmit = async (values: { photoLinks: string[] }) => {
+    // eslint-disable-next-line no-console
     console.log('Links de fotos:', values.photoLinks);
   };
 
@@ -39,17 +39,21 @@ const PhotoComponent: React.FC = () => {
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar links de fotos.</h1>
 
           {formik.values.photoLinks.map((_, index) => (
+            // TODO - use id instead of index
             <div key={index} className="flex flex-col">
-              <label htmlFor={`photoLink${index}`}>Insira um link de foto</label>
-              <input
-                type="url"
-                name={`photoLinks[${index}]`}
-                id={`photoLink${index}`}
-                placeholder="https://www.example.com/photo"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.photoLinks[index]}
-              />
+              <label htmlFor={`photoLink${index}`}>
+                Insira um link de foto
+                <br />
+                <input
+                  type="url"
+                  name={`photoLinks[${index}]`}
+                  id={`photoLink${index}`}
+                  placeholder="https://www.example.com/photo"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.photoLinks[index]}
+                />
+              </label>
               {formik.touched.photoLinks && formik.errors.photoLinks && formik.errors.photoLinks[index] ? (
                 <div className="text-red-600">{formik.errors.photoLinks[index]}</div>
               ) : null}
@@ -77,6 +81,6 @@ const PhotoComponent: React.FC = () => {
       </Form>
     </FormikProvider>
   );
-};
+}
 
 export default PhotoComponent;
