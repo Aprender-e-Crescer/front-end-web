@@ -15,6 +15,7 @@ import { IncubatorLandingPage } from './pages/IncubatorLandingPage'
 import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona'
 import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar'
 import { IncubatorCentralDeDownloads } from './pages/IncubatorCentralDeDownloads'
+import { IncubatorFormulario } from './pages/IncubatorFormulario'
 
  
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/incubadora-central-de-downloads",
           element: <IncubatorCentralDeDownloads />
+      },
+      {
+        path: "/incubadora-formulario",
+          element: <IncubatorFormulario />
       }
     ]
   }

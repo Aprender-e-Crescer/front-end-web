@@ -8,14 +8,9 @@
       "content": "INSCRIÇÕES ABERTAS PARA O PROCESSO DE INCUBAÇÃO\nI Etapa\nINSCRIÇÕES DA IDEIA\n1-Leitura do Edital - BAIXAR EDITAL;\n2-Preenchimento do formulário ao lado, enviar para análise;\n3-A Sudotec agendará uma pré-entrevista com o candidato.\nII Etapa\nENTREGA DA DOCUMENTAÇÃO\n1-Preenchimento do plano de negócio simplificado;\n2-Envio documentação eletronicamente no link disponibilizado pela Sudotec no prazo estipulado.\nIII Etapa\nAPRESENTAÇÃO DA PROPOSTA PARA BANCA AVALIADORA\n1-Envio arquivo (ppt/pdf) para apresentação banca no endereço eletrônico incubadora@sudotec.org.br\n2-Apresentação para banca de acordo com convocação."
     },
     {
-        "type": "content-buttons",
-        "content": [{"title": "COMO FUNCIONA / ESTRUTURA", "link":"/como-funciona-estrutura"},
-        {"title": "QUERO PARTICIPAR", "link":"/quero-participar-incubadora"},
-        {"title": "EMPRESAS INCUBADAS", "link":"/empresas/1"},
-        {"title": "EMPRESAS GRADUADAS", "link":"/empresas/2"},
-        {"title": "MENTORES E CONSULTORES", "link":"/mentores"},
-        {"title": "CENTRAL DE DOWNLOADS", "link":"/downloads/3/visualizar"}
-    ]
-    }
+      "type": "content-buttons",
+      "content": [{"title": "Formulário Incubadora", "link":"/incubadora-formulario"}
+  ]
+  }
   ]
   
