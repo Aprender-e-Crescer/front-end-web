@@ -20,7 +20,7 @@ const photoSchema = Yup.object().shape({
 
 function PhotoComponent() {
   const initialValues = {
-    photoItems: (data.find(item => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [
+    photoItems: (data.find((item) => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [
       { image: '', who_is: '', text: '' },
     ],
   };
@@ -52,55 +52,54 @@ function PhotoComponent() {
         <div className="min-w-lg flex flex-col gap-16  mt-32">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar itens de fotos.</h1>
           {formik.values.photoItems.map((item, index) => (
-            // TODO - use id instead of index
             <div key={index} className="flex flex-col">
-              <label htmlFor={`image${index}`}>
+              <label htmlFor={`image-${index}`}>
                 Link da Imagem
                 <br />
                 <input
                   type="url"
-                  name={`image-${index}`}
+                  name={`photoItems[${index}].image`}
                   id={`image-${index}`}
                   placeholder="https://www.example.com/image"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.image}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
                 <div className="text-red-600">{formik.errors.photoItems[index].image}</div>
               )}
 
-              <label htmlFor={`who_is${index}`}>
+              <label htmlFor={`who_is-${index}`}>
                 Título
                 <br />
                 <input
                   type="text"
-                  name={`who_is-${index}`}
+                  name={`photoItems[${index}].who_is`}
                   id={`who_is-${index}`}
                   placeholder="Título da Imagem"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.who_is}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
                 <div className="text-red-600">{formik.errors.photoItems[index].who_is}</div>
               )}
 
-              <label htmlFor={`text${index}`}>
+              <label htmlFor={`text-${index}`}>
                 Parágrafo
                 <br />
                 <textarea
-                  name={`text-${index}`}
+                  name={`photoItems[${index}].text`}
                   id={`text-${index}`}
                   placeholder="Descrição da Imagem"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.text}
-                  className='w-full'
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (

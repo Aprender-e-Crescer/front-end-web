@@ -2,25 +2,25 @@
     {
       "id": 1,
       "name": "Aprender e Crescer",
-      "path": "/admin-landing-page",
+      "path": "/admin-landing-page-editor",
       "content": []
     },
     {
       "id": 2,
-      "name": "Incubadoras",
+      "name": "Incubadora",
       "path": "",
       "content": []
     },
     {
         "id": 3,
         "name": "Formularios",
-        "path": "/form",
+        "path": "/formulario-edicao",
         "content": []
       },
       {
         "id": 4,
-        "name": "",
-        "path": "",
+        "name": "Respostas do formulario",
+        "path": "/answer-viewer",
         "content": []
       },
       {
