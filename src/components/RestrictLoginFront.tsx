@@ -15,11 +15,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-
-
 function UserProfile() {
-  const user = useStore((state) => state.user);
-  const updateUser = useStore((state) => state.updateUser);
+  const user = useStore(state => state.user);
+  const updateUser = useStore(state => state.updateUser);
 
   const handleUpdateName = () => {
     const newName = prompt('Novo nome:');
@@ -37,10 +35,9 @@ function UserProfile() {
   );
 }
 
-
 const login = async (values: FormData) => {
   try {
-    const { data } = await HTTP.post('/api/auth/login', {
+    const { data } = await HTTP.post('/auth/login', {
       email: values.username,
       password: values.password,
     });
@@ -52,8 +49,8 @@ const login = async (values: FormData) => {
 };
 
 export default function RestrictLoginFront() {
-  const token = useAuthStore((state) => state.token);
-  
+  const token = useAuthStore(state => state.token);
+
   const initialValues: FormData = {
     username: '',
     password: '',
@@ -66,20 +63,19 @@ export default function RestrictLoginFront() {
       await validationSchema.validate(values, { abortEarly: false });
       // eslint-disable-next-line no-console
       console.log('Dados do formulário:', values);
-     
+
       const data = await login(values);
 
       if (data.accessToken) {
         useAuthStore.setState({ token: data.accessToken });
-          // navigate('/admin');
+        // navigate('/admin');
       }
     } catch (errors) {
       const validationErrors: Record<string, string> = {};
       errors.inner.forEach((error: { path: string | number; message: string }) => {
         validationErrors[error.path] = error.message;
       });
-  
-   
+
       setErrors(validationErrors);
     }
   };
@@ -89,7 +85,7 @@ export default function RestrictLoginFront() {
       <Button gradientDuoTone="redToYellow" outline onClick={() => useAuthStore.setState({ token: null })}>
         Desconectar
       </Button>
-    )
+    );
   }
 
   return (
@@ -148,9 +144,7 @@ export default function RestrictLoginFront() {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
-                      Esqueceu a senha?
-                    </p>
+                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">Esqueceu a senha?</p>
                   </div>
                   <button
                     type="submit"

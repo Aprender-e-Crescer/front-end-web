@@ -15,7 +15,7 @@ async function refreshToken() {
   try {
     const {
       data: { access_token: token },
-    } = await HTTP.get<{ access_token: string }>('/api/auth/refresh');
+    } = await HTTP.get<{ access_token: string }>('/auth/refresh');
 
     useAuthStore.setState({ token });
   } catch (error) {
