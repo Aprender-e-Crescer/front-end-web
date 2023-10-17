@@ -5,19 +5,19 @@ const titleSchema = Yup.object().shape({
   titleInput: Yup.string().required('O título é obrigatório'),
 });
 
-function TitleComponent({ data }) {
+function TitleComponent({ data, handleSubmit }) {
   const initialValues = {
     titleInput: data?.find(item => item.type === 'title')?.content || '',
-  };
-
-  const handleSubmit = values => {
-    console.log('Título inserido:', values.titleInput);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: titleSchema,
-    onSubmit: handleSubmit,
+    onSubmit: ({ titleInput }) =>
+      handleSubmit({
+        type: 'title',
+        content: titleInput,
+      }),
   });
 
   return (
