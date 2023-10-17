@@ -12,7 +12,7 @@ import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
 import { HTTP } from '../services/api';
 
 async function fetchData() {
-  const users = await HTTP.get('/pages');
+  const users = await HTTP.get('/presentations');
 
   return users.data;
 }
