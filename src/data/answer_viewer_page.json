@@ -1,0 +1,100 @@
+[
+  {
+    "type": "ShortAnswersViewer",
+    "data": {
+      "title": "Nome completo",
+      "answers": [
+        "Joao Paulo",
+        "Gabriel Rodolfo",
+        "Roberto Carlos",
+        "Janaina Alves",
+        "Douglas",
+        "Paulo",
+        "Leonardo",
+        "Evandro",
+        "Erick",
+        "Luiz",
+        "Fernando"
+      ]
+    }
+  },
+  {
+    "type": "DateSelectViewer",
+    "data": {
+      "title": "Data de Nascimento",
+      "dates": {
+        "03/2002": [5],
+        "05/2005": [10, 20],
+        "05/2006": [10, 20]
+      }
+    }
+  },
+
+  {
+    "type": "DateSelectViewer",
+    "data": {
+      "title": "Data de Nascimento da mae",
+      "dates": {
+        "03/2002": [5]
+      }
+    }
+  },
+
+  {
+    "type": "DateSelectViewer",
+    "data": {
+      "title": "Data de Nascimento do pai",
+      "dates": {
+        "03/2002": [5]
+      }
+    }
+  },
+
+  {
+    "type": "ShortAnswersViewer",
+    "data": {
+      "title": "Endereço",
+      "answer": ["Rua Tiradentes, Número 1638"]
+    }
+  },
+
+  {
+    "type": "ShortAnswersViewer",
+    "data": {
+      "title": "Nome dos pais ou responsáveis, caso não seja maior de 18 anos",
+      "answer": ["Maria Madalena"]
+    }
+  },
+
+  {
+    "type": "Chart",
+    "data": {
+      "title": "Esta cursando",
+      "label": ["Ensino Médio, Faculdade, Pós-Graduação, Já sou formado"]
+    }
+  },
+
+  {
+    "type": "Chart",
+    "data": {
+      "title": "Gosta de tecnologia?",
+      "label": ["Sim muito, Mais ou Menos, Não Porém é necessário, Não gosto nenhum pouco"]
+    }
+  },
+
+  {
+    "type": "Chart",
+    "data": {
+      "title": "Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?",
+      "label": ["Programação, Suporte, RH, Design, Atendimento"]
+    }
+  },
+
+  {
+    "type": "Chart",
+    "data": {
+      "title": "Tamanho da camiseta que você veste??",
+      "label": ["PP, P, M, G, GG"]
+    }
+  }
+]

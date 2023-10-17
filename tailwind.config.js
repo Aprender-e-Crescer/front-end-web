@@ -6,7 +6,17 @@ export default {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    colors: {
+      'LarSud': 'B14205',
+      'AzuSud': '161548'
+    },
+    extend: {
+      borderWidth: {
+        '25': '25px', 
+        
+      }
+      
+    },
   },
   plugins: [
     require('flowbite/plugin'),

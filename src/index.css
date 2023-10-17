@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TODO - check real url, right now its on assets folder */
+.imagem-fundo {
+    @apply bg-[url(./images/imagem-fundo.png)] w-full h-full;
+}
