@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { HTTP } from '../services/api';
+import { useAuthStore } from '../stores/useAuthStore';
 
 interface FormData {
   username: string;
@@ -13,7 +15,45 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
+
+
+function UserProfile() {
+  const user = useStore((state) => state.user);
+  const updateUser = useStore((state) => state.updateUser);
+
+  const handleUpdateName = () => {
+    const newName = prompt('Novo nome:');
+    if (newName) {
+      updateUser(newName);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Perfil do Usuário</h2>
+      <p>Nome: {user.name}</p>
+      <button onClick={handleUpdateName}>Atualizar Nome</button>
+    </div>
+  );
+}
+
+
+const login = async (values: FormData) => {
+  try {
+    const { data } = await HTTP.post('/api/auth/login', {
+      email: values.username,
+      password: values.password,
+    });
+
+    return data;
+  } catch (error) {
+    console.error('Erro ao fazer login', error);
+  }
+};
+
 export default function RestrictLoginFront() {
+  const token = useAuthStore((state) => state.token);
+  
   const initialValues: FormData = {
     username: '',
     password: '',
@@ -26,24 +66,31 @@ export default function RestrictLoginFront() {
       await validationSchema.validate(values, { abortEarly: false });
       // eslint-disable-next-line no-console
       console.log('Dados do formulário:', values);
+     
+      const data = await login(values);
 
-      setSubmittedData([...submittedData, values]);
-
-      resetForm();
-
-      setOpenModal(undefined);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (errors: any) {
-      // Lida com os erros de validação do Yup
+      if (data.accessToken) {
+        useAuthStore.setState({ token: data.accessToken });
+          // navigate('/admin');
+      }
+    } catch (errors) {
       const validationErrors: Record<string, string> = {};
       errors.inner.forEach((error: { path: string | number; message: string }) => {
         validationErrors[error.path] = error.message;
       });
-
-      // Define os erros no Formik para que sejam exibidos
+  
+   
       setErrors(validationErrors);
     }
   };
+
+  if (token) {
+    return (
+      <Button gradientDuoTone="redToYellow" outline onClick={() => useAuthStore.setState({ token: null })}>
+        Desconectar
+      </Button>
+    )
+  }
 
   return (
     <>
@@ -101,9 +148,9 @@ export default function RestrictLoginFront() {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <a href="/" className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
+                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
                       Esqueceu a senha?
-                    </a>
+                    </p>
                   </div>
                   <button
                     type="submit"
