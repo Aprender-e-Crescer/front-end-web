@@ -1,5 +1,7 @@
 import { Switch, Case } from 'react-if';
 import { Tabs, Card } from 'flowbite-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
 import { Chart } from '../components/Chart';
@@ -8,8 +10,46 @@ import { FooterFront } from '../components/FooterFront';
 import pageData from '../data/answer_viewer_page.json';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
+import FormViewer from '../components/FormViewer';
+import fields from '../data/answer_viewer_page_form.json';
+import { getFieldName } from '../utils/getFieldName';
 
 export function AnswerViewer() {
+  const navigate = useNavigate();
+
+  const [formValues, setFormValues] = useState({
+    [getFieldName(fields[0])]: 'Jonatann',
+    [getFieldName(fields[1])]: '2021-03-12',
+    [getFieldName(fields[2])]: 'Rua tal',
+    [getFieldName(fields[3])]: 'Ensino Médio',
+  });
+
+  const handleModalClose = () => {
+    setOpenModal({ isModalOpen: false });
+    navigate('/');
+  };
+
+  const [{ isModalOpen, modalTitle }, setOpenModal] = useState<{
+    isModalOpen: boolean;
+    modalTitle?: string;
+    handleModalClose?: () => void;
+  }>({
+    isModalOpen: false,
+    modalTitle: 'Formulário enviado com sucesso!',
+    handleModalClose: () => {},
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (values: any) => {
+    try {
+      setIsLoading(false);
+      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handleModalClose });
+    } catch (error) {
+      setIsLoading(false);
+      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário', handleModalClose });
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
@@ -48,7 +88,18 @@ export function AnswerViewer() {
             </div>
           </Tabs.Item>
           <Tabs.Item title="Individual">
-            <div className="flex flex-col gap-4" />
+            <FormViewer
+              handleModalClose={handleModalClose}
+              handleSubmit={handleSubmit}
+              isLoading={isLoading}
+              isModalOpen={isModalOpen}
+              modalTitle={modalTitle}
+              fields={fields}
+              mainTitle="Formulário respondido"
+              hideActions
+              isFieldsDisabled
+              values={formValues}
+            />
             <div className="flex">
               <a
                 href="#"
