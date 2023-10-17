@@ -1,27 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HTTP } from '../services/api';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
 import { HeaderFront } from '../components/HeaderFront';
 import FormViewer from '../components/FormViewer';
+import data from '../data/componentsIncubatorFormulario.json';
 
-export function Formulario() {
+export function IncubatorFormulario() {
   const navigate = useNavigate();
 
   const [fields, setFields] = useState([]);
 
-  const handleModalCloseOnSuccess = () => {
+  const handleModalClose = () => {
     setOpenModal({ isModalOpen: false });
     navigate('/');
   };
 
-  const handleModalCloseOnFailure = () => {
-    setOpenModal({ isModalOpen: false });
-  };
-
-  const [{ isModalOpen, modalTitle, handleModalClose }, setOpenModal] = useState<{
+  const [{ isModalOpen, modalTitle }, setOpenModal] = useState<{
     isModalOpen: boolean;
     modalTitle?: string;
     handleModalClose?: () => void;
@@ -35,9 +31,7 @@ export function Formulario() {
   const getData = async () => {
     try {
       setIsLoading(true);
-      const response = await HTTP.get('api/form/ac');
-      const result = response.data;
-      setFields(result);
+      setFields(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,21 +45,11 @@ export function Formulario() {
 
   const handleSubmit = async (values: any) => {
     try {
-      await HTTP.post('salva/dados', values);
-      getData();
       setIsLoading(false);
-      setOpenModal({
-        isModalOpen: true,
-        modalTitle: 'Formulário enviado com sucesso!',
-        handleModalClose: handleModalCloseOnSuccess,
-      });
+      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handleModalClose });
     } catch (error) {
       setIsLoading(false);
-      setOpenModal({
-        isModalOpen: true,
-        modalTitle: 'Erro ao enviar formulário',
-        handleModalClose: handleModalCloseOnFailure,
-      });
+      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário', handleModalClose });
     }
   };
 
@@ -80,8 +64,7 @@ export function Formulario() {
           isModalOpen={isModalOpen}
           modalTitle={modalTitle}
           fields={fields}
-          mainTitle="Inscrever-se para o programa de qualificação Aprender e Crescer"
-          srcMainImage="/img/aprendereCrescer2.png"
+          mainTitle="Formulário para processo de Incubação"
         />
       </div>
       <FooterFront

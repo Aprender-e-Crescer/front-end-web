@@ -49,13 +49,14 @@ function PhotoComponent() {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-16  mt-32">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar itens de fotos.</h1>
           {formik.values.photoItems.map((item, index) => (
             // TODO - use id instead of index
             <div key={index} className="flex flex-col">
               <label htmlFor={`image${index}`}>
                 Link da Imagem
+                <br />
                 <input
                   type="url"
                   name={`image-${index}`}
@@ -64,6 +65,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.image}
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
@@ -72,6 +74,7 @@ function PhotoComponent() {
 
               <label htmlFor={`who_is${index}`}>
                 Título
+                <br />
                 <input
                   type="text"
                   name={`who_is-${index}`}
@@ -80,6 +83,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.who_is}
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (
@@ -88,6 +92,7 @@ function PhotoComponent() {
 
               <label htmlFor={`text${index}`}>
                 Parágrafo
+                <br />
                 <textarea
                   name={`text-${index}`}
                   id={`text-${index}`}
@@ -95,6 +100,7 @@ function PhotoComponent() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={item.text}
+                  className="w-full"
                 />
               </label>
               {formik.touched.photoItems && formik.errors.photoItems && formik.errors.photoItems[index] && (

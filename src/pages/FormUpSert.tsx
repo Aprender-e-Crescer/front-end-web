@@ -6,9 +6,11 @@ import { FormUpdateAdmin } from '../components/FormUpdateAdmin';
 
 export function FormUpSert() {
   return (
-    <div>
+    <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <FormUpdateAdmin />
+      <div className="w-full md:w-[80%] self-center">
+        <FormUpdateAdmin />
+      </div>
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}

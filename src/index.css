@@ -2,32 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO - APP containter */
-
-.container {
-    @apply max-w-[1000px] h-auto mx-auto my-8 px-8 py-0;
-}
-
-/* TODO - */
-/* EVANDRO ---------- */
-
-.sectionForm {
-    @apply relative transition-transform duration-[0.3s] ease-[ease-in-out] mx-auto my-0;
-}
-
-.form {
-    @apply flex flex-col bg-[#f7f7f7] border m-auto p-[30px] p-5 rounded-[10px] border-solid border-[#ccc];
-    font-family: Arial, sans-serif;
-}
-
-.buttons {
-    @apply flex justify-between;
-}
-
-.buttoncleanform {
-    @apply bg-[#fa3333] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#d33f3f];
-}
-
-.button {
-    @apply bg-[#007bff] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#267edd];
+/* TODO - check real url, right now its on assets folder */
+.imagem-fundo {
+    @apply bg-[url(./images/imagem-fundo.png)] w-full h-full;
 }

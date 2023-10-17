@@ -1,22 +1,25 @@
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
-import { DateSelectViewer } from '../components/DateSelectViewer';
-import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
-import { Chart } from '../components/Chart';
-import chart from '../data/chart.json';
-import days from '../data/days.json';
-import short from '../data/short.json';
+import { PopUpModal } from '../components/PopUpModal';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
+import popUpModalData from '../data/popUpModal.json';
 
-export function AnswerViewer() {
+export function BusinessGraduates() {
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
-        <ShortAnswerViewer title={short.title} answers={short.answers} />
-        <DateSelectViewer dates={days.dates} title={days.title} />
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {popUpModalData.map(({ businessName, buttonText, imageSrc, mainText }) => 
+            <PopUpModal
+              businessName={businessName}
+              buttonText={buttonText}
+              imageSrc={imageSrc}
+              mainText={mainText}
+            />
+          )}
+        </div>
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

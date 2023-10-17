@@ -1,22 +1,26 @@
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
-import { DateSelectViewer } from '../components/DateSelectViewer';
-import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
-import { Chart } from '../components/Chart';
-import chart from '../data/chart.json';
-import days from '../data/days.json';
-import short from '../data/short.json';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
+import horizontalCardData from '../data/horizontalCard.json';
+import HorizontalCardProps from '../pages/HorizontalCardProps.tsx';
 
-export function AnswerViewer() {
+
+
+export function MentorNetwork() {
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <Chart title={chart.title} labels={chart.labels} datasets={chart.datasets} />
-        <ShortAnswerViewer title={short.title} answers={short.answers} />
-        <DateSelectViewer dates={days.dates} title={days.title} />
+        <div className="mt-8 grid grid-cols-1">
+        {horizontalCardData.map(({ imgSrc, title, content }) => 
+            <HorizontalCardProps
+              imgSrc={imgSrc}
+              title={title}
+              content={content}
+            />
+        )}
+        </div>
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

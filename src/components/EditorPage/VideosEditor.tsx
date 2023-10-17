@@ -42,6 +42,7 @@ function VideoComponent() {
             <div key={index} className="flex flex-col">
               <label htmlFor={`videoLink${index}`}>
                 Insira um link de vídeo
+                <br />
                 <input
                   type="url"
                   name={`videoLinks[${index}]`}

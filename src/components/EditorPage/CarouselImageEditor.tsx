@@ -43,6 +43,7 @@ function PhotoComponent() {
             <div key={index} className="flex flex-col">
               <label htmlFor={`photoLink${index}`}>
                 Insira um link de foto
+                <br />
                 <input
                   type="url"
                   name={`photoLinks[${index}]`}
