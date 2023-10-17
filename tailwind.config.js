@@ -13,7 +13,9 @@ export default {
     extend: {
       borderWidth: {
         '25': '25px', 
+        
       }
+      
     },
   },
   plugins: [
