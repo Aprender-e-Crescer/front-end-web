@@ -14,6 +14,12 @@ import { BusinessIncubated } from './pages/BusinessIncubated'
 import { MentorNetwork } from './pages/MentorNetwork'
 
 import './index.css'
+import { IncubatorLandingPage } from './pages/IncubatorLandingPage'
+import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona'
+import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar'
+import { IncubatorCentralDeDownloads } from './pages/IncubatorCentralDeDownloads'
+import { IncubatorFormulario } from './pages/IncubatorFormulario'
+
  
 const router = createBrowserRouter([
   {
@@ -40,6 +46,26 @@ const router = createBrowserRouter([
         path: "/admin-landing-page-editor",
         element: <AdminLandingPageEditor /> 
       },
+      {
+        path: "/incubator-page",
+          element: <IncubatorLandingPage />
+      },
+      {
+        path: "/como-funciona-estrutura",
+          element: <IncubatorComoFunciona />
+      },
+      {
+        path: "/quero-participar-incubadora",
+          element: <IncubatorQueroParticipar />
+      },
+      {
+        path: "/incubadora-central-de-downloads",
+          element: <IncubatorCentralDeDownloads />
+      },
+      {
+        path: "/incubadora-formulario",
+          element: <IncubatorFormulario />
+        },
       { 
         path: "/empresas-graduadas",
         element: <BusinessGraduates /> 
