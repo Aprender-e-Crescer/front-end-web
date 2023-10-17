@@ -15,8 +15,6 @@ import './index.css'
 import { BusinessGraduates } from './pages/BusinessGraduates'
 import { BusinessIncubated } from './pages/BusinessIncubated'
 import { MentorNetwork } from './pages/MentorNetwork'
-
-import './index.css'
 import { IncubatorLandingPage } from './pages/IncubatorLandingPage'
 import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona'
 import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar'
