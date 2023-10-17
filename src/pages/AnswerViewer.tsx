@@ -1,6 +1,6 @@
 import { Switch, Case } from 'react-if';
 import { Tabs, Card } from 'flowbite-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
@@ -12,16 +12,21 @@ import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
 import FormViewer from '../components/FormViewer';
 import fields from '../data/answer_viewer_page_form.json';
+import answers from '../data/answer_viewer_page_answers.json';
 import { getFieldName } from '../utils/getFieldName';
 
 export function AnswerViewer() {
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
-    [getFieldName(fields[0])]: 'Jonatann',
-    [getFieldName(fields[1])]: '2021-03-12',
-    [getFieldName(fields[2])]: 'Rua tal',
+    [getFieldName(fields[0])]: 'João Paulo',
+    [getFieldName(fields[1])]: '2007-03-12',
+    [getFieldName(fields[2])]: 'Rua Tales',
     [getFieldName(fields[3])]: 'Ensino Médio',
+    [getFieldName(fields[4])]: 'Não, porém é necessário',
+    [getFieldName(fields[5])]: 'Suporte',
+    [getFieldName(fields[6])]: 'GG',
+    [getFieldName(fields[7])]: 'João Miguel',
   });
 
   const handleModalClose = () => {
@@ -39,6 +44,35 @@ export function AnswerViewer() {
     handleModalClose: () => {},
   });
   const [isLoading, setIsLoading] = useState(false);
+  const currentAnswer = useRef(0);
+
+  const handleGoToNext = () => {
+    currentAnswer.current < answers.length && (currentAnswer.current += 1);
+    setFormValues({
+      [getFieldName(fields[0])]: answers[currentAnswer.current].answer[fields[0].id],
+      [getFieldName(fields[1])]: answers[currentAnswer.current].answer[fields[1].id],
+      [getFieldName(fields[2])]: answers[currentAnswer.current].answer[fields[2].id],
+      [getFieldName(fields[3])]: answers[currentAnswer.current].answer[fields[3].id],
+      [getFieldName(fields[4])]: answers[currentAnswer.current].answer[fields[4].id],
+      [getFieldName(fields[5])]: answers[currentAnswer.current].answer[fields[5].id],
+      [getFieldName(fields[6])]: answers[currentAnswer.current].answer[fields[6].id],
+      [getFieldName(fields[7])]: answers[currentAnswer.current].answer[fields[7].id],
+    });
+  };
+
+  const handleGoToPrevious = () => {
+    currentAnswer.current > 0 && (currentAnswer.current -= 1);
+    setFormValues({
+      [getFieldName(fields[0])]: answers[currentAnswer.current].answer[fields[0].id],
+      [getFieldName(fields[1])]: answers[currentAnswer.current].answer[fields[1].id],
+      [getFieldName(fields[2])]: answers[currentAnswer.current].answer[fields[2].id],
+      [getFieldName(fields[3])]: answers[currentAnswer.current].answer[fields[3].id],
+      [getFieldName(fields[4])]: answers[currentAnswer.current].answer[fields[4].id],
+      [getFieldName(fields[5])]: answers[currentAnswer.current].answer[fields[5].id],
+      [getFieldName(fields[6])]: answers[currentAnswer.current].answer[fields[6].id],
+      [getFieldName(fields[7])]: answers[currentAnswer.current].answer[fields[7].id],
+    });
+  };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -88,6 +122,20 @@ export function AnswerViewer() {
             </div>
           </Tabs.Item>
           <Tabs.Item title="Individual">
+            <div className="flex mb-4">
+              <button
+                onClick={handleGoToPrevious}
+                className="flex items-center justify-center px-3 h-8 ml-60 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Anterior
+              </button>
+              <button
+                onClick={handleGoToNext}
+                className="flex items-center justify-center px-3 h-8 ml-80 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                Próximo
+              </button>
+            </div>
             <FormViewer
               handleModalClose={handleModalClose}
               handleSubmit={handleSubmit}
@@ -100,20 +148,6 @@ export function AnswerViewer() {
               isFieldsDisabled
               values={formValues}
             />
-            <div className="flex">
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 ml-60 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Anterior
-              </a>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 ml-80 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Próximo
-              </a>
-            </div>
           </Tabs.Item>
         </Tabs.Group>
       </div>
