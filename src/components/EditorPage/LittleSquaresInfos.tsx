@@ -1,13 +1,12 @@
 import { Formik, FieldArray, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import data from '../../data/components.json';
 
 const validationSchema = Yup.object().shape({
   textList: Yup.array().of(Yup.string().required('Campo de texto é obrigatório')),
 });
 
-function TextSquareComponent() {
-  const initialValues = { textList: data.find(item => item.type === 'content-cards')?.content };
+function TextSquareComponent({ data }) {
+  const initialValues = { textList: data?.find(item => item.type === 'content-cards')?.content || [] };
 
   return (
     <div className="min-w-lg flex flex-col gap-2 mt-32">

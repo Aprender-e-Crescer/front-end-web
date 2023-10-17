@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
-
 interface IPhotoItems {
   image: string;
   who_is: string;
@@ -18,11 +16,9 @@ const photoSchema = Yup.object().shape({
   ),
 });
 
-function PhotoComponent() {
+function PhotoComponent({ data }) {
   const initialValues = {
-    photoItems: (data.find((item) => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [
-      { image: '', who_is: '', text: '' },
-    ],
+    photoItems: (data?.find(item => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [],
   };
 
   const handleSubmit = async (values: { photoItems: IPhotoItems[] }) => {

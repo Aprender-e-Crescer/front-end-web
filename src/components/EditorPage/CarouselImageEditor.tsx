@@ -1,19 +1,18 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const photoSchema = Yup.object().shape({
-  photoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos uma foto é necessária'),
+  link: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos uma foto é necessária'),
 });
 
-function PhotoComponent() {
+function PhotoComponent({ data }) {
   const initialValues = {
-    photoLinks: data.find(item => item.type === 'carrousel-images')?.content,
+    link: data.find(item => item.type === 'carrousel-images')?.content || [],
   };
 
-  const handleSubmit = async (values: { photoLinks: string[] }) => {
+  const handleSubmit = async (values: { link: string[] }) => {
     // eslint-disable-next-line no-console
-    console.log('Links de fotos:', values.photoLinks);
+    console.log('Links de fotos:', values.link);
   };
 
   const formik = useFormik({
@@ -23,13 +22,13 @@ function PhotoComponent() {
   });
 
   const addPhotoInput = () => {
-    formik.setFieldValue('photoLinks', [...formik.values.photoLinks, '']);
+    formik.setFieldValue('link', [...formik.values.link, '']);
   };
 
   const removePhotoInput = (index: number) => {
-    const updatedLinks = [...formik.values.photoLinks];
+    const updatedLinks = [...formik.values.link];
     updatedLinks.splice(index, 1);
-    formik.setFieldValue('photoLinks', updatedLinks);
+    formik.setFieldValue('link', updatedLinks);
   };
 
   return (
@@ -38,7 +37,7 @@ function PhotoComponent() {
         <div className="min-w-lg flex flex-col gap-2 mt-32">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar links de fotos.</h1>
 
-          {formik.values.photoLinks.map((_, index) => (
+          {formik.values.link.map((_, index) => (
             // TODO - use id instead of index
             <div key={index} className="flex flex-col">
               <label htmlFor={`photoLink${index}`}>
@@ -46,16 +45,16 @@ function PhotoComponent() {
                 <br />
                 <input
                   type="url"
-                  name={`photoLinks[${index}]`}
+                  name={`link[${index}]`}
                   id={`photoLink${index}`}
                   placeholder="https://www.example.com/photo"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.photoLinks[index]}
+                  value={formik.values.link[index]}
                 />
               </label>
-              {formik.touched.photoLinks && formik.errors.photoLinks && formik.errors.photoLinks[index] ? (
-                <div className="text-red-600">{formik.errors.photoLinks[index]}</div>
+              {formik.touched.link && formik.errors.link && formik.errors.link[index] ? (
+                <div className="text-red-600">{formik.errors.link[index]}</div>
               ) : null}
 
               <button

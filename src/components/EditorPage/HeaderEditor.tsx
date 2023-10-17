@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const headerSchema = Yup.object().shape({
   logoFile: Yup.mixed().required('Você precisa selecionar um arquivo'),
 });
 
-function HeaderComponent() {
+function HeaderComponent({ data }) {
   const initialValues = {
-    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: [''] },
+    logoFile: data?.find(item => item.type === 'logo')?.content || { textInputs: [''] },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);

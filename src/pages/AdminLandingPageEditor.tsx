@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
@@ -10,20 +12,41 @@ import MainContent from '../components/EditorPage/MainContent';
 import VideoEditor from '../components/EditorPage/VideosEditor';
 import Button from '../components/EditorPage/ButtonEditor';
 import SubMainContent from '../components/EditorPage/SubMainContent';
+import pages from '../data/pages.json';
+import Title from '../components/EditorPage/Title';
+
+const fetchData = (id: number) => async () => {
+  return pages.find(item => item.id === Number(id))?.content;
+};
 
 export function AdminLandingPageEditor() {
+  const { id } = useParams();
+  const { data, isLoading } = useQuery({
+    queryKey: [`page${id}`],
+    queryFn: fetchData(id),
+  });
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (!id) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <Header />
-        <CarouselComponent />
-        <LittleSquaresInfos />
-        <MainContent />
-        <SubMainContent />
-        <Button />
-        <VideoEditor />
-        <CarouselDepoimentoEditor />
+        <Title data={data} />
+        <Header data={data} />
+        <CarouselComponent data={data} />
+        <LittleSquaresInfos data={data} />
+        <MainContent data={data} />
+        <SubMainContent data={data} />
+        <Button data={data} />
+        <VideoEditor data={data} />
+        <CarouselDepoimentoEditor data={data} />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

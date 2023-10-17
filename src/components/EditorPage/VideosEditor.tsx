@@ -1,18 +1,16 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const videoSchema = Yup.object().shape({
   videoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos um link é necessário'),
 });
 
-function VideoComponent() {
+function VideoComponent({ data }) {
   const initialValues = {
-    videoLinks: data.find(item => item.type === 'video')?.content,
+    videoLinks: data?.find(item => item.type === 'video')?.content || [],
   };
 
   const handleSubmit = async (values: { videoLinks: string[] }) => {
-    // eslint-disable-next-line no-console
     console.log('Links de vídeo:', values.videoLinks);
   };
 

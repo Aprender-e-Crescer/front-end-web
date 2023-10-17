@@ -1,6 +1,3 @@
-
-
-
 [
   {
     "type": "video",
@@ -71,6 +68,6 @@
   },
   {
     "type": "content-buttons",
-    "content": [{"title": "Inscrições", "link":"/form"}]
+    "content": [{ "title": "Inscrições", "link": "/form" }]
   }
 ]

@@ -1,14 +1,13 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const textSchema = Yup.object().shape({
   textInput: Yup.string().required('O texto é obrigatório'),
 });
 
-function TextComponent() {
+function TextComponent({ data }) {
   const initialValues = {
-    textInput: data.find(item => item.type === 'main-subcontent')?.content || '',
+    textInput: data?.find(item => item.type === 'main-subcontent')?.content || '',
   };
 
   const handleSubmit = (values: typeof initialValues) => {
