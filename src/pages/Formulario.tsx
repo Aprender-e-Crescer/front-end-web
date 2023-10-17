@@ -1,60 +1,71 @@
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import { pt } from 'yup-locale-pt';
 import { useState, useEffect } from 'react';
-import Input from '../components/Input/Input';
-import InputDrop from '../components/inputDrop/InputDrop';
+import { useNavigate } from 'react-router-dom';
 import { HTTP } from '../services/api';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
 import { HeaderFront } from '../components/HeaderFront';
+import FormViewer from '../components/FormViewer';
 
-Yup.setLocale(pt);
 export function Formulario() {
-  // TODO - create type for response data
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
+  const [fields, setFields] = useState([]);
+
+  const handleModalCloseOnSuccess = () => {
+    setOpenModal({ isModalOpen: false });
+    navigate('/');
+  };
+
+  const handleModalCloseOnFailure = () => {
+    setOpenModal({ isModalOpen: false });
+  };
+
+  const [{ isModalOpen, modalTitle, handleModalClose }, setOpenModal] = useState<{
+    isModalOpen: boolean;
+    modalTitle?: string;
+    handleModalClose?: () => void;
+  }>({
+    isModalOpen: false,
+    modalTitle: 'Formulário enviado com sucesso!',
+    handleModalClose: () => {},
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const getData = async () => {
     try {
+      setIsLoading(true);
       const response = await HTTP.get('api/form/ac');
       const result = response.data;
-      setData(result);
+      setFields(result);
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
 
-  const fieldsWithName = data.map(field => ({
-    ...field,
-    name: `${field.label.toLowerCase().replaceAll(' ', '-')}-${field.id}`,
-  }));
-
-  const schema = Yup.object().shape(
-    fieldsWithName.reduce((acc, field) => {
-      acc[field.name] = field.required ? Yup.string().required().label(field.label) : Yup.string().label(field.label);
-      return acc;
-    }, {}),
-  );
-
-  const initialValues: { [key: string]: string } = {};
-
-  fieldsWithName.forEach(field => {
-    initialValues[field.name] = '';
-  });
-
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = async (values: any) => {
     try {
       await HTTP.post('salva/dados', values);
-
       getData();
+      setIsLoading(false);
+      setOpenModal({
+        isModalOpen: true,
+        modalTitle: 'Formulário enviado com sucesso!',
+        handleModalClose: handleModalCloseOnSuccess,
+      });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Erro ao salvar os dados:', error);
+      setIsLoading(false);
+      setOpenModal({
+        isModalOpen: true,
+        modalTitle: 'Erro ao enviar formulário',
+        handleModalClose: handleModalCloseOnFailure,
+      });
     }
   };
 
@@ -62,67 +73,16 @@ export function Formulario() {
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <section className="relative transition-transform duration-[0.3s] ease-[ease-in-out] mx-auto my-0">
-          <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
-            {({ errors, touched }) => (
-              <Form
-                style={{ fontFamily: 'Arial, sans-serif' }}
-                className="flex flex-col bg-[#f7f7f7] border m-auto p-5 rounded-[10px] border-solid border-[#ccc]"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                  <img src="/img/aprendereCrescer2.png" alt="" style={{ width: '150px', height: '150px' }} />
-                  <h1 className="title">Inscrever-se para o programa de qualificação Aprender e Crescer</h1>
-                </div>
-                {fieldsWithName.map(field => (
-                  <div key={field.label}>
-                    {field.options ? (
-                      <div>
-                        <InputDrop name={field.name} options={field.options}>
-                          {field.label}
-                        </InputDrop>
-                        {errors[field.name] && touched[field.name] ? (
-                          <div className="error" style={{ color: 'red' }}>
-                            {errors[field.name]}
-                          </div>
-                        ) : null}
-                      </div>
-                    ) : (
-                      <div>
-                        <Input
-                          name={field.name}
-                          type={field.type}
-                          placeholder={field.placeholder}
-                          required={field.required}
-                        >
-                          {field.label}
-                        </Input>
-                        {errors[field.name] && touched[field.name] ? (
-                          <div className="error" style={{ color: 'red' }}>
-                            {errors[field.name]}
-                          </div>
-                        ) : null}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div className="flex justify-between">
-                  <button
-                    className="bg-[#fa3333] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#d33f3f]"
-                    type="reset"
-                  >
-                    Limpar Formulário
-                  </button>
-                  <button
-                    className="bg-[#007bff] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#267edd]"
-                    type="submit"
-                  >
-                    Enviar
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </section>
+        <FormViewer
+          handleModalClose={handleModalClose}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
+          isModalOpen={isModalOpen}
+          modalTitle={modalTitle}
+          fields={fields}
+          mainTitle="Inscrever-se para o programa de qualificação Aprender e Crescer"
+          srcMainImage="/img/aprendereCrescer2.png"
+        />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

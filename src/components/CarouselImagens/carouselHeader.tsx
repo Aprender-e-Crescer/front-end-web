@@ -1,4 +1,6 @@
 import { Carousel } from 'flowbite-react';
+import { RightController } from '../CarrouselControllers/RightController';
+import { LeftController } from '../CarrouselControllers/LeftController';
 
 export type CarouselProps = {
   imageUrls: string[];
@@ -7,7 +9,7 @@ export type CarouselProps = {
 function Carousels({ imageUrls }: CarouselProps) {
   return (
     <div className="flex justify-center">
-      <Carousel className="h-96 w-4/5 my-16">
+      <Carousel leftControl={<LeftController />} rightControl={<RightController />} className="h-96 w-4/5 my-16">
         {imageUrls.map((url, index) => (
           <img src={url} alt={`Imagem ${index + 1}`} />
         ))}

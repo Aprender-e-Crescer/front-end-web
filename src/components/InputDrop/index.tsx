@@ -19,10 +19,6 @@ function InputDrop({ options, children, name, id }: PropsWithChildren<InputDropP
 
   return (
     <div className="flex-row items-center m-2.5">
-      <input
-        type="text"
-        className="border rounded text-base p-2.5 border-solid border-[#ccc] hover:shadow-[0_0_5px_rgba(0,123,255,0.5)] hover:border-[#007bff] focus:shadow-[0_0_5px_rgba(0,123,255,0.5)] focus:border-[#007bff] outline-none"
-      />
       <label htmlFor={id} className="text-[18px] font-bold">
         {children}:
         <br />
