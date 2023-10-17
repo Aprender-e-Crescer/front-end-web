@@ -1,9 +1,9 @@
 // Importando a função 'useState' da biblioteca 'react'
 import { useState, useEffect } from 'react';
 import { PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
-import axios from 'axios';
 import { useQuery, useMutation } from 'react-query';
 import { Spinner } from 'flowbite-react';
+import { HTTP } from '../services/api';
 
 interface InterfaceQuestion {
   _id: number;
@@ -15,12 +15,12 @@ interface InterfaceQuestion {
 }
 
 const fetchQuestions = async () => {
-  const response = await axios.get<{ data: { questions: InterfaceQuestion[] } }>('http://localhost:8000/api/questions');
+  const response = await HTTP.get<{ data: { questions: InterfaceQuestion[] } }>('/questions');
   return response.data.data.questions;
 };
 
 const saveQuestions = async (questions: InterfaceQuestion[]) => {
-  const { data } = await axios.post('http://localhost:8000/api/questions', {
+  const { data } = await HTTP.post('/questions', {
     questions,
   });
 
@@ -42,7 +42,7 @@ export function FormUpdateAdmin() {
       const apiPromises = postData.questions.map(async q => {
         try {
           // Primeiro, exclua a pergunta existente
-          await axios.delete(`http://localhost:8000/api/questions/${q._id}`);
+          await HTTP.delete(`/questions/${q._id}`);
 
           // Em seguida, remova o _id
           delete q._id;
@@ -52,7 +52,7 @@ export function FormUpdateAdmin() {
           q.options = opts;
 
           if (q.active !== true) console.log('Lucas Ativo');
-          // await axios.post('http://localhost:8000/api/questions', q);
+          // await HTTP.post('/questions', q);
           console.log('lucas132');
         } catch (error) {
           console.error('Erro ao enviar pergunta:', error);
