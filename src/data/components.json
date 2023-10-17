@@ -1,3 +1,6 @@
+
+
+
 [
   {
     "type": "video",
@@ -24,19 +27,29 @@
     "type": "carrousel-testimony",
     "content": [
       {
-        "image": "https://sudotec.org.br/upload/projetos/p_85.jpg?202310061356",
-        "text": "Gostaria de expressar meu profundo agradecimento ao curso Aprender e Crescer por ter transformado minha vida de forma significativa. Com palavras limitadas, é difícil descrever em detalhes o quanto essa experiência foi enriquecedora e impactante para o meu desenvolvimento pessoal e profissional.",
-        "who_is": "Gabriela Farias - AC 2019"
+        "image": "",
+        "text": "Boa",
+        "who_is": "Felipe Favero - AC 2023"
       },
       {
-        "image": "https://sudotec.org.br/upload/projetos/p_85.jpg?202310061356  ",
-        "text": "Calma Netflixo.",
-        "who_is": "Toninho Tornado - AC 2019"
+        "image": "",
+        "text": "Bom",
+        "who_is": "Endryl Fetiche - AC 2023"
       },
       {
-        "image": "https://imgs.search.brave.com/WmNZ9Aol_3lA1bhgkevyFlaD9IT6ubve7KlrTOKyM-s/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZXN0YWRhby5jb20u/YnIvZm90b3MvcG9s/aXRpY2EvZWxlaWNv/ZXMtMjAyMi9TUC9G/U1AyNTAwMDE2MDIw/NzJfZGl2LmpwZw",
-        "text": "Um lixo, totalmente perca de tempo !",
-        "who_is": "Clovis Basilho - AC 2019"
+        "image": "",
+        "text": "Legal",
+        "who_is": "Caluane - AC 2023"
+      },
+      {
+        "image": "",
+        "text": "Tope!",
+        "who_is": "Yasmin   - AC 2023"
+      },
+      {
+        "image": "",
+        "text": "O curso e uma oportunidade unica de voce aprender, mas tambem por outro lado e uma oportunidade de conhecer pessoas, profissionais que irao proporcionar otimos momentos e um imenso aprendizado.",
+        "who_is": "Joao Paulo Vendramini - AC 2023"
       }
     ]
   },
@@ -58,6 +71,6 @@
   },
   {
     "type": "content-buttons",
-    "content": ["Inscrições"]
+    "content": [{"title": "Inscrições", "link":"/form"}]
   }
 ]

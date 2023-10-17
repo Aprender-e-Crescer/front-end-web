@@ -1,0 +1,31 @@
+
+[
+    {
+    "label": "Nome",
+    "placeholder": "Digite seu nome ou o da empresa",
+    "type": "text",
+    "required": true,
+    "id": "nome"
+  },
+  {
+    "label": "Email",
+    "placeholder": "Digite seu e-mail",
+    "type": "email",
+    "required": true,
+    "id": "email"
+  },
+  {
+    "label": "Telefone",
+    "placeholder": "Digite seu telefone",
+    "type": "phone",
+    "required": true,
+    "id": "telefone"
+  },
+  {
+    "label": "Observações",
+    "placeholder": "Observações",
+    "type": "text",
+    "required": true,
+    "id": "observacoes"
+  }
+]
