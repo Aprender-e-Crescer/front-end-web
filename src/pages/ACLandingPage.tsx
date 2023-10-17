@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
@@ -8,8 +9,26 @@ import CardConteudoview from '../components/CardsConteudos/CardConteudoview';
 import Videosview from '../components/Videos/Videosview';
 import Comment from '../components/Comments/Comment';
 import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
+import { HTTP } from '../services/api';
+
+async function fetchData() {
+  const users = await HTTP.get('/pages');
+
+  return users.data;
+}
 
 export function ACLandingPage() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['landingpageAC'],
+    queryFn: fetchData,
+  });
+
+  console.log(data);
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <div className="imagem-fundo flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
