@@ -71,6 +71,6 @@
   },
   {
     "type": "content-buttons",
-    "content": ["Inscrições"]
+    "content": [{"title": "Inscrições", "link":"/form"}]
   }
 ]
