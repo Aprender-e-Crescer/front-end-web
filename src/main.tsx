@@ -12,7 +12,7 @@ import { ACLandingPage } from './pages/ACLandingPage'
 
 import './index.css'
  
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,

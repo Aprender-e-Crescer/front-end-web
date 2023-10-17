@@ -3,8 +3,8 @@ import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { HTTP } from '../services/api';
-import { useNavigate } from "react-router-dom";
-import create from "zustand"
+import { useAuthStore } from '../stores/useAuthStore';
+
 interface FormData {
   username: string;
   password: string;
@@ -15,15 +15,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const useStore = create(
-  persist(
-    (set) => ({
-      user: { name: 'Usuário Padrão' },
-      updateUser: (name: string) => set((state) => ({ user: { name } })),
-    }),
-    { name: 'user-store' }
-  )
-);
+
 
 function UserProfile() {
   const user = useStore((state) => state.user);
@@ -60,8 +52,8 @@ const login = async (values: FormData) => {
 };
 
 export default function RestrictLoginFront() {
-  const navigate = useNavigate();
-
+  const token = useAuthStore((state) => state.token);
+  
   const initialValues: FormData = {
     username: '',
     password: '',
@@ -74,12 +66,12 @@ export default function RestrictLoginFront() {
       await validationSchema.validate(values, { abortEarly: false });
       // eslint-disable-next-line no-console
       console.log('Dados do formulário:', values);
-  
      
       const data = await login(values);
 
-    if (data.accessToken) {
-        navigate('/admin');
+      if (data.accessToken) {
+        useAuthStore.setState({ token: data.accessToken });
+          // navigate('/admin');
       }
     } catch (errors) {
       const validationErrors: Record<string, string> = {};
@@ -91,6 +83,14 @@ export default function RestrictLoginFront() {
       setErrors(validationErrors);
     }
   };
+
+  if (token) {
+    return (
+      <Button gradientDuoTone="redToYellow" outline onClick={() => useAuthStore.setState({ token: null })}>
+        Desconectar
+      </Button>
+    )
+  }
 
   return (
     <>
