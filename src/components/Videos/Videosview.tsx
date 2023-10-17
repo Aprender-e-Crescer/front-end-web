@@ -1,7 +1,6 @@
-import data from '../../data/components.json';
 import Videos from './Videos';
 
-function Videosview() {
+function Videosview({data}) {
   return (
     <div>
       <Videos videos={data.find(item => item.type === 'video')?.content as string[]} />

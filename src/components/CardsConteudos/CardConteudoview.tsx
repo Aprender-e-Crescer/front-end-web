@@ -1,7 +1,6 @@
 import CardConteudo from './CardConteudo';
-import data from '../../data/components.json';
 
-function CardConteudoview() {
+function CardConteudoview({data}) {
   return (
     <div className="flex flex-col flex-wrap justify-center gap-8 mt-8 items-center lg:flex-row">
       <CardConteudo

@@ -1,7 +1,6 @@
 import Carousels from './carouselHeader';
-import data from '../../data/components.json';
 
-function Carouselview() {
+function Carouselview({ data }) {
   return (
     <div>
       <Carousels imageUrls={data.find(item => item.type === 'carrousel-images')?.content as string[]} />
