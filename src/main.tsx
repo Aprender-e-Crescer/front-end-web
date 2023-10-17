@@ -9,6 +9,9 @@ import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 import { Formulario } from './pages/Formulario'
 import { ACLandingPage } from './pages/ACLandingPage'
+import { AdminLandingPageSelector }from './pages/AdminLandingPageSelector'
+
+import './index.css' 
 import { BusinessGraduates } from './pages/BusinessGraduates'
 import { BusinessIncubated } from './pages/BusinessIncubated'
 import { MentorNetwork } from './pages/MentorNetwork'
@@ -45,6 +48,10 @@ export const router = createBrowserRouter([
       { 
         path: "/admin-landing-page-editor",
         element: <AdminLandingPageEditor /> 
+      },
+      {
+        path: "/admin-landing-page-selector",
+        element: <AdminLandingPageSelector /> 
       },
       {
         path: "/incubator-page",
