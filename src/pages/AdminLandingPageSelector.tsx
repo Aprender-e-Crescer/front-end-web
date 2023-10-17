@@ -8,14 +8,15 @@ import data from '../data/pages.json'
 
 export function AdminLandingPageSelector() {
   const navigate = useNavigate();
-  const pages = data.
+  const pages = data
 
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
-      <div className="w-full md:w-[80%] self-center flex justify-around">
-        {pages.map(({ name }) => (
-             <Card className="max-w-sm">
+      <div className="md:w-[80%] self-center flex justify-around ">
+        <div className="flex gap-4 my-4 flex-wrap justify-center h-screen text-center">
+        {pages.map(({ name, path }) => (
+             <Card className="w-96">
              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                <p>
                Pagina: {name}
@@ -26,13 +27,14 @@ export function AdminLandingPageSelector() {
                  Editar a pagina do Aprender e Crescer
                </p>
              </p>
-             <Button className='bg-blue-400' onClick={() => navigate('/admin-landing-page-editor')}>
+             <Button className='bg-blue-500' onClick={() => navigate(path)}>
                <p>
                 Ir para edição da pagina {name}
                </p>
              </Button>
            </Card>
         ))}
+      </div>
       </div>
       <FooterFront
         leftItems={footerData.leftItems}
