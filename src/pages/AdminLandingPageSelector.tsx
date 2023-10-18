@@ -9,9 +9,9 @@ import pages from '../data/pages.json';
 import { HTTP } from '../services/api';
 
 async function fetchData() {
-  const users = await HTTP.get('/presentations').catch(() => ({ data: pages }));
+  const users = await HTTP.get('/presentations').catch(() => ({ data: {data: { pages } } }));
 
-  return users.data;
+  return users.data.data.pages;
 }
 
 export function AdminLandingPageSelector() {
@@ -30,7 +30,7 @@ export function AdminLandingPageSelector() {
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="md:w-[80%] self-center flex justify-around ">
         <div className="flex gap-4 my-4 flex-wrap justify-center h-screen text-center">
-          {data?.map(({ name, id }) => (
+          {data?.map(({ name, _id }) => (
             <Card className="w-96">
               <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 <p>Pagina: {name}</p>
@@ -38,7 +38,7 @@ export function AdminLandingPageSelector() {
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 <p>Editar a pagina do Aprender e Crescer</p>
               </p>
-              <Button className="bg-blue-500" onClick={() => navigate(`/admin-landing-page-editor/${id}`)}>
+              <Button className="bg-blue-500" onClick={() => navigate(`/admin-landing-page-editor/${_id}`)}>
                 <p>Ir para edição da pagina {name}</p>
               </Button>
             </Card>

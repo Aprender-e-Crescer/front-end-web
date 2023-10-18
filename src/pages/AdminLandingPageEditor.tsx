@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { HeaderFront } from '../components/HeaderFront';
@@ -15,32 +16,42 @@ import SubMainContent from '../components/EditorPage/SubMainContent';
 import pages from '../data/pages.json';
 import Title from '../components/EditorPage/Title';
 import { HTTP } from '../services/api';
+import { create } from 'zustand'
+
+const usePageEditorStore = create((set) => ({
+  page: null,
+  setInitPage: (page) => set({ page }),
+  updateField: (field) => set(({page}) => ({ page: {...page, content: [...page.content.filter(({ type }) => type !== field.type), field]} }))
+}))
 
 const fetchData = (id: number) => async () => {
-  const { data } = await HTTP.get('/presentations').catch(() => ({ data: pages }));
+  const { data } = await HTTP.get('/presentations').catch(() => ({ data: {data: { pages } } }));
 
-  console.log(id, data);
-
-  return data.find(item => item.id === Number(id))?.content;
+  return data.data.pages.find(item => item._id == id);
 };
 
 const updateData = (id: number) => async values => {
-  const { data } = await HTTP.put(`/pages/${id}`, values).catch(() => ({ data: pages }));
+  usePageEditorStore.getState().updateField(values);
 
-  return data.find(item => item.id === Number(id))?.content;
+  return await HTTP.put(`/pages/${id}`, usePageEditorStore.getState().page  ).catch(() => ({ data: pages }));
 };
 
 export function AdminLandingPageEditor() {
   const { id } = useParams();
-  const { data, isLoading } = useQuery({
+  const { data: page, isLoading } = useQuery({
     queryKey: [`page${id}`],
     queryFn: fetchData(id),
   });
+  const data = page?.content;
 
   const { mutate, isLoading: isLoadingUpdate } = useMutation({
     mutationKey: [`page${id}`],
     mutationFn: updateData(id),
   });
+
+  useEffect(() => {
+    usePageEditorStore.getState().setInitPage(page);
+  }, [page]);
 
   if (isLoading && isLoadingUpdate) {
     return <p>Carregando...</p>;
