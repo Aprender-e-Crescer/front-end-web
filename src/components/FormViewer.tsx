@@ -18,6 +18,8 @@ interface Props {
   handleModalClose?: () => void;
   srcMainImage?: string;
   mainTitle: string;
+  hideActions?: boolean;
+  isFieldsDisabled?: boolean;
 }
 
 export default function FormViewer({
@@ -29,6 +31,8 @@ export default function FormViewer({
   fields,
   mainTitle,
   srcMainImage,
+  hideActions = false,
+  isFieldsDisabled = false,
 }: Props) {
   const fieldsWithName = fields.map(field => ({
     ...field,
@@ -61,7 +65,7 @@ export default function FormViewer({
                 <div key={field.label}>
                   {field.type === 'objetiva' ? (
                     <div>
-                      <InputDrop name={field.name} options={field.options}>
+                      <InputDrop isDisabled={isFieldsDisabled} name={field.name} options={field.options}>
                         {field.label}
                       </InputDrop>
                       {errors[field.name] && touched[field.name] ? (
@@ -78,6 +82,7 @@ export default function FormViewer({
                         placeholder={field.placeholder}
                         required={field.required}
                         label={field.label}
+                        isDisabled={isFieldsDisabled}
                       />
                       {errors[field.name] && touched[field.name] ? (
                         <div className="error" style={{ color: 'red' }}>
@@ -88,24 +93,26 @@ export default function FormViewer({
                   )}
                 </div>
               ))}
-              <div className="flex justify-between">
-                <button
-                  className="bg-[#fa3333] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#d33f3f]"
-                  type="reset"
-                >
-                  Limpar Formulário
-                </button>
-                <button
-                  className="bg-[#007bff] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#267edd] flex gap-2"
-                  type="submit"
-                  disabled={!isValid || isLoading}
-                >
-                  <When condition={isLoading}>
-                    <Spinner className="w-5 h-5" color="failure" aria-label="Default status example" />
-                  </When>
-                  Enviar
-                </button>
-              </div>
+              <When condition={!hideActions}>
+                <div className="flex justify-between">
+                  <button
+                    className="bg-[#fa3333] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#d33f3f]"
+                    type="reset"
+                  >
+                    Limpar Formulário
+                  </button>
+                  <button
+                    className="bg-[#007bff] text-[white] cursor-pointer px-5 py-2.5 rounded-[10px] border-[none] hover:bg-[#267edd] flex gap-2"
+                    type="submit"
+                    disabled={!isValid || isLoading}
+                  >
+                    <When condition={isLoading}>
+                      <Spinner className="w-5 h-5" color="failure" aria-label="Default status example" />
+                    </When>
+                    Enviar
+                  </button>
+                </div>
+              </When>
             </Form>
           )}
         </Formik>

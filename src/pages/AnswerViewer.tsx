@@ -20,7 +20,7 @@ import { HTTP } from '../services/api';
 async function fetchQuestions() {
   const forms = await HTTP.get('/forms').catch(() => ({ data: { data: { questions: fields } } }));
 
-  return forms.data.data.questions;
+  return forms.data.data.questions.filter(({ active }) => active);
 }
 
 async function fetchAnswers() {
