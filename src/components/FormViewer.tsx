@@ -32,7 +32,7 @@ export default function FormViewer({
 }: Props) {
   const fieldsWithName = fields.map(field => ({
     ...field,
-    name: `${field.label.toLowerCase().replaceAll(' ', '-')}-${field.id}`,
+    name: `${field._id}`,
   }));
 
   const schema = Yup.object().shape(
@@ -40,7 +40,7 @@ export default function FormViewer({
       acc[field.name] = field.required ? Yup.string().required().label(field.label) : Yup.string().label(field.label);
       return acc;
     }, {}),
-  );
+  )
 
   const initialValues = {};
 

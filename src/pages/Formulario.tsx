@@ -45,6 +45,7 @@ export function Formulario() {
       setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getData();
@@ -52,8 +53,9 @@ export function Formulario() {
 
   const handleSubmit = async (values: any) => {
     try {
-      await HTTP.post('salva/dados', values);
+      await HTTP.post('/api/answers', { answers: values });
       getData();
+      console.log(values);
       setIsLoading(false);
       setOpenModal({
         isModalOpen: true,
