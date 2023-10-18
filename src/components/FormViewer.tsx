@@ -40,7 +40,7 @@ export default function FormViewer({
       acc[field.name] = field.required ? Yup.string().required().label(field.label) : Yup.string().label(field.label);
       return acc;
     }, {}),
-  )
+  );
 
   const initialValues = {};
 
@@ -51,7 +51,7 @@ export default function FormViewer({
           {({ errors, touched, isValid }) => (
             <Form
               style={{ fontFamily: 'Arial, sans-serif' }}
-              className="flex flex-col bg-[#f7f7f7] border m-auto p-5 rounded-[10px] border-solid border-[#ccc]"
+              className="flex flex-col gap-4 bg-[#f7f7f7] border m-auto p-5 rounded-[10px] border-solid border-[#ccc]"
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                 {srcMainImage && <img src={srcMainImage} alt="" style={{ width: '150px', height: '150px' }} />}
@@ -59,7 +59,7 @@ export default function FormViewer({
               </div>
               {fieldsWithName.map(field => (
                 <div key={field.label}>
-                  {field.options ? (
+                  {field.type === 'objetiva' ? (
                     <div>
                       <InputDrop name={field.name} options={field.options}>
                         {field.label}
@@ -77,9 +77,8 @@ export default function FormViewer({
                         type={field.type}
                         placeholder={field.placeholder}
                         required={field.required}
-                      >
-                        {field.label}
-                      </Input>
+                        label={field.label}
+                      />
                       {errors[field.name] && touched[field.name] ? (
                         <div className="error" style={{ color: 'red' }}>
                           {errors[field.name]}
