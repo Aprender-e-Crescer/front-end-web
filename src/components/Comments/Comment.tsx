@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
 import { Carousel } from 'flowbite-react';
-import data from '../../data/components.json';
 import { RightController } from '../CarrouselControllers/RightController';
 import { LeftController } from '../CarrouselControllers/LeftController';
 
@@ -10,12 +9,12 @@ export type Comment = {
   image: string;
 };
 
-function Comment() {
+function Comment({ data }) {
   return (
     <section className="bg-transparen p-16">
       <div className="max-w-[1000px] h-automy-8 py-0 mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-2">Comentários</h2>
-        <div className="w-full mx-auto max-w-[600px]">
+        <div className="w-full mx-auto">
           <Carousel className="h-96" leftControl={<LeftController />} rightControl={<RightController />}>
             {data
               .find(item => item.type === 'carrousel-testimony')

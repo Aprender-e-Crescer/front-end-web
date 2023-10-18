@@ -9,11 +9,12 @@ import { FormUpSert } from './pages/FormUpSert'
 import { AdminLandingPageEditor } from './pages/AdminLandingPageEditor'
 import { Formulario } from './pages/Formulario'
 import { ACLandingPage } from './pages/ACLandingPage'
+import { AdminLandingPageSelector }from './pages/AdminLandingPageSelector'
+
+import './index.css' 
 import { BusinessGraduates } from './pages/BusinessGraduates'
 import { BusinessIncubated } from './pages/BusinessIncubated'
 import { MentorNetwork } from './pages/MentorNetwork'
-
-import './index.css'
 import { IncubatorLandingPage } from './pages/IncubatorLandingPage'
 import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona'
 import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar'
@@ -21,7 +22,7 @@ import { IncubatorCentralDeDownloads } from './pages/IncubatorCentralDeDownloads
 import { IncubatorFormulario } from './pages/IncubatorFormulario'
 
  
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     // eslint-disable-next-line react/jsx-filename-extension  
     element: <App />,
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       { 
         path: "/admin-landing-page-editor",
         element: <AdminLandingPageEditor /> 
+      },
+      {
+        path: "/admin-landing-page-selector",
+        element: <AdminLandingPageSelector /> 
       },
       {
         path: "/incubator-page",

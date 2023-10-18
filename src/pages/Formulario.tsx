@@ -35,7 +35,7 @@ export function Formulario() {
   const getData = async () => {
     try {
       setIsLoading(true);
-      const response = await HTTP.get('api/form/ac');
+      const response = await HTTP.get('/api/forms');
       const result = response.data;
       setFields(result);
     } catch (error) {

@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "name": "Aprender e Crescer",
+      "path": "/admin-landing-page-editor",
+      "content": []
+    },
+    {
+      "id": 2,
+      "name": "Incubadora",
+      "path": "",
+      "content": []
+    },
+    {
+        "id": 3,
+        "name": "Formularios",
+        "path": "/formulario-edicao",
+        "content": []
+      },
+      {
+        "id": 4,
+        "name": "Respostas do formulario",
+        "path": "/answer-viewer",
+        "content": []
+      },
+      {
+        "id": 5,
+        "name": "",
+        "path": "",
+        "content": []
+      },
+      {
+        "id": 6,
+        "name": "",
+        "path": "",
+        "content": []
+      }
+]
