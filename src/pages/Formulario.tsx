@@ -11,7 +11,6 @@ export function Formulario() {
   const navigate = useNavigate();
 
   const [fields, setFields] = useState([]);
-  console.log('oi', fields);
 
   const handleModalCloseOnSuccess = () => {
     setOpenModal({ isModalOpen: false });
@@ -36,7 +35,7 @@ export function Formulario() {
   const getData = async () => {
     try {
       setIsLoading(true);
-      const response = await HTTP.get('api/forms');
+      const response = await HTTP.get('/forms');
       const result = response.data.data.questions.filter(({ active }) => active);
       setFields(result);
     } catch (error) {
@@ -45,7 +44,6 @@ export function Formulario() {
       setIsLoading(false);
     }
   };
-  
 
   useEffect(() => {
     getData();
@@ -53,7 +51,7 @@ export function Formulario() {
 
   const handleSubmit = async (values: any) => {
     try {
-      await HTTP.post('/api/answers', { answers: values });
+      await HTTP.post('/answers', { answers: values });
       getData();
       console.log(values);
       setIsLoading(false);
