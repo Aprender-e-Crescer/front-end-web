@@ -1,4 +1,4 @@
-import { Switch, Case } from 'react-if';
+import { Switch, Case, When } from 'react-if';
 import { Tabs, Card } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,32 +8,43 @@ import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
 import { Chart } from '../components/Chart';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
-import pageData from '../data/answer_viewer_page.json';
 import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
+import summary from '../data/answer_viewer_page.json';
+
 import FormViewer from '../components/FormViewer';
-import fields from '../data/answer_viewer_page_form.json';
-import answersData from '../data/answer_viewer_page_answers.json';
 import { getFieldName } from '../utils/getFieldName';
 import { HTTP } from '../services/api';
 
-async function fetchQuestions() {
-  const forms = await HTTP.get('/forms').catch(() => ({ data: { data: { questions: fields } } }));
+// async function fetchSummary() {
+//   const forms = await HTTP.get('/forms/results');
 
-  return forms.data.data.questions.filter(({ active }) => active);
+//   return forms.data.data.questions.filter(({ active }) => active);
+// }
+
+async function fetchQuestions() {
+  const forms = await HTTP.get('/forms');
+
+  return forms.data.data.questions;
 }
 
 async function fetchAnswers() {
-  const answers = await HTTP.get('/answers').catch(() => ({ data: { data: { answers: answersData } } }));
+  const answers = await HTTP.get('/answers');
 
   return answers.data.data.answers;
 }
 
 const reduceFormValues = (questions, answersData, currentAnswer) => {
   const newQuestions = questions.reduce((accumulator, field) => {
+    console.log(
+      answersData?.[currentAnswer]?.answers?.[0],
+      field._id,
+      answersData?.[currentAnswer]?.answers?.[0]?.[field._id],
+    );
+
     return {
       ...accumulator,
-      [getFieldName(field)]: answersData[currentAnswer].answers?.[0]?.[field._id],
+      [getFieldName(field)]: answersData?.[currentAnswer]?.answers?.[0]?.[field._id],
     };
   }, {});
 
@@ -41,11 +52,15 @@ const reduceFormValues = (questions, answersData, currentAnswer) => {
 };
 
 export function AnswerViewer() {
-  const [{ data: questions = [], isLoading: isLoadingQuestions }, { data: answers = [], isLoading: isLoadingAnswers }] =
-    useQueries([
-      { queryKey: ['questions'], queryFn: fetchQuestions },
-      { queryKey: ['answers'], queryFn: fetchAnswers },
-    ]);
+  const [
+    // { data: summary = [], isLoading: isLoadingSummary },
+    { data: questions = [], isLoading: isLoadingQuestions },
+    { data: answers = [], isLoading: isLoadingAnswers },
+  ] = useQueries([
+    // { queryKey: ['summary'], queryFn: fetchSummary },
+    { queryKey: ['questions'], queryFn: fetchQuestions },
+    { queryKey: ['answers'], queryFn: fetchAnswers },
+  ]);
   const navigate = useNavigate();
 
   const currentAnswer = useRef(0);
@@ -56,7 +71,7 @@ export function AnswerViewer() {
 
     currentAnswer.current < answers.length && (currentAnswer.current += 1);
 
-    const newFormValues = reduceFormValues(questions, answersData, currentAnswer.current);
+    const newFormValues = reduceFormValues(questions, answers, currentAnswer.current);
 
     setFormValues(newFormValues);
   }, [answers, questions]);
@@ -79,54 +94,61 @@ export function AnswerViewer() {
   const handleGoToNext = () => {
     currentAnswer.current < answers.length - 1 && (currentAnswer.current += 1);
 
-    setFormValues(reduceFormValues(questions, answersData, currentAnswer.current));
+    setFormValues(reduceFormValues(questions, answers, currentAnswer.current));
   };
 
   const handleGoToPrevious = () => {
     currentAnswer.current > 0 && (currentAnswer.current -= 1);
-    setFormValues(reduceFormValues(questions, answersData, currentAnswer.current));
+    setFormValues(reduceFormValues(questions, answers, currentAnswer.current));
   };
 
   if (isLoadingQuestions || isLoadingAnswers) {
     return <p>Carregando...</p>;
   }
 
+  // console.log(summary, summary.length > 0);
+  // console.log(questions, answers, formValues);
+
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center pt-10">
-        <h3 className="text-3xl text-bold">{pageData[0].data.answers?.length || 0} Respostas</h3>
+        <h3 className="text-3xl text-bold">{summary?.[0]?.data?.answers?.length || 0} Respostas</h3>
         <Tabs.Group aria-label="Pills">
           <Tabs.Item title="Resumo">
-            <div className="flex flex-col gap-4">
-              {pageData.map(({ type, data }) => (
-                <Switch>
-                  <Case condition={type === 'ShortAnswersViewer'}>
-                    <Card>
-                      <ShortAnswerViewer {...data} />
-                    </Card>
-                  </Case>
-                </Switch>
-              ))}
-              {pageData.map(({ type, data }) => (
-                <Switch>
-                  <Case condition={type === 'DateSelectViewer'}>
-                    <Card>
-                      <DateSelectViewer {...data} />
-                    </Card>
-                  </Case>
-                </Switch>
-              ))}
-              {pageData.map(({ type, data }) => (
-                <Switch>
-                  <Case condition={type === 'Chart'}>
-                    <Card>
-                      <Chart {...data} />
-                    </Card>
-                  </Case>
-                </Switch>
-              ))}
-            </div>
+            <When condition={summary.length > 0}>
+              {() => (
+                <div className="flex flex-col gap-4">
+                  {summary.map(({ type, data }) => (
+                    <Switch>
+                      <Case condition={type === 'ShortAnswersViewer'}>
+                        <Card>
+                          <ShortAnswerViewer {...data} />
+                        </Card>
+                      </Case>
+                    </Switch>
+                  ))}
+                  {summary.map(({ type, data }) => (
+                    <Switch>
+                      <Case condition={type === 'DateSelectViewer'}>
+                        <Card>
+                          <DateSelectViewer {...data} />
+                        </Card>
+                      </Case>
+                    </Switch>
+                  ))}
+                  {summary.map(({ type, data }) => (
+                    <Switch>
+                      <Case condition={type === 'Chart'}>
+                        <Card>
+                          <Chart {...data} />
+                        </Card>
+                      </Case>
+                    </Switch>
+                  ))}
+                </div>
+              )}
+            </When>
           </Tabs.Item>
           <Tabs.Item title="Individual">
             <div className="flex mb-4">
