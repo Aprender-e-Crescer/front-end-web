@@ -4,6 +4,8 @@ import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { HTTP } from '../services/api';
 import { useAuthStore } from '../stores/useAuthStore';
+import { useNavigate } from 'react-router-dom';
+
 
 interface FormData {
   username: string;
@@ -60,6 +62,8 @@ export default function RestrictLoginFront() {
   };
   const [submittedData, setSubmittedData] = useState<FormData[]>([]);
   const [openModal, setOpenModal] = useState<string | undefined>();
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (values: FormData, { resetForm }: FormikHelpers<FormData>) => {
     try {
@@ -71,7 +75,7 @@ export default function RestrictLoginFront() {
 
       if (data.accessToken) {
         useAuthStore.setState({ token: data.accessToken });
-        navigate('/admin-landing-page-selector');
+        navigate(`/admin-landing-page-selector`)
       }
     } catch (errors) {
       const validationErrors: Record<string, string> = {};
