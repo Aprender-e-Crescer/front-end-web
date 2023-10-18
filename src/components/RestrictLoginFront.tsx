@@ -53,7 +53,7 @@ const login = async (values: FormData) => {
 
 export default function RestrictLoginFront() {
   const token = useAuthStore((state) => state.token);
-  
+
   const initialValues: FormData = {
     username: '',
     password: '',
@@ -66,12 +66,12 @@ export default function RestrictLoginFront() {
       await validationSchema.validate(values, { abortEarly: false });
       // eslint-disable-next-line no-console
       console.log('Dados do formulário:', values);
-     
+
       const data = await login(values);
 
       if (data.accessToken) {
         useAuthStore.setState({ token: data.accessToken });
-          // navigate('/admin');
+        navigate('/admin-landing-page-selector');
       }
     } catch (errors) {
       const validationErrors: Record<string, string> = {};
@@ -89,7 +89,7 @@ export default function RestrictLoginFront() {
       <Button gradientDuoTone="redToYellow" outline onClick={() => useAuthStore.setState({ token: null })}>
         Desconectar
       </Button>
-    )
+    );
   }
 
   return (
