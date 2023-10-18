@@ -68,7 +68,7 @@ export function FormUpdateAdmin() {
       type: 'texto',
       options: [],
       active: true,
-      required: false,
+      required: true,
     };
     setCampos([...campos, novoCampo]);
   };

@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { pt } from 'yup-locale-pt';
 import Input from './Input';
 import InputDrop from './InputDrop';
-import { FormModal } from './FormViewer/components/FormModal';
+import { FormModal } from './FormModal';
 
 Yup.setLocale(pt);
 
