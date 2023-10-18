@@ -49,7 +49,7 @@ function PhotoComponent({ data, handleSubmit }) {
           {formik.values.photoItems.map((item, index) => (
             <div key={index} className="flex flex-col">
               <label htmlFor={`image-${index}`}>
-                Link da Imagem
+                Link da Imagem {index + 1 }
                 <br />
                 <input
                   type="url"

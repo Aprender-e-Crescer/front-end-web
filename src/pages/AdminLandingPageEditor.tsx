@@ -18,6 +18,10 @@ import Title from '../components/EditorPage/Title';
 import { HTTP } from '../services/api';
 import { create } from 'zustand'
 import { Spinner} from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 
@@ -39,8 +43,10 @@ const updateData = (id: number) => async values => {
 };
 
 export function AdminLandingPageEditor() {
-  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState<string | undefined>();
   const props = { openModal, setOpenModal };
+
 
   const { id } = useParams();
   const { data: page, isLoading } = useQuery({
@@ -82,13 +88,14 @@ export function AdminLandingPageEditor() {
   
   const handleSubmit = (values) => {
     mutate(values)
-    setOpenModal(!openModal)
+    props.setOpenModal('pop-up')
   }
 
   return (
     <div className="flex flex-col">
-      <HeaderFront phone={headerData.phone} logo={headerData.logo} />
+        <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
+       
         <Header data={data} handleSubmit={handleSubmit} />
         <Title data={data} handleSubmit={handleSubmit} />
         <CarouselComponent data={data} handleSubmit={handleSubmit} />
@@ -99,12 +106,34 @@ export function AdminLandingPageEditor() {
         <VideoEditor data={data} handleSubmit={handleSubmit} />
         <CarouselDepoimentoEditor data={data} handleSubmit={handleSubmit} />
       </div>
+       <div className='w-screen flex items-center justify-center mt-10'>
+        <Button className="bg-blue-500" onClick={() => navigate(`/admin-landing-page-selector/`)}>
+                <p>Ir para página de seleção</p>
+        </Button>
+        </div>
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}
         logo={footerData.logo}
         subtitles={footerData.subtitles}
       />
+      
+      <Modal show={props.openModal === 'pop-up'} size="md" popup onClose={() => props.setOpenModal(undefined)}>
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Novos  Dados Salvos!
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="success" onClick={() => props.setOpenModal(undefined)}>
+                Prosseguir
+              </Button>
+             
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

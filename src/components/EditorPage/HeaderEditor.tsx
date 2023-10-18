@@ -47,7 +47,7 @@ function HeaderComponent({ data, handleSubmit }) {
     <FormikProvider value={formik}>
       <Form>
         <div className="min-w-lg flex flex-col gap-2 mt-32   shadow-lg p-10 bg-gray-100 rounded">
-          <h1 className="text-2xl font-medium">Preencha os campos abaixo para alterar a logo principal da página.</h1>
+          <h1 className="text-2xl font-medium">Preencha o campo abaixo para alterar a logo da página.</h1>
 
           <div className="flex flex-col">
             {imageBase64 && (
@@ -58,7 +58,7 @@ function HeaderComponent({ data, handleSubmit }) {
 
             {!imageBase64 && (
               <div>
-                <img alt="logo" src={initialValues.logoFile as string} className="w-60 h-52" />
+                <img alt="logo" src={initialValues.logoFile as string} className="w-52 h-36" />
               </div>
             )}
 
@@ -81,7 +81,7 @@ function HeaderComponent({ data, handleSubmit }) {
           </div>
 
           <div>
-            <p className="text-sm text-gray-800">Ao clicar em salvar, o título e a logo antigos serão removidos.</p>
+            <p className="text-sm text-gray-800">Ao clicar em salvar, a logo antiga será substítuida  .</p>
             <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
               Salvar
             </button>
