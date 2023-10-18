@@ -1,3 +1,4 @@
+import { When } from 'react-if';
 import { useNavigate } from 'react-router-dom';
 
 export type CardsConteudoprops = {
@@ -15,19 +16,24 @@ export function CardConteudo({ mainContent, maxWidth = 'md:w-1/2 lg:w-1/3', subC
 
   return (
     <section>
-      <div className="mt-12 w-9/12 h-96 mx-auto my-auto flex flex-col border-25 border-solid rounded-xl border-y-orange-500 border-x-yellow-300 relative justify-center">
-        <h1 className="text-center mt-1 text-4xl text-indigo-900 font-semibold p-6 max-md:text-sm max-xl:text-lg">
-          {mainContent}
-        </h1>
-      </div>
+      <When condition={!!mainContent}>
+        <div className="mt-12 w-9/12 h-96 mx-auto my-auto flex flex-col border-25 border-solid rounded-xl border-y-orange-500 border-x-yellow-300 relative justify-center">
+          <h1 className="text-center mt-1 text-4xl text-indigo-900 font-semibold p-6 max-md:text-sm max-xl:text-lg">
+            {mainContent}
+          </h1>
+        </div>
+      </When>
       <div className="flex justify-around mt-8 ml-5 items-center flex-wrap text-center ">
-        <span
-          className={`p-6 rounded-xl border-25  border-solid border-y-orange-500 border-x-yellow-400 w-full ${maxWidth} text-indigo-900 font-semibold text-xl md:text-lg lg:text-xl xl:text-2xl`}
-        >
-          {subContent.split('\n').map(str => (
-            <p>{str}</p>
-          ))}
-        </span>
+        <When condition={!!subContent}>
+        <span 
+                  className={`p-6 rounded-xl border-25  border-solid border-y-orange-500 border-x-yellow-400 w-full ${maxWidth} text-indigo-900 font-semibold text-xl md:text-lg lg:text-xl xl:text-2xl`}
+                >
+                  {subContent?.split('\n').map(str => (
+                    <p>{str}</p>
+                  ))}
+                </span>
+        </When>
+        
         {buttons?.map(({ link, title }) => (
           <button
             onClick={() => navigate(link)}
