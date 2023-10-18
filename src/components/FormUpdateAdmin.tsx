@@ -14,23 +14,22 @@ interface InterfaceQuestion {
   required: boolean;
 }
 
-const fetchQuestions = async () => {
-  const response = await HTTP.get<{ data: { questions: InterfaceQuestion[] } }>('/questions');
-  return response.data.data.questions;
-};
-
 const saveQuestions = async (questions: InterfaceQuestion[]) => {
-  const { data } = await HTTP.post('/questions', {
-    questions,
-  });
+  const { data } = await HTTP.post('/questions', questions);
 
   return data;
+};
+const fetchQuestions = async () => {
+  const response = await HTTP.get('/questions');
+  console.log(response.data);
+
+  return response.data.data.questions;
 };
 
 export function FormUpdateAdmin() {
   const [campos, setCampos] = useState<InterfaceQuestion[]>([]);
   const { data: questionAPI, isLoading } = useQuery('questions', fetchQuestions);
-  const { isLoading: isLoadingMutation } = useMutation(saveQuestions);
+  const { isLoading: isLoadingMutation, mutate } = useMutation(saveQuestions);
 
   const handleSave = async () => {
     try {
@@ -38,29 +37,7 @@ export function FormUpdateAdmin() {
         questions: campos,
       };
 
-      // Inicialize uma matriz de promessas para todas as chamadas de API
-      const apiPromises = postData.questions.map(async q => {
-        try {
-          // Primeiro, exclua a pergunta existente
-          await HTTP.delete(`/questions/${q._id}`);
-
-          // Em seguida, remova o _id
-          delete q._id;
-
-          // Transforme as opções em uma matriz de texto
-          const opts = q.options.map(o => o.texto);
-          q.options = opts;
-
-          if (q.active !== true) console.log('Lucas Ativo');
-          // await HTTP.post('/questions', q);
-          console.log('lucas132');
-        } catch (error) {
-          console.error('Erro ao enviar pergunta:', error);
-        }
-      });
-
-      // Aguarde todas as chamadas de API
-      await Promise.all(apiPromises);
+      postData.questions.filter(campo => campo.active).map(({ _id, ...rest }) => mutate({ ...rest }));
 
       console.log('Dados salvos com sucesso');
     } catch (error) {
@@ -83,6 +60,7 @@ export function FormUpdateAdmin() {
 
   const removerCampo = (id: number) => {
     const novosCampos = campos.filter(c => c._id !== id);
+    HTTP.delete(`/questions/${campos.find(c => c._id === id)?._id}`);
     setCampos(novosCampos);
   };
 
@@ -149,6 +127,7 @@ export function FormUpdateAdmin() {
       setCampos(dataRepair);
     }
   }, [questionAPI]);
+
   if (isLoading || isLoadingMutation)
     return (
       <div className="flex justify-center py-32">
