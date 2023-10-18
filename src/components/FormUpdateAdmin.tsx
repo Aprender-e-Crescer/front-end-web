@@ -156,9 +156,9 @@ export function FormUpdateAdmin() {
                   className="border rounded px-2 py-1 w-full text-xs font-bold"
                   onChange={e => handleChange(campo._id, { type: e.target.value, options: [] })}
                 >
-                  <option value="texto">Texto</option>
-                  <option value="multiplaEscolha">Resposta Objetiva</option>
-                  <option value="campoData">Campo de data</option>
+                  <option value="text">Texto</option>
+                  <option value="objetiva">Resposta Objetiva</option>
+                  <option value="date">Campo de data</option>
                 </select>
               </div>
               <div className="flex justify-center py-2">
