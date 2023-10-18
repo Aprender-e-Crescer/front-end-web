@@ -12,7 +12,7 @@ export function ShortAnswerViewer({ title, answers }: Props) {
       </div>
       <div className="flex flex-col gap-2">
         {answers.map(answer => (
-          <p className="bg-gray-200 rounded p-2">{answer}</p>
+          <p className="bg-blue-100 rounded p-2">{answer}</p>
         ))}
       </div>
     </div>

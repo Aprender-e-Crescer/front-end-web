@@ -14,23 +14,28 @@ interface InterfaceQuestion {
   required: boolean;
 }
 
+const saveQuestions = async (questions: InterfaceQuestion[]) => {
+  const { data } = await HTTP.post('/questions', questions);
+
+  return data;
+};
+
 const fetchQuestions = async () => {
-  const response = await HTTP.get<{ data: { questions: InterfaceQuestion[] } }>('/questions');
+  const response = await HTTP.get('/questions');
+  console.log(response.data);
+
   return response.data.data.questions;
 };
 
-const saveQuestions = async (questions: InterfaceQuestion[]) => {
-  const { data } = await HTTP.post('/questions', {
-    questions,
-  });
-
-  return data;
+const deleteQuestion = async (id: number) => {
+  return HTTP.delete(`/questions/${id}`);
 };
 
 export function FormUpdateAdmin() {
   const [campos, setCampos] = useState<InterfaceQuestion[]>([]);
   const { data: questionAPI, isLoading } = useQuery('questions', fetchQuestions);
-  const { isLoading: isLoadingMutation } = useMutation(saveQuestions);
+  const { isLoading: isLoadingMutationSaveQuestion, mutate: mutateSaveQuestion } = useMutation(saveQuestions);
+  const { isLoading: isLoadingDeleteMutation, mutate: mutateDeleteQuestion } = useMutation(deleteQuestion);
 
   const handleSave = async () => {
     try {
@@ -38,29 +43,14 @@ export function FormUpdateAdmin() {
         questions: campos,
       };
 
-      // Inicialize uma matriz de promessas para todas as chamadas de API
-      const apiPromises = postData.questions.map(async q => {
-        try {
-          // Primeiro, exclua a pergunta existente
-          await HTTP.delete(`/questions/${q._id}`);
+      postData.questions
+        .filter(campo => campo.active)
+        .map(({ _id, needUpSert, isCreating, ...rest }) => {
+          !isCreating && mutateDeleteQuestion(campos.find(c => c._id === _id)?._id);
+          mutateSaveQuestion({ ...rest });
+        });
 
-          // Em seguida, remova o _id
-          delete q._id;
-
-          // Transforme as opções em uma matriz de texto
-          const opts = q.options.map(o => o.texto);
-          q.options = opts;
-
-          if (q.active !== true) console.log('Lucas Ativo');
-          // await HTTP.post('/questions', q);
-          console.log('lucas132');
-        } catch (error) {
-          console.error('Erro ao enviar pergunta:', error);
-        }
-      });
-
-      // Aguarde todas as chamadas de API
-      await Promise.all(apiPromises);
+      setCampos(postData.questions.filter(campo => campo.active).map(({ needUpSert, isCreating, ...rest }) => rest));
 
       console.log('Dados salvos com sucesso');
     } catch (error) {
@@ -72,6 +62,8 @@ export function FormUpdateAdmin() {
     const idDeCampo = Date.now();
     const novoCampo = {
       _id: idDeCampo,
+      isCreating: true,
+      needUpSert: true,
       description: '',
       type: 'texto',
       options: [],
@@ -81,8 +73,9 @@ export function FormUpdateAdmin() {
     setCampos([...campos, novoCampo]);
   };
 
-  const removerCampo = (id: number) => {
+  const removerCampo = async (id: number) => {
     const novosCampos = campos.filter(c => c._id !== id);
+    await mutateDeleteQuestion(campos.find(c => c._id === id)?._id);
     setCampos(novosCampos);
   };
 
@@ -104,10 +97,11 @@ export function FormUpdateAdmin() {
   const handleChange = (id: number, campoAtualizado: Partial<(typeof campos)[0]>) => {
     const novosCampos = campos.map(campo => {
       if (campo._id === id) {
-        return { ...campo, ...campoAtualizado };
+        return { ...campo, ...campoAtualizado, needUpSert: true };
       }
       return campo;
     });
+
     setCampos(novosCampos);
   };
 
@@ -122,6 +116,7 @@ export function FormUpdateAdmin() {
         novosCampos.forEach(campo => {
           if (campo._id === idPergunta) {
             campo.options[optionIndex].texto = option;
+            campo.needUpSert = true;
           }
         });
 
@@ -141,7 +136,10 @@ export function FormUpdateAdmin() {
         _id: dataB._id,
         description: dataB.description,
         type: dataB.type,
-        options: dataB.options.map((option, index) => ({ id: Date.now() + index, texto: option as unknown as string })),
+        options: dataB.options.map((option, index) => ({
+          id: option.id || Date.now() + index,
+          texto: option.texto as unknown as string,
+        })),
         active: dataB.active,
         required: dataB.required,
       }));
@@ -149,7 +147,8 @@ export function FormUpdateAdmin() {
       setCampos(dataRepair);
     }
   }, [questionAPI]);
-  if (isLoading || isLoadingMutation)
+
+  if (isLoading || isLoadingMutationSaveQuestion)
     return (
       <div className="flex justify-center py-32">
         <Spinner color="info" aria-label="Default status example" className="w-32 h-32 fill-blue-800" />
@@ -177,13 +176,13 @@ export function FormUpdateAdmin() {
                   className="border rounded px-2 py-1 w-full text-xs font-bold"
                   onChange={e => handleChange(campo._id, { type: e.target.value, options: [] })}
                 >
-                  <option value="texto">Texto</option>
-                  <option value="multiplaEscolha">Resposta Objetiva</option>
-                  <option value="campoData">Campo de data</option>
+                  <option value="text">Texto</option>
+                  <option value="objetiva">Resposta Objetiva</option>
+                  <option value="date">Campo de data</option>
                 </select>
               </div>
               <div className="flex justify-center py-2">
-                {campo.type === 'multiplaEscolha' && (
+                {campo.type === 'objetiva' && (
                   <div className="flex  flex-col gap-2">
                     {campo.options.map(opcao => (
                       <div key={opcao.id} className="flex flex-row h-8">
@@ -214,7 +213,7 @@ export function FormUpdateAdmin() {
                 >
                   <TrashIcon className="w-3 h-5" />
                 </button>
-                {campo.type === 'multiplaEscolha' && (
+                {campo.type === 'objetiva' && (
                   <button
                     type="button"
                     onClick={() => adicionarOpcao(campo._id)}

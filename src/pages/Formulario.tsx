@@ -35,8 +35,8 @@ export function Formulario() {
   const getData = async () => {
     try {
       setIsLoading(true);
-      const response = await HTTP.get('/api/forms');
-      const result = response.data;
+      const response = await HTTP.get('/forms');
+      const result = response.data.data.questions.filter(({ active }) => active);
       setFields(result);
     } catch (error) {
       console.log(error);
@@ -51,8 +51,9 @@ export function Formulario() {
 
   const handleSubmit = async (values: any) => {
     try {
-      await HTTP.post('salva/dados', values);
+      await HTTP.post('/answers', { answers: values });
       getData();
+      console.log(values);
       setIsLoading(false);
       setOpenModal({
         isModalOpen: true,
