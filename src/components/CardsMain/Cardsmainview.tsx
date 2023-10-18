@@ -1,8 +1,15 @@
 import Card from './Cardmain';
-import data from '../../data/components.json';
 
-function Cardsview() {
-  return <Card cards={data.find(item => item.type === 'content-cards')?.content as string[]} />;
+function Cardsview({data}) {
+
+  const Conteudo = data?.find(item => item.type === 'content-cards')?.content as string[];
+
+  if (!Conteudo) return null;
+
+  return (
+    <div>
+      <Card cards={Conteudo} />
+    </div>
+  );
 }
-
 export default Cardsview;

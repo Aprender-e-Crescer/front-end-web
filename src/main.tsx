@@ -11,16 +11,15 @@ import { Formulario } from './pages/Formulario';
 import { ACLandingPage } from './pages/ACLandingPage';
 import { AdminLandingPageSelector } from './pages/AdminLandingPageSelector';
 
-import './index.css';
-import { BusinessGraduates } from './pages/BusinessGraduates';
-import { BusinessIncubated } from './pages/BusinessIncubated';
-import { MentorNetwork } from './pages/MentorNetwork';
-
-import { IncubatorLandingPage } from './pages/IncubatorLandingPage';
-import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona';
-import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar';
-import { IncubatorCentralDeDownloads } from './pages/IncubatorCentralDeDownloads';
-import { IncubatorFormulario } from './pages/IncubatorFormulario';
+import './index.css' 
+import { BusinessGraduates } from './pages/BusinessGraduates'
+import { BusinessIncubated } from './pages/BusinessIncubated'
+import { MentorNetwork } from './pages/MentorNetwork'
+import { IncubatorLandingPage } from './pages/IncubatorLandingPage'
+import { IncubatorComoFunciona } from './pages/IncubatorComoFunciona'
+import { IncubatorQueroParticipar } from './pages/IncubatorQueroParticipar'
+import { IncubatorCentralDeDownloads } from './pages/IncubatorCentralDeDownloads'
+import { IncubatorFormulario } from './pages/IncubatorFormulario'
 
 export const router = createBrowserRouter([
   {

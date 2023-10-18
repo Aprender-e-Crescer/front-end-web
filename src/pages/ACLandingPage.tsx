@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { Spinner } from 'flowbite-react';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
@@ -11,34 +12,39 @@ import Comment from '../components/Comments/Comment';
 import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
 import { HTTP } from '../services/api';
 
-async function fetchData() {
-  const users = await HTTP.get('/pages');
+const fetchData = (id: number) => async () => {
+  const { data } = await HTTP.get('/pages/'+id)
 
-  return users.data;
-}
+  return data.data.page.content;
+};
+
 
 export function ACLandingPage() {
   const { data, isLoading } = useQuery({
     queryKey: ['landingpageAC'],
-    queryFn: fetchData,
+    queryFn: fetchData('652fc653d47000ed049e1084'),
   });
 
-  console.log(data);
-
   if (isLoading) {
-    return <p>Carregando...</p>;
+    return <div className='w-screen h-screen items-center flex justify-center'> <Spinner
+    aria-label="Extra large spinner example"
+    size="xl"
+    color="success"
+  />
+  </div>
+
   }
 
   return (
     <div className="imagem-fundo flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <LogoHeaderview />
-        <Carouselview />
-        <Cardsview />
-        <CardConteudoview />
-        <Videosview />
-        <Comment />
+        <LogoHeaderview data={data} />
+        <Carouselview data={data} />
+        <Cardsview data={data} />
+        <CardConteudoview data={data} />
+        <Videosview data={data} />
+        <Comment data={data} />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}
