@@ -14,7 +14,7 @@ export function DateSelectViewer({ title, dates }: Props) {
       </div>
       <div className="flex flex-col gap-2">
         {Object.keys(dates).map(date => (
-          <div className="flex bg-gray-200">
+          <div className="flex bg-blue-100">
             <p className="rounded pr-2">{date}</p>-
             {dates[date].map(day => (
               <p className="rounded px-2">{day}</p>

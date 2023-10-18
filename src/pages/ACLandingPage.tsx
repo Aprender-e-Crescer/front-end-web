@@ -10,9 +10,10 @@ import Videosview from '../components/Videos/Videosview';
 import Comment from '../components/Comments/Comment';
 import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
 import { HTTP } from '../services/api';
+import components from '../data/components.json';
 
 async function fetchData() {
-  const users = await HTTP.get('/pages');
+  const users = await HTTP.get('/presentations').catch(() => ({ data: components }));
 
   return users.data;
 }
@@ -23,8 +24,6 @@ export function ACLandingPage() {
     queryFn: fetchData,
   });
 
-  console.log(data);
-
   if (isLoading) {
     return <p>Carregando...</p>;
   }
@@ -33,12 +32,12 @@ export function ACLandingPage() {
     <div className="imagem-fundo flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <LogoHeaderview />
-        <Carouselview />
-        <Cardsview />
-        <CardConteudoview />
-        <Videosview />
-        <Comment />
+        <LogoHeaderview data={data} />
+        <Carouselview data={data} />
+        <Cardsview data={data} />
+        <CardConteudoview data={data} />
+        <Videosview data={data} />
+        <Comment data={data} />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

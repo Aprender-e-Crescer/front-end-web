@@ -7,9 +7,10 @@ interface InputProps {
   required?: boolean;
   name?: string;
   id?: string;
+  isDisabled?: boolean;
 }
 
-function Input({ placeholder, children, type = 'text', required = false, name, id }: InputProps) {
+function Input({ placeholder, children, type = 'text', required = false, name, id, isDisabled }: InputProps) {
   return (
     <div className="flex-row items-center m-2.5">
       <label className="text-[18px] font-bold" htmlFor={id}>
@@ -22,6 +23,7 @@ function Input({ placeholder, children, type = 'text', required = false, name, i
           type={type}
           placeholder={placeholder}
           required={required}
+          disabled={isDisabled}
         />
       </label>
     </div>

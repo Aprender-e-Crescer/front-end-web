@@ -5,9 +5,10 @@ interface InputDropProps {
   options: string[];
   name: string;
   id?: string;
+  isDisabled: boolean;
 }
 
-function InputDrop({ options, children, name, id }: PropsWithChildren<InputDropProps>) {
+function InputDrop({ options, children, name, id, isDisabled }: PropsWithChildren<InputDropProps>) {
   const { setFieldValue } = useFormikContext();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectedOptionFromFormik = useFormikContext<any>().values[name];
@@ -28,6 +29,7 @@ function InputDrop({ options, children, name, id }: PropsWithChildren<InputDropP
           name={name}
           id={id}
           onChange={handleSelectChange}
+          disabled={isDisabled}
         >
           <option value="">Selecione uma opção</option>
           {options.map((option, index) => (

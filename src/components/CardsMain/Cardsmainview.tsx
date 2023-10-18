@@ -1,7 +1,6 @@
 import Card from './Cardmain';
-import data from '../../data/components.json';
 
-function Cardsview() {
+function Cardsview({data}) {
   return <Card cards={data.find(item => item.type === 'content-cards')?.content as string[]} />;
 }
 
