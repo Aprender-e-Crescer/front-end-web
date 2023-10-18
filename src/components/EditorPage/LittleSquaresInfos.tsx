@@ -1,32 +1,34 @@
 import { Formik, FieldArray, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import data from '../../data/components.json';
 
 const validationSchema = Yup.object().shape({
   textList: Yup.array().of(Yup.string().required('Campo de texto é obrigatório')),
 });
 
-function TextSquareComponent() {
-  const initialValues = { textList: data.find(item => item.type === 'content-cards')?.content };
+function TextSquareComponent({ data, handleSubmit }) {
+  const initialValues = { textList: data?.find(item => item.type === 'content-cards')?.content || [] };
 
   return (
     <div className="min-w-lg flex flex-col gap-2 mt-32">
-      <h1 className="text-2xl font-medium">Quadrados de Texto</h1>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={values => {
-          // eslint-disable-next-line no-console
-          console.log('Valores enviados:', values);
-        }}
+        onSubmit={ ({ textList }) =>
+        handleSubmit({
+          type: 'content-cards',
+          content: textList,
+        })}
       >
         {formik => (
           <form onSubmit={formik.handleSubmit}>
             <FieldArray name="textList">
               {({ remove }) => (
-                <div>
+                <div className='   shadow-lg p-10 bg-gray-100 rounded'>
+                  <h1 className='font-semibold text-xl'>Editar quadrados menores</h1>
                   {formik.values.textList.map((text, index) => (
                     <div key={index} className="flex flex-col">
+                      <h1 className="text-base font-medium">Quadrados de Texto {index + 1}</h1>
                       <Field
                         type="text"
                         name={`textList[${index}]`}

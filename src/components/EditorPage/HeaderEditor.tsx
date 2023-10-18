@@ -1,23 +1,26 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const headerSchema = Yup.object().shape({
   logoFile: Yup.mixed().required('Você precisa selecionar um arquivo'),
 });
 
-function HeaderComponent() {
+function HeaderComponent({ data, handleSubmit }) {
   const initialValues = {
-    logoFile: data.find(item => item.type === 'logo')?.content || { textInputs: [''] },
+    logoFile: data?.find(item => item.type === 'logo')?.content || { textInputs: [''] },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);
 
-  const handleSubmit = async (values: { logoFile: File }) => {
+  const handleSubmitForm = async (values: { logoFile: File }) => {
     if (values.logoFile) {
       const base64String = await convertToBase64(values.logoFile);
       setImageBase64(base64String);
+      handleSubmit({
+        type: 'logo',
+        content: base64String,
+      });
     }
   };
 
@@ -37,14 +40,14 @@ function HeaderComponent() {
   const formik = useFormik({
     initialValues,
     validationSchema: headerSchema,
-    onSubmit: handleSubmit,
+    onSubmit: handleSubmitForm,
   });
 
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
-          <h1 className="text-2xl font-medium">Preencha os campos abaixo para alterar a logo principal da página.</h1>
+        <div className="min-w-lg flex flex-col gap-2 mt-32   shadow-lg p-10 bg-gray-100 rounded">
+          <h1 className="text-2xl font-medium">Preencha o campo abaixo para alterar a logo da página.</h1>
 
           <div className="flex flex-col">
             {imageBase64 && (
@@ -55,7 +58,7 @@ function HeaderComponent() {
 
             {!imageBase64 && (
               <div>
-                <img alt="logo" src={initialValues.logoFile as string} className="w-60 h-52" />
+                <img alt="logo" src={initialValues.logoFile as string} className="w-52 h-36" />
               </div>
             )}
 
@@ -78,7 +81,7 @@ function HeaderComponent() {
           </div>
 
           <div>
-            <p className="text-sm text-gray-800">Ao clicar em salvar, o título e a logo antigos serão removidos.</p>
+            <p className="text-sm text-gray-800">Ao clicar em salvar, a logo antiga será substítuida  .</p>
             <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">
               Salvar
             </button>

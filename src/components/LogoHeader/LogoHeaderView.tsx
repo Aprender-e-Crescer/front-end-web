@@ -1,8 +1,11 @@
 import Logo from './LogoHeader';
-import data from '../../data/components.json';
 
-function LogoHeaderview() {
-  return <Logo logo={data.find(item => item.type === 'logo')?.content as string} />;
+function LogoHeaderview({data}) {
+  const logo = data?.find?.(item => item.type === 'logo')?.content as string;
+
+  if (!logo) return null;
+
+  return <Logo logo={logo} />;
 }
 
 export default LogoHeaderview;

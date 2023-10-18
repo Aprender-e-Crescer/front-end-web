@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { Button, Checkbox, Modal } from 'flowbite-react';
 import { Form, Formik, Field, FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import { HTTP } from '../services/api';
 import { useAuthStore } from '../stores/useAuthStore';
-import { useNavigate } from 'react-router-dom';
-
 
 interface FormData {
   username: string;
@@ -17,11 +16,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-
-
 function UserProfile() {
-  const user = useStore((state) => state.user);
-  const updateUser = useStore((state) => state.updateUser);
+  const user = useStore(state => state.user);
+  const updateUser = useStore(state => state.updateUser);
 
   const handleUpdateName = () => {
     const newName = prompt('Novo nome:');
@@ -39,10 +36,9 @@ function UserProfile() {
   );
 }
 
-
 const login = async (values: FormData) => {
   try {
-    const { data } = await HTTP.post('/api/auth/login', {
+    const { data } = await HTTP.post('/auth/login', {
       email: values.username,
       password: values.password,
     });
@@ -54,7 +50,7 @@ const login = async (values: FormData) => {
 };
 
 export default function RestrictLoginFront() {
-  const token = useAuthStore((state) => state.token);
+  const token = useAuthStore(state => state.token);
 
   const initialValues: FormData = {
     username: '',
@@ -63,7 +59,6 @@ export default function RestrictLoginFront() {
   const [submittedData, setSubmittedData] = useState<FormData[]>([]);
   const [openModal, setOpenModal] = useState<string | undefined>();
   const navigate = useNavigate();
-
 
   const handleSubmit = async (values: FormData, { resetForm }: FormikHelpers<FormData>) => {
     try {
@@ -75,15 +70,14 @@ export default function RestrictLoginFront() {
 
       if (data.accessToken) {
         useAuthStore.setState({ token: data.accessToken });
-        navigate(`/admin-landing-page-selector`)
+        navigate(`/admin-landing-page-selector`);
       }
     } catch (errors) {
       const validationErrors: Record<string, string> = {};
       errors.inner.forEach((error: { path: string | number; message: string }) => {
         validationErrors[error.path] = error.message;
       });
-  
-   
+
       setErrors(validationErrors);
     }
   };
@@ -152,9 +146,7 @@ export default function RestrictLoginFront() {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">
-                      Esqueceu a senha?
-                    </p>
+                    <p className="text-sm text-blue-500 dark:text-blue-300 hover:underline">Esqueceu a senha?</p>
                   </div>
                   <button
                     type="submit"
