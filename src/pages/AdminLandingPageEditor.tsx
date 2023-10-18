@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { HeaderFront } from '../components/HeaderFront';
@@ -11,12 +11,15 @@ import LittleSquaresInfos from '../components/EditorPage/LittleSquaresInfos';
 import CarouselDepoimentoEditor from '../components/EditorPage/CarouselOpinionsEditor';
 import MainContent from '../components/EditorPage/MainContent';
 import VideoEditor from '../components/EditorPage/VideosEditor';
-import Button from '../components/EditorPage/ButtonEditor';
+import ButtonEditor from '../components/EditorPage/ButtonEditor';
 import SubMainContent from '../components/EditorPage/SubMainContent';
 import pages from '../data/pages.json';
 import Title from '../components/EditorPage/Title';
 import { HTTP } from '../services/api';
 import { create } from 'zustand'
+import { Spinner} from 'flowbite-react';
+
+
 
 const usePageEditorStore = create((set) => ({
   page: null,
@@ -32,11 +35,13 @@ const fetchData = (id: number) => async () => {
 
 const updateData = (id: number) => async values => {
   usePageEditorStore.getState().updateField(values);
-
-  return await HTTP.put(`/pages/${id}`, usePageEditorStore.getState().page  ).catch(() => ({ data: pages }));
+    await HTTP.put(`/pages/${id}`, usePageEditorStore.getState().page  ).catch(() => ({ data: pages }));
 };
 
 export function AdminLandingPageEditor() {
+  const [openModal, setOpenModal] = useState(false);
+  const props = { openModal, setOpenModal };
+
   const { id } = useParams();
   const { data: page, isLoading } = useQuery({
     queryKey: [`page${id}`],
@@ -54,7 +59,12 @@ export function AdminLandingPageEditor() {
   }, [page]);
 
   if (isLoading && isLoadingUpdate) {
-    return <p>Carregando...</p>;
+    return <div className='w-screen h-screen items-center flex justify-center'> <Spinner
+    aria-label="Extra large spinner example"
+    size="xl"
+    color="success"
+  />;
+  </div>
   }
 
   if (!id) {
@@ -62,22 +72,32 @@ export function AdminLandingPageEditor() {
   }
 
   if (!data) {
-    return <p>Página não encontrada</p>;
+    return <div className='w-screen h-screen items-center flex justify-center'> <Spinner
+    aria-label="Extra large spinner example"
+    size="xl"
+    color="success"
+  />;
+    </div>
+  }
+  
+  const handleSubmit = (values) => {
+    mutate(values)
+    setOpenModal(!openModal)
   }
 
   return (
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
-        <Header data={data} handleSubmit={mutate} />
-        <Title data={data} handleSubmit={mutate} />
-        <CarouselComponent data={data} handleSubmit={mutate} />
-        <LittleSquaresInfos data={data} handleSubmit={mutate} />
-        <MainContent data={data} handleSubmit={mutate} />
-        <SubMainContent data={data} handleSubmit={mutate} />
-        <Button data={data} handleSubmit={mutate} />
-        <VideoEditor data={data} handleSubmit={mutate} />
-        <CarouselDepoimentoEditor data={data} handleSubmit={mutate} />
+        <Header data={data} handleSubmit={handleSubmit} />
+        <Title data={data} handleSubmit={handleSubmit} />
+        <CarouselComponent data={data} handleSubmit={handleSubmit} />
+        <LittleSquaresInfos data={data} handleSubmit={handleSubmit} />
+        <MainContent data={data} handleSubmit={handleSubmit} />
+        <SubMainContent data={data} handleSubmit={handleSubmit} />
+        <ButtonEditor data={data} handleSubmit={handleSubmit} />
+        <VideoEditor data={data} handleSubmit={handleSubmit} />
+        <CarouselDepoimentoEditor data={data} handleSubmit={handleSubmit} />
       </div>
       <FooterFront
         leftItems={footerData.leftItems}

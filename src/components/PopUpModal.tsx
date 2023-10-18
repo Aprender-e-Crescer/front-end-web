@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { Modal, Card } from 'flowbite-react';
 
-interface PopUpModalProps {
-  buttonText: string;
-  businessName: string;
-  imageSrc: string;
-  mainText: string;
-}
-
 export function PopUpModal({ buttonText, businessName, imageSrc, mainText }: PopUpModalProps) {
   const [openModal, setOpenModal] = useState<string | undefined>();
 
@@ -21,12 +14,12 @@ export function PopUpModal({ buttonText, businessName, imageSrc, mainText }: Pop
     >
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         <p>
-          {businessName}
+          Sudotec
         </p>
       </h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">
         <p>
-          {buttonText}
+          Fechar
         </p>
       </p>
     </Card>
@@ -34,11 +27,11 @@ export function PopUpModal({ buttonText, businessName, imageSrc, mainText }: Pop
         <Modal.Header />
         <Modal.Body className='flex flex-col gap-8'>
           <div className='flex flex-1 justify-center'>
-            <img src={imageSrc} alt="" />
+            <img src="" alt="" />
           </div>
           <div className="text-center">
             <div className="flex flex-col justify-center gap-4">
-              {mainText.split('\n').map(str => <p>{str}</p>)}
+                <p>Teste</p>
             </div>
           </div>
         </Modal.Body>

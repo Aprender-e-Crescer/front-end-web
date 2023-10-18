@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, Button } from 'flowbite-react';
+import { Card, Button, Spinner } from 'flowbite-react';
 import { useQuery } from 'react-query';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
@@ -22,7 +22,12 @@ export function AdminLandingPageSelector() {
   });
 
   if (isLoading) {
-    return <p>Carregando...</p>;
+    return <div className='w-screen h-screen items-center flex justify-center'> <Spinner
+    aria-label="Extra large spinner example"
+    size="xl"
+    color="success"
+  />;
+  </div>
   }
 
   return (
