@@ -10,20 +10,22 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-function ButtonComponent({ data }) {
+function ButtonComponent({ data, handleSubmit }) {
   const initialValues = {
     buttonList: data.find(item => item.type === 'content-buttons')?.content || [],
   };
 
   return (
-    <div className="min-w-lg flex flex-col gap-2 mt-32">
+    <div className="min-w-lg flex flex-col gap-2 mt-32  shadow-lg p-10 bg-gray-100 rounded">
       <h1 className="text-2xl font-medium">Botões</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={values => {
-          console.log('Valores enviados:', values);
-        }}
+        onSubmit={ ({ buttonList }) =>
+        handleSubmit({
+          type: 'content-buttons',
+          content: buttonList,
+        })}
       >
         {formik => (
           <form onSubmit={formik.handleSubmit}>

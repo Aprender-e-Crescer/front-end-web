@@ -16,20 +16,19 @@ const photoSchema = Yup.object().shape({
   ),
 });
 
-function PhotoComponent({ data }) {
+function PhotoComponent({ data, handleSubmit }) {
   const initialValues = {
     photoItems: (data?.find(item => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [],
-  };
-
-  const handleSubmit = async (values: { photoItems: IPhotoItems[] }) => {
-    // eslint-disable-next-line no-console
-    console.log('Itens de fotos:', values.photoItems);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: photoSchema,
-    onSubmit: handleSubmit,
+    onSubmit:  ({ photoItems }) =>
+    handleSubmit({
+      type: 'carrousel-testimony',
+      content: photoItems,
+    })
   });
 
   const addPhotoItem = () => {
@@ -45,7 +44,7 @@ function PhotoComponent({ data }) {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-16  mt-32">
+        <div className="min-w-lg flex flex-col gap-16  mt-32   shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar itens de fotos.</h1>
           {formik.values.photoItems.map((item, index) => (
             <div key={index} className="flex flex-col">

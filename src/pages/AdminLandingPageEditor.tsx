@@ -59,7 +59,6 @@ export function AdminLandingPageEditor() {
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
         <Title data={data} handleSubmit={mutate} />
-        <Header data={data} handleSubmit={mutate} />
         <CarouselComponent data={data} handleSubmit={mutate} />
         <LittleSquaresInfos data={data} handleSubmit={mutate} />
         <MainContent data={data} handleSubmit={mutate} />

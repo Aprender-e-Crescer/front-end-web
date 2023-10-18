@@ -5,20 +5,19 @@ const photoSchema = Yup.object().shape({
   link: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos uma foto é necessária'),
 });
 
-function PhotoComponent({ data }) {
+function PhotoComponent({ data, handleSubmit }) {
   const initialValues = {
     link: data.find(item => item.type === 'carrousel-images')?.content || [],
-  };
-
-  const handleSubmit = async (values: { link: string[] }) => {
-    // eslint-disable-next-line no-console
-    console.log('Links de fotos:', values.link);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: photoSchema,
-    onSubmit: handleSubmit,
+    onSubmit: ({ link }) =>
+    handleSubmit({
+      type: 'carrousel-images',
+      content: link,
+    })
   });
 
   const addPhotoInput = () => {
@@ -34,14 +33,14 @@ function PhotoComponent({ data }) {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-2 mt-32  shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar links de fotos.</h1>
 
           {formik.values.link.map((_, index) => (
             // TODO - use id instead of index
             <div key={index} className="flex flex-col">
               <label htmlFor={`photoLink${index}`}>
-                Insira um link de foto
+                Insira um link de foto {index + 1}
                 <br />
                 <input
                   type="url"

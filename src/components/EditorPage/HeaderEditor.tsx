@@ -36,13 +36,13 @@ function HeaderComponent({ data }) {
   const formik = useFormik({
     initialValues,
     validationSchema: headerSchema,
-    onSubmit: handleSubmit,
+    onSubmit: handleSubmit
   });
 
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-2 mt-32   shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para alterar a logo principal da página.</h1>
 
           <div className="flex flex-col">

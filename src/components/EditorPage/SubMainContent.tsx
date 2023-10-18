@@ -5,26 +5,25 @@ const textSchema = Yup.object().shape({
   textInput: Yup.string().required('O texto é obrigatório'),
 });
 
-function TextComponent({ data }) {
+function TextComponent({ data, handleSubmit }) {
   const initialValues = {
     textInput: data?.find(item => item.type === 'main-subcontent')?.content || '',
-  };
-
-  const handleSubmit = (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
-    console.log('Texto inserido:', values.textInput);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: textSchema,
-    onSubmit: handleSubmit,
+    onSubmit: ({ textInput }) =>
+    handleSubmit({
+      type: 'main-subcontent',
+      content: textInput,
+    }),
   });
 
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-2 mt-32   shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">
             Preencha os campos abaixo para inserir ou alterar o segundo texto principal da página.
           </h1>

@@ -17,13 +17,13 @@ function TitleComponent({ data, handleSubmit }) {
       handleSubmit({
         type: 'title',
         content: titleInput,
-      }),
+      })
   });
 
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-2 mt-32 shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">
             Preencha os campos abaixo para inserir ou alterar o título da página.
           </h1>
