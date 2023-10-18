@@ -34,7 +34,7 @@ function InputDrop({ options, children, name, id, isDisabled }: PropsWithChildre
           <option value="">Selecione uma opção</option>
           {options.map((option, index) => (
             <option key={index} value={option}>
-              {option}
+              {option.texto}
             </option>
           ))}
         </Field>
