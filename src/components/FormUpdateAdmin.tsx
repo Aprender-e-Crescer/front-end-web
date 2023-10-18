@@ -19,6 +19,7 @@ const saveQuestions = async (questions: InterfaceQuestion[]) => {
 
   return data;
 };
+
 const fetchQuestions = async () => {
   const response = await HTTP.get('/questions');
   console.log(response.data);
@@ -26,10 +27,15 @@ const fetchQuestions = async () => {
   return response.data.data.questions;
 };
 
+const deleteQuestion = async (id: number) => {
+  return HTTP.delete(`/questions/${id}`);
+};
+
 export function FormUpdateAdmin() {
   const [campos, setCampos] = useState<InterfaceQuestion[]>([]);
   const { data: questionAPI, isLoading } = useQuery('questions', fetchQuestions);
-  const { isLoading: isLoadingMutation, mutate } = useMutation(saveQuestions);
+  const { isLoading: isLoadingMutationSaveQuestion, mutate: mutateSaveQuestion } = useMutation(saveQuestions);
+  const { isLoading: isLoadingDeleteMutation, mutate: mutateDeleteQuestion } = useMutation(deleteQuestion);
 
   const handleSave = async () => {
     try {
@@ -37,7 +43,14 @@ export function FormUpdateAdmin() {
         questions: campos,
       };
 
-      postData.questions.filter(campo => campo.active).map(({ _id, ...rest }) => mutate({ ...rest }));
+      postData.questions
+        .filter(campo => campo.active)
+        .map(({ _id, needUpSert, isCreating, ...rest }) => {
+          !isCreating && mutateDeleteQuestion(campos.find(c => c._id === _id)?._id);
+          mutateSaveQuestion({ ...rest });
+        });
+
+      setCampos(postData.questions.filter(campo => campo.active).map(({ needUpSert, isCreating, ...rest }) => rest));
 
       console.log('Dados salvos com sucesso');
     } catch (error) {
@@ -49,6 +62,8 @@ export function FormUpdateAdmin() {
     const idDeCampo = Date.now();
     const novoCampo = {
       _id: idDeCampo,
+      isCreating: true,
+      needUpSert: true,
       description: '',
       type: 'texto',
       options: [],
@@ -58,9 +73,9 @@ export function FormUpdateAdmin() {
     setCampos([...campos, novoCampo]);
   };
 
-  const removerCampo = (id: number) => {
+  const removerCampo = async (id: number) => {
     const novosCampos = campos.filter(c => c._id !== id);
-    HTTP.delete(`/questions/${campos.find(c => c._id === id)?._id}`);
+    await mutateDeleteQuestion(campos.find(c => c._id === id)?._id);
     setCampos(novosCampos);
   };
 
@@ -82,10 +97,11 @@ export function FormUpdateAdmin() {
   const handleChange = (id: number, campoAtualizado: Partial<(typeof campos)[0]>) => {
     const novosCampos = campos.map(campo => {
       if (campo._id === id) {
-        return { ...campo, ...campoAtualizado };
+        return { ...campo, ...campoAtualizado, needUpSert: true };
       }
       return campo;
     });
+
     setCampos(novosCampos);
   };
 
@@ -100,6 +116,7 @@ export function FormUpdateAdmin() {
         novosCampos.forEach(campo => {
           if (campo._id === idPergunta) {
             campo.options[optionIndex].texto = option;
+            campo.needUpSert = true;
           }
         });
 
@@ -119,7 +136,10 @@ export function FormUpdateAdmin() {
         _id: dataB._id,
         description: dataB.description,
         type: dataB.type,
-        options: dataB.options.map((option, index) => ({ id: Date.now() + index, texto: option as unknown as string })),
+        options: dataB.options.map((option, index) => ({
+          id: option.id || Date.now() + index,
+          texto: option.texto as unknown as string,
+        })),
         active: dataB.active,
         required: dataB.required,
       }));
@@ -128,7 +148,7 @@ export function FormUpdateAdmin() {
     }
   }, [questionAPI]);
 
-  if (isLoading || isLoadingMutation)
+  if (isLoading || isLoadingMutationSaveQuestion)
     return (
       <div className="flex justify-center py-32">
         <Spinner color="info" aria-label="Default status example" className="w-32 h-32 fill-blue-800" />
@@ -162,7 +182,7 @@ export function FormUpdateAdmin() {
                 </select>
               </div>
               <div className="flex justify-center py-2">
-                {campo.type === 'multiplaEscolha' && (
+                {campo.type === 'objetiva' && (
                   <div className="flex  flex-col gap-2">
                     {campo.options.map(opcao => (
                       <div key={opcao.id} className="flex flex-row h-8">
@@ -193,7 +213,7 @@ export function FormUpdateAdmin() {
                 >
                   <TrashIcon className="w-3 h-5" />
                 </button>
-                {campo.type === 'multiplaEscolha' && (
+                {campo.type === 'objetiva' && (
                   <button
                     type="button"
                     onClick={() => adicionarOpcao(campo._id)}
