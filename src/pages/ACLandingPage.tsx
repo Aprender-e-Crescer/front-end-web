@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { Spinner } from 'flowbite-react';
 import { HeaderFront } from '../components/HeaderFront';
 import { FooterFront } from '../components/FooterFront';
 import headerData from '../data/header.json';
@@ -10,22 +11,28 @@ import Videosview from '../components/Videos/Videosview';
 import Comment from '../components/Comments/Comment';
 import LogoHeaderview from '../components/LogoHeader/LogoHeaderView';
 import { HTTP } from '../services/api';
-import components from '../data/components.json';
 
-async function fetchData() {
-  const users = await HTTP.get('/presentations').catch(() => ({ data: components }));
+const fetchData = (id: number) => async () => {
+  const { data } = await HTTP.get('/pages/'+id)
 
-  return users.data;
-}
+  return data.data.page.content;
+};
+
 
 export function ACLandingPage() {
   const { data, isLoading } = useQuery({
     queryKey: ['landingpageAC'],
-    queryFn: fetchData,
+    queryFn: fetchData('652fc653d47000ed049e1084'),
   });
 
   if (isLoading) {
-    return <p>Carregando...</p>;
+    return <div className='w-screen h-screen items-center flex justify-center'> <Spinner
+    aria-label="Extra large spinner example"
+    size="xl"
+    color="success"
+  />
+  </div>
+
   }
 
   return (

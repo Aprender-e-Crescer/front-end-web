@@ -1,9 +1,11 @@
 import Videos from './Videos';
 
 function Videosview({data}) {
+  const videos = data?.find?.(item => item.type === 'video')?.content as string[];
+  if (!videos) return null;
   return (
     <div>
-      <Videos videos={data.find(item => item.type === 'video')?.content as string[]} />
+      <Videos videos={videos} />
     </div>
   );
 }
