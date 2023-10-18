@@ -3,42 +3,47 @@
     "id": 1,
     "title": "Sudotec",
     "subitems": [
-      { "id": 1, "title": "Quem somos" },
-      { "id": 2, "title": "Estrutura" },
-      { "id": 3, "title": "Estatuto Social" },
-      { "id": 4, "title": "Regimento Interno" },
-      { "id": 5, "title": "Parceiros" },
-      { "id": 6, "title": "Publicações" }
+      { "id": 1, "title": "Quem somos", "path": "/quem-somos" },
+      { "id": 2, "title": "Estrutura", "path": "/estrutura" },
+      { "id": 3, "title": "Estatuto Social", "path": "/estatuto-social" },
+      { "id": 4, "title": "Regimento Interno", "path": "/regimento-interno" },
+      { "id": 5, "title": "Parceiros", "path": "/parceiros" },
+      { "id": 6, "title": "Publicações", "path": "/publicacoes" }
     ]
   },
   {
     "id": 2,
     "title": "Portal",
     "subitems": [
-      { "id": 7, "title": "Licitações" },
-      { "id": 8, "title": "Relatório de Atividades" },
-      { "id": 9, "title": "Prestação de Contas" },
-      { "id": 10, "title": "Documentação Exigida" }
+      { "id": 7, "title": "Licitações", "path": "/licitacoes" },
+      { "id": 8, "title": "Relatório de Atividades", "path": "/relatorio-de-atividades" },
+      { "id": 9, "title": "Prestação de Contas", "path": "/prestacao-de-contas" },
+      { "id": 10, "title": "Documentação Exigida", "path": "/documentacao-exigida" }
     ]
   },
   {
     "id": 3,
-    "title": "Inclusão Digital"
+    "title": "Inclusão Digital",
+    "path": "/inclusao-digital"
   },
   {
     "id": 4,
-    "title": "Maker Space"
+    "title": "Maker Space",
+    "path": "/maker-space"
   },
   {
     "id": 5,
-    "title": "Aprender e Crescer"
+    "title": "Aprender e Crescer",
+    "path": "/aprender-e-crescer"
   },
   {
     "id": 6,
-    "title": "Incubadora Tecnológica"
+    "title": "Incubadora Tecnológica",
+    "path": "/incubadora-tecnologica"
   },
   {
     "id": 7,
-    "title": "Imprensa"
+    "title": "Imprensa",
+    "path": "/imprensa"
   }
 ]
