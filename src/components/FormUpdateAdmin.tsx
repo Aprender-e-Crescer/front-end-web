@@ -1,4 +1,3 @@
-// Importando a função 'useState' da biblioteca 'react'
 import { useState, useEffect } from 'react';
 import { PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { useQuery, useMutation } from 'react-query';
