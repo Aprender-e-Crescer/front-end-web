@@ -1,11 +1,13 @@
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikProps } from 'formik';
 import { Spinner } from 'flowbite-react';
 import { When } from 'react-if';
 import * as Yup from 'yup';
 import { pt } from 'yup-locale-pt';
+import { useEffect, useRef } from 'react';
 import Input from './Input';
 import InputDrop from './InputDrop';
 import { FormModal } from './FormModal';
+import { getFieldName } from '../utils/getFieldName';
 
 Yup.setLocale(pt);
 
@@ -20,6 +22,7 @@ interface Props {
   mainTitle: string;
   hideActions?: boolean;
   isFieldsDisabled?: boolean;
+  values?: { [key: string]: any };
 }
 
 export default function FormViewer({
@@ -33,10 +36,15 @@ export default function FormViewer({
   srcMainImage,
   hideActions = false,
   isFieldsDisabled = false,
+  values = {},
 }: Props) {
+  const formikRef = useRef<FormikProps<{
+    [key: string]: any;
+  }> | null>();
+
   const fieldsWithName = fields.map(field => ({
     ...field,
-    name: `${field._id}`,
+    name: getFieldName(field),
   }));
 
   const schema = Yup.object().shape(
@@ -46,12 +54,21 @@ export default function FormViewer({
     }, {}),
   );
 
-  const initialValues = {};
+  const initialValues = values || {};
+
+  useEffect(() => {
+    fields.forEach(field => {
+      formikRef.current?.setFieldValue(getFieldName(field), '');
+    });
+    Object.keys(values).forEach(key => {
+      formikRef.current?.setFieldValue(key, values[key]);
+    });
+  }, [fields, values]);
 
   return (
     <>
       <section className="relative transition-transform duration-[0.3s] ease-[ease-in-out] mx-auto my-0">
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
+        <Formik innerRef={formikRef} initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
           {({ errors, touched, isValid }) => (
             <Form
               style={{ fontFamily: 'Arial, sans-serif' }}

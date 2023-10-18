@@ -30,13 +30,14 @@ async function fetchAnswers() {
 }
 
 const reduceFormValues = (questions, answersData, currentAnswer) => {
-  return questions.reduce(
-    (accumulator, field) => ({
+  const newQuestions = questions.reduce((accumulator, field) => {
+    return {
       ...accumulator,
-      [getFieldName(field)]: answersData[currentAnswer].answer[field.id],
-    }),
-    {},
-  );
+      [getFieldName(field)]: answersData[currentAnswer].answers?.[0]?.[field._id],
+    };
+  }, {});
+
+  return newQuestions;
 };
 
 export function AnswerViewer() {
@@ -48,13 +49,7 @@ export function AnswerViewer() {
   const navigate = useNavigate();
 
   const currentAnswer = useRef(0);
-  const [formValues, setFormValues] = useState(() => {
-    if (questions && answers) return {};
-
-    currentAnswer.current < answers.length && (currentAnswer.current += 1);
-
-    return reduceFormValues(questions, answersData, currentAnswer.current);
-  });
+  const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
     if (questions.length === 0 && answers.length === 0) return;
@@ -82,7 +77,7 @@ export function AnswerViewer() {
   });
 
   const handleGoToNext = () => {
-    currentAnswer.current < answers.length && (currentAnswer.current += 1);
+    currentAnswer.current < answers.length - 1 && (currentAnswer.current += 1);
 
     setFormValues(reduceFormValues(questions, answersData, currentAnswer.current));
   };
@@ -161,7 +156,6 @@ export function AnswerViewer() {
           </Tabs.Item>
         </Tabs.Group>
       </div>
-
       <FooterFront
         leftItems={footerData.leftItems}
         rightItems={footerData.rightItems}
