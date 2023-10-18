@@ -12,9 +12,9 @@ import { getFieldName } from '../../utils/getFieldName';
 Yup.setLocale(pt);
 
 interface Props {
-  handleSubmit: (values: any) => void;
+  handleSubmit?: (values: any) => void;
   fields: any[];
-  isLoading: boolean;
+  isLoading?: boolean;
   isModalOpen: boolean;
   modalTitle?: string;
   handleModalClose?: () => void;
@@ -27,7 +27,7 @@ interface Props {
 
 export default function FormViewer({
   handleSubmit,
-  isLoading,
+  isLoading = false,
   isModalOpen,
   modalTitle,
   handleModalClose,
@@ -63,7 +63,12 @@ export default function FormViewer({
   return (
     <>
       <section className="relative transition-transform duration-[0.3s] ease-[ease-in-out] mx-auto my-0">
-        <Formik innerRef={formikRef} initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
+        <Formik
+          innerRef={formikRef}
+          initialValues={initialValues}
+          onSubmit={valuesSubmitted => handleSubmit?.(valuesSubmitted)}
+          validationSchema={schema}
+        >
           {({ errors, touched, isValid }) => (
             <Form
               style={{ fontFamily: 'Arial, sans-serif' }}

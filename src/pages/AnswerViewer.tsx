@@ -1,7 +1,8 @@
 import { Switch, Case } from 'react-if';
 import { Tabs, Card } from 'flowbite-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQueries } from 'react-query';
 import { DateSelectViewer } from '../components/DateSelectViewer';
 import { ShortAnswerViewer } from '../components/ShortAnswerViewer';
 import { Chart } from '../components/Chart';
@@ -12,22 +13,58 @@ import headerData from '../data/header.json';
 import footerData from '../data/footer.json';
 import FormViewer from '../components/FormViewer';
 import fields from '../data/answer_viewer_page_form.json';
-import answers from '../data/answer_viewer_page_answers.json';
+import answersData from '../data/answer_viewer_page_answers.json';
 import { getFieldName } from '../utils/getFieldName';
+import { HTTP } from '../services/api';
+
+async function fetchQuestions() {
+  const forms = await HTTP.get('/forms').catch(() => ({ data: { data: { questions: fields } } }));
+
+  return forms.data.data.questions;
+}
+
+async function fetchAnswers() {
+  const answers = await HTTP.get('/answers').catch(() => ({ data: { data: { answers: answersData } } }));
+
+  return answers.data.data.answers;
+}
+
+const reduceFormValues = (questions, answersData, currentAnswer) => {
+  return questions.reduce(
+    (accumulator, field) => ({
+      ...accumulator,
+      [getFieldName(field)]: answersData[currentAnswer].answer[field.id],
+    }),
+    {},
+  );
+};
 
 export function AnswerViewer() {
+  const [{ data: questions = [], isLoading: isLoadingQuestions }, { data: answers = [], isLoading: isLoadingAnswers }] =
+    useQueries([
+      { queryKey: ['questions'], queryFn: fetchQuestions },
+      { queryKey: ['answers'], queryFn: fetchAnswers },
+    ]);
   const navigate = useNavigate();
 
-  const [formValues, setFormValues] = useState({
-    [getFieldName(fields[0])]: 'João Paulo',
-    [getFieldName(fields[1])]: '2007-03-12',
-    [getFieldName(fields[2])]: 'Rua Tales',
-    [getFieldName(fields[3])]: 'Ensino Médio',
-    [getFieldName(fields[4])]: 'Não, porém é necessário',
-    [getFieldName(fields[5])]: 'Suporte',
-    [getFieldName(fields[6])]: 'GG',
-    [getFieldName(fields[7])]: 'João Miguel',
+  const currentAnswer = useRef(0);
+  const [formValues, setFormValues] = useState(() => {
+    if (questions && answers) return {};
+
+    currentAnswer.current < answers.length && (currentAnswer.current += 1);
+
+    return reduceFormValues(questions, answersData, currentAnswer.current);
   });
+
+  useEffect(() => {
+    if (questions.length === 0 && answers.length === 0) return;
+
+    currentAnswer.current < answers.length && (currentAnswer.current += 1);
+
+    const newFormValues = reduceFormValues(questions, answersData, currentAnswer.current);
+
+    setFormValues(newFormValues);
+  }, [answers, questions]);
 
   const handleModalClose = () => {
     setOpenModal({ isModalOpen: false });
@@ -43,46 +80,21 @@ export function AnswerViewer() {
     modalTitle: 'Formulário enviado com sucesso!',
     handleModalClose: () => {},
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const currentAnswer = useRef(0);
 
   const handleGoToNext = () => {
     currentAnswer.current < answers.length && (currentAnswer.current += 1);
-    setFormValues({
-      [getFieldName(fields[0])]: answers[currentAnswer.current].answer[fields[0].id],
-      [getFieldName(fields[1])]: answers[currentAnswer.current].answer[fields[1].id],
-      [getFieldName(fields[2])]: answers[currentAnswer.current].answer[fields[2].id],
-      [getFieldName(fields[3])]: answers[currentAnswer.current].answer[fields[3].id],
-      [getFieldName(fields[4])]: answers[currentAnswer.current].answer[fields[4].id],
-      [getFieldName(fields[5])]: answers[currentAnswer.current].answer[fields[5].id],
-      [getFieldName(fields[6])]: answers[currentAnswer.current].answer[fields[6].id],
-      [getFieldName(fields[7])]: answers[currentAnswer.current].answer[fields[7].id],
-    });
+
+    setFormValues(reduceFormValues(questions, answersData, currentAnswer.current));
   };
 
   const handleGoToPrevious = () => {
     currentAnswer.current > 0 && (currentAnswer.current -= 1);
-    setFormValues({
-      [getFieldName(fields[0])]: answers[currentAnswer.current].answer[fields[0].id],
-      [getFieldName(fields[1])]: answers[currentAnswer.current].answer[fields[1].id],
-      [getFieldName(fields[2])]: answers[currentAnswer.current].answer[fields[2].id],
-      [getFieldName(fields[3])]: answers[currentAnswer.current].answer[fields[3].id],
-      [getFieldName(fields[4])]: answers[currentAnswer.current].answer[fields[4].id],
-      [getFieldName(fields[5])]: answers[currentAnswer.current].answer[fields[5].id],
-      [getFieldName(fields[6])]: answers[currentAnswer.current].answer[fields[6].id],
-      [getFieldName(fields[7])]: answers[currentAnswer.current].answer[fields[7].id],
-    });
+    setFormValues(reduceFormValues(questions, answersData, currentAnswer.current));
   };
 
-  const handleSubmit = async (values: any) => {
-    try {
-      setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Formulário enviado com sucesso!', handleModalClose });
-    } catch (error) {
-      setIsLoading(false);
-      setOpenModal({ isModalOpen: true, modalTitle: 'Erro ao enviar formulário', handleModalClose });
-    }
-  };
+  if (isLoadingQuestions || isLoadingAnswers) {
+    return <p>Carregando...</p>;
+  }
 
   return (
     <div className="flex flex-col">
@@ -138,11 +150,9 @@ export function AnswerViewer() {
             </div>
             <FormViewer
               handleModalClose={handleModalClose}
-              handleSubmit={handleSubmit}
-              isLoading={isLoading}
               isModalOpen={isModalOpen}
               modalTitle={modalTitle}
-              fields={fields}
+              fields={questions}
               mainTitle="Formulário respondido"
               hideActions
               isFieldsDisabled
