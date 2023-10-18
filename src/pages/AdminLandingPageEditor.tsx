@@ -58,6 +58,7 @@ export function AdminLandingPageEditor() {
     <div className="flex flex-col">
       <HeaderFront phone={headerData.phone} logo={headerData.logo} />
       <div className="w-full md:w-[80%] self-center">
+        <Header data={data} handleSubmit={mutate} />
         <Title data={data} handleSubmit={mutate} />
         <CarouselComponent data={data} handleSubmit={mutate} />
         <LittleSquaresInfos data={data} handleSubmit={mutate} />

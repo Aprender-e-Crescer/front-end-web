@@ -6,17 +6,21 @@ const headerSchema = Yup.object().shape({
   logoFile: Yup.mixed().required('Você precisa selecionar um arquivo'),
 });
 
-function HeaderComponent({ data }) {
+function HeaderComponent({ data, handleSubmit }) {
   const initialValues = {
     logoFile: data?.find(item => item.type === 'logo')?.content || { textInputs: [''] },
   };
 
   const [imageBase64, setImageBase64] = useState<string | null>(null);
 
-  const handleSubmit = async (values: { logoFile: File }) => {
+  const handleSubmitForm = async (values: { logoFile: File }) => {
     if (values.logoFile) {
       const base64String = await convertToBase64(values.logoFile);
       setImageBase64(base64String);
+      handleSubmit({
+        type: 'logo',
+        content: base64String,
+      });
     }
   };
 
@@ -36,7 +40,7 @@ function HeaderComponent({ data }) {
   const formik = useFormik({
     initialValues,
     validationSchema: headerSchema,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmitForm,
   });
 
   return (
