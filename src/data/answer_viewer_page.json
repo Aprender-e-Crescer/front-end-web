@@ -13,8 +13,7 @@
         "Leonardo",
         "Evandro",
         "Erick",
-        "Luiz",
-        "Fernando"
+        "Luiz"
       ]
     }
   },
@@ -23,9 +22,16 @@
     "data": {
       "title": "Data de Nascimento",
       "dates": {
-        "03/2002": [5],
-        "05/2005": [10, 20],
-        "05/2006": [10, 20]
+      "03/2001": [13],
+      "04/2001": [20],
+      "05/2001": [18],
+      "10/2001": [15],
+      "03/2002": [5],
+      "05/2005": [10],
+      "06/2006": [30],
+      "01/2007": [22],
+      "02/2007": [2],
+      "10/2008": [24]
       }
     }
   },
@@ -54,47 +60,34 @@
     "type": "ShortAnswersViewer",
     "data": {
       "title": "Endereço",
-      "answer": ["Rua Tiradentes, Número 1638"]
+      "answers": ["Rua Tiradentes, Número 1638"]
     }
   },
-
   {
     "type": "ShortAnswersViewer",
     "data": {
       "title": "Nome dos pais ou responsáveis, caso não seja maior de 18 anos",
-      "answer": ["Maria Madalena"]
+      "answers": ["Maria Madalena"]
     }
   },
-
   {
-    "type": "Chart",
-    "data": {
-      "title": "Esta cursando",
-      "label": ["Ensino Médio, Faculdade, Pós-Graduação, Já sou formado"]
-    }
-  },
-
-  {
-    "type": "Chart",
-    "data": {
-      "title": "Gosta de tecnologia?",
-      "label": ["Sim muito, Mais ou Menos, Não Porém é necessário, Não gosto nenhum pouco"]
-    }
-  },
-
-  {
-    "type": "Chart",
-    "data": {
-      "title": "Se hoje você pudesse escolher dentro de uma indústria de tecnologia o setor para trabalhar qual é a sua preferência?",
-      "label": ["Programação, Suporte, RH, Design, Atendimento"]
-    }
-  },
-
-  {
-    "type": "Chart",
-    "data": {
-      "title": "Tamanho da camiseta que você veste??",
-      "label": ["PP, P, M, G, GG"]
-    }
+   "type":"Chart",
+   "data": {
+    "title": "Nível de escolaridade?",
+    "labels": [
+      "Nenhum",
+      "Ensino Fundamental incompleto",
+      "Ensino Fundamental completo",
+      "Ensino Médio incompleto",
+      "Ensino Médio completo",
+      "Ensino superior"
+    ],
+    "datasets": [
+      {
+        "label": "# of pessoas",
+        "data": [1, 1, 1, 1, 2, 4]
+      }
+    ]
+   }
   }
 ]

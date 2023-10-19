@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
-
 interface IPhotoItems {
   image: string;
   who_is: string;
@@ -18,22 +16,19 @@ const photoSchema = Yup.object().shape({
   ),
 });
 
-function PhotoComponent() {
+function PhotoComponent({ data, handleSubmit }) {
   const initialValues = {
-    photoItems: (data.find((item) => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [
-      { image: '', who_is: '', text: '' },
-    ],
-  };
-
-  const handleSubmit = async (values: { photoItems: IPhotoItems[] }) => {
-    // eslint-disable-next-line no-console
-    console.log('Itens de fotos:', values.photoItems);
+    photoItems: (data?.find(item => item.type === 'carrousel-testimony')?.content as IPhotoItems[]) || [],
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: photoSchema,
-    onSubmit: handleSubmit,
+    onSubmit:  ({ photoItems }) =>
+    handleSubmit({
+      type: 'carrousel-testimony',
+      content: photoItems,
+    })
   });
 
   const addPhotoItem = () => {
@@ -49,12 +44,12 @@ function PhotoComponent() {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-16  mt-32">
+        <div className="min-w-lg flex flex-col gap-16  mt-32   shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar itens de fotos.</h1>
           {formik.values.photoItems.map((item, index) => (
             <div key={index} className="flex flex-col">
               <label htmlFor={`image-${index}`}>
-                Link da Imagem
+                Link da Imagem {index + 1 }
                 <br />
                 <input
                   type="url"

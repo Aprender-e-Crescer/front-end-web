@@ -1,25 +1,23 @@
 import * as Yup from 'yup';
 import { Form, FormikProvider, useFormik } from 'formik';
-import data from '../../data/components.json';
 
 const videoSchema = Yup.object().shape({
   videoLinks: Yup.array().of(Yup.string().url('Insira um link válido')).min(1, 'Pelo menos um link é necessário'),
 });
 
-function VideoComponent() {
+function VideoComponent({ data, handleSubmit }) {
   const initialValues = {
-    videoLinks: data.find(item => item.type === 'video')?.content,
-  };
-
-  const handleSubmit = async (values: { videoLinks: string[] }) => {
-    // eslint-disable-next-line no-console
-    console.log('Links de vídeo:', values.videoLinks);
+    videoLinks: data?.find(item => item.type === 'video')?.content || [],
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: videoSchema,
-    onSubmit: handleSubmit,
+    onSubmit: ({ videoLinks }) =>
+    handleSubmit({
+      type: 'video',
+      content: videoLinks,
+    })
   });
 
   const addVideoInput = () => {
@@ -35,13 +33,13 @@ function VideoComponent() {
   return (
     <FormikProvider value={formik}>
       <Form>
-        <div className="min-w-lg flex flex-col gap-2 mt-32">
+        <div className="min-w-lg flex flex-col gap-2 mt-32   shadow-lg p-10 bg-gray-100 rounded">
           <h1 className="text-2xl font-medium">Preencha os campos abaixo para adicionar links de vídeos.</h1>
 
           {formik.values.videoLinks.map((_, index) => (
             <div key={index} className="flex flex-col">
               <label htmlFor={`videoLink${index}`}>
-                Insira um link de vídeo
+                Insira um link de vídeo {index + 1}
                 <br />
                 <input
                   type="url"

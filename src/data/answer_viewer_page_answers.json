@@ -1,0 +1,63 @@
+[
+          {
+              "_id": "65300bd6992a17251bf338f9",
+              "answers": [
+                  {
+                      "652fc97b65a4242acf29b581": "M",
+                      "652fc8f1393a296caba59f8b": "Luiz"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T16:46:14.968Z",
+              "updatedAt": "2023-10-18T16:46:14.968Z",
+              "__v": 0
+          },
+          {
+              "_id": "6530156600f159477d232201",
+              "answers": [
+                  {
+                      "652fc97b65a4242acf29b581": "G",
+                      "652fc8f1393a296caba59f8b": "Fulano"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T17:27:02.595Z",
+              "updatedAt": "2023-10-18T17:27:02.595Z",
+              "__v": 0
+          },
+          {
+              "_id": "65302b8378854ccabd629acf",
+              "answers": [
+                  {
+                      "65302a2478854ccabd629a69": "3"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:01:23.762Z",
+              "updatedAt": "2023-10-18T19:01:23.762Z",
+              "__v": 0
+          },
+          {
+              "_id": "65302bde78854ccabd629ae2",
+              "answers": [
+                  {}
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:02:54.938Z",
+              "updatedAt": "2023-10-18T19:02:54.938Z",
+              "__v": 0
+          },
+          {
+              "_id": "6530351869864be4f0b27085",
+              "answers": [
+                  {
+                      "65302d9b78854ccabd629b1a": "P",
+                      "65302d9b78854ccabd629b1c": "Robson"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:42:16.543Z",
+              "updatedAt": "2023-10-18T19:42:16.543Z",
+              "__v": 0
+          }
+      ]
