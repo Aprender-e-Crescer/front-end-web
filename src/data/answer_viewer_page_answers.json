@@ -1,133 +1,63 @@
 [
-  {
-    "_id": 1,
-    "answer":{
-        "nome": "Joao Paulo",
-        "dtnasc": "2007-02-02",
-        "endereco": "Rua Tales",
-        "cursando": "Ensino Médio",
-        "gtecologia": "Não, porém é necessário",
-        "escolher": "Suporte",
-        "tcamisa": "GG",
-        "responsaveis": "João Miguel"
-      }
-    },
-    {
-      "_id": 2,
-      "answer":{
-          "nome": "Gabriel Rodolfo",
-          "dtnasc": "2007-01-22",
-          "endereco": "Rua Vieira Souto",
-          "cursando": "Ensino Médio",
-          "gtecologia": "Sim, muito!",
-          "escolher": "RH",
-          "tcamisa": "G",
-          "responsaveis": "João Luiz"
-        }
-      },
-      {
-        "_id": 3,
-        "answer":{
-            "nome": "Roberto Carlos",
-            "dtnasc": "2005-05-10",
-            "endereco": "Rua Anita Garibaldi",
-            "cursando": "Faculdade",
-            "gtecologia": "Sim, muito!",
-            "escolher": "Programação",
-            "tcamisa": "M",
-            "responsaveis": "João Alberto"
-          }
-        },
-        {
-          "_id": 4,
-          "answer":{
-              "nome": "Janaina Alves",
-              "dtnasc": "2008-10-24",
-              "endereco": "Rua Tancredo Neves",
-              "cursando": "Ensino Médio",
-              "gtecologia": "Sim, muito!",
-              "escolher": "Programação",
-              "tcamisa": "GG",
-              "responsaveis": "João Carlos"
-            }
+          {
+              "_id": "65300bd6992a17251bf338f9",
+              "answers": [
+                  {
+                      "652fc97b65a4242acf29b581": "M",
+                      "652fc8f1393a296caba59f8b": "Luiz"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T16:46:14.968Z",
+              "updatedAt": "2023-10-18T16:46:14.968Z",
+              "__v": 0
           },
           {
-            "_id": 5,
-            "answer":{
-                "nome": "Douglas",
-                "dtnasc": "2006-06-30",
-                "endereco": "Rua Tancredo Neves",
-                "cursando": "Ensino Médio",
-                "gtecologia": "Não, porém é necessário",
-                "escolher": "Design",
-                "tcamisa": "G",
-                "responsaveis": "João Lucas"
-              }
-            },
-            {
-              "_id": 6,
-              "answer":{
-                  "nome": "Paulo",
-                  "dtnasc": "2002-03-05",
-                  "endereco": "Rua Tancredo Neves",
-                  "cursando": "Já sou formado",
-                  "gtecologia": "Não, porém é necessário",
-                  "escolher": "Atendimento",
-                  "tcamisa": "G",
-                  "responsaveis": "João Pedro"
-                }
-              },  
-              {
-                "_id": 7,
-                "answer":{
-                    "nome": "Leonardo",
-                    "dtnasc": "2001-10-15",
-                    "endereco": "Rua Tancredo Neves",
-                    "cursando": "Já sou formado",
-                    "gtecologia": "Não, porém é necessário",
-                    "escolher": "Atendimento",
-                    "tcamisa": "GG",
-                    "responsaveis": "Miguel"
-                  }
-                }, 
-                {
-                  "_id": 8,
-                  "answer":{
-                      "nome": "Evandro",
-                      "dtnasc": "2001-05-18",
-                      "endereco": "Rua Tancredo Neves",
-                      "cursando": "Já sou formado",
-                      "gtecologia": "Não, porém é necessário",
-                      "escolher": "Design",
-                      "tcamisa": "M",
-                      "responsaveis": "Paulo"
-                    }
-                  }, 
+              "_id": "6530156600f159477d232201",
+              "answers": [
                   {
-                    "_id": 9,
-                    "answer":{
-                        "nome": "Erick",
-                        "dtnasc": "2001-04-20",
-                        "endereco": "Rua Tancredo Neves",
-                        "cursando": "Já sou formado",
-                        "gtecologia": "Não, porém é necessário",
-                        "escolher": "Atendimento",
-                        "tcamisa": "GG",
-                        "responsaveis": "Marcio"
-                      }
-                    },
-                    {
-                      "_id": 10,
-                      "answer":{
-                          "nome": "Luiz",
-                          "dtnasc": "2001-03-13",
-                          "endereco": "Rua Tancredo Neves",
-                          "cursando": "Já sou formado",
-                          "gtecologia": "Não, porém é necessário",
-                          "escolher": "Atendimento",
-                          "tcamisa": "GG",
-                          "responsaveis": "Marcos"
-                        }
-                      }      
-                  
-]
+                      "652fc97b65a4242acf29b581": "G",
+                      "652fc8f1393a296caba59f8b": "Fulano"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T17:27:02.595Z",
+              "updatedAt": "2023-10-18T17:27:02.595Z",
+              "__v": 0
+          },
+          {
+              "_id": "65302b8378854ccabd629acf",
+              "answers": [
+                  {
+                      "65302a2478854ccabd629a69": "3"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:01:23.762Z",
+              "updatedAt": "2023-10-18T19:01:23.762Z",
+              "__v": 0
+          },
+          {
+              "_id": "65302bde78854ccabd629ae2",
+              "answers": [
+                  {}
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:02:54.938Z",
+              "updatedAt": "2023-10-18T19:02:54.938Z",
+              "__v": 0
+          },
+          {
+              "_id": "6530351869864be4f0b27085",
+              "answers": [
+                  {
+                      "65302d9b78854ccabd629b1a": "P",
+                      "65302d9b78854ccabd629b1c": "Robson"
+                  }
+              ],
+              "active": true,
+              "createdAt": "2023-10-18T19:42:16.543Z",
+              "updatedAt": "2023-10-18T19:42:16.543Z",
+              "__v": 0
+          }
+      ]
